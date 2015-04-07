@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<nextbase>
+	<name>Nopanic</name>
+    <adminapp mode="on"/>
+    <hostname>192.168.10.13</hostname>
+    <port>38800</port>
+    <webserver>
+    	<version>7</version>
+    	<webservices mode="OFF"/>
+    </webserver>	
+    <ssl mode="OFF">
+        <port>38801</port>
+    	<keypass>123456</keypass>
+    	<keystore>D:\Projects\NextBaseKP\keystore.jks</keystore>
+    	<clientauth mode="OFF">
+	   	 	<truststorepass>123456</truststorepass>
+	    	<truststorefile>c:\tmp\ssl\truststore.jks</truststorefile>
+    	</clientauth>
+    </ssl>
+    <applications> 
+         <app>
+            <name mode="on">Help</name>
+        </app>
+        <app>
+            <name mode="on">Structure</name>
+        </app>        
+         <app>
+            <name mode="on">Workspace</name>
+        </app>
+        <app>
+            <name mode="on">Workflow</name>
+        </app>
+    </applications>
+    <logging>
+        <verbose>true</verbose>
+    </logging>
+    <mailagent mode="ON">
+        <smtpauth>true</smtpauth>
+        <smtpuser>dzhillian@mail.ru</smtpuser>
+        <smtppassword>Ju$T@n0zRW0rDo4p@$T</smtppassword>
+        <smtphost>smtp.mail.ru</smtphost>
+        <smtpport>465</smtpport>
+        <defaultsender>dzhillian@mail.ru</defaultsender>
+    </mailagent>
+    <instmsgagent>
+    	<xmppserver>192.168.0.13</xmppserver>       
+        <xmpplogin>support@zion</xmpplogin>
+        <xmpppwd>support</xmpppwd>        
+    </instmsgagent>
+    <debug mode="ON"></debug>
+</nextbase>
+<!--
+
+        public static String smtpPort;
+        public static boolean smtpAuth;
+        public static String SMTPHost;
+        public static String smtpUser;
+        public static String smtpPassword;-->

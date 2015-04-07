@@ -1,0 +1,59 @@
+ .printcoord  .ui-tabs-nav,.printcoord .formtitle,.printcoord #resizer,.printcoord button,.printcoord #outline,.printcoord #documentheader{
+					  	display:none;
+					  } 
+					 .printcoord  #docwrapper div.formwrapper div#tabs div#tabs-6 div#printCoordTitle{
+					  	display:block !important;
+					  }
+					  .printdocument  #docwrapper div.formwrapper div#tabs div#tabs-6 div#printCoordTitle{
+					  	display:none !important;
+					  }
+				    .printdocument FORM{
+				    	width:100%;
+				    	font-size: 11px !important;
+				    }
+					     .printdocument  .ui-tabs-nav,.printdocument #resizer,.printdocument button,.printdocument #outline{
+					     	display:none;
+					     }
+					     .printdocument .formtitle{
+					     	margin: 90px 0 0 10px;
+					     }
+					     #currentuser,#logout,#helpbtn{
+					     	display:none;
+					     }
+					     .doclink{
+					     	color:black !important;
+					     }
+					     .printdocument .td_noteditable, .printdocument .td_editable, .printdocument .textarea_noteditable, .printdocument .textarea_editable{
+					     	color:black !important;
+					     	background:#fff !important;
+					     	border:none !important;
+					     	width:100% !important;
+					     }
+					     .printdocument .fc{
+					     	width:26% !important;
+					     }
+					     .printdocument .ui-tabs-panel{
+					     	display:block !important;
+					     	height:auto !important;
+					     	padding-top:5px !important;
+					     }
+					     .printdocument #coordTableView, #printcoord{
+					     	display:none;
+					     }
+					     #htmlcodenoteditable{
+					     	display:none !important;
+					     }
+					     #textprintpreview{
+					     	width:90% !important;
+					     	height:auto !important;
+					     	display:block !important;
+					     }
+					     .printdocument #tabs-2{
+					     	height:auto !important;
+					     }
+					    .printdocument  #tabs-3{
+					     	display:none !important;
+					     }
+					     .printdocument  #tabs-4{
+					     	display:none !important;
+					     }

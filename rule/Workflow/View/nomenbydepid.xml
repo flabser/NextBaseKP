@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule type="view" id="nomenbydepid">
+	<description>Ответные документы</description>
+	<query>nomenbydepid</query>		
+	<xsltfile>views\glossary.xsl</xsltfile>	
+	<column>
+		<caption id="page" source="KEYWORD">Страница</caption>
+	</column>
+	<column>
+		<caption id="from" source="KEYWORD">из</caption>
+	</column>
+</rule>

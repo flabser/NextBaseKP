@@ -219,6 +219,7 @@
 								changeYear : true,
 								changeMonth : true,
 								minDate:0,
+                                firstDay:1,
 								maxDate:'<xsl:value-of select="document/fields/maxdate"/>',
 								yearRange: '-0y:+1y',
 								onSelect: function(selectedDate) {

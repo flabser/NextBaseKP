@@ -95,6 +95,7 @@ class QueryOpen extends _FormQueryOpen {
 		publishElement(nav)
 
 		def	control  = (_Control)doc.getValueObject("control")
+
 		def actionBar =  session.createActionBar();
 
 		if(doc.getEditMode() == _DocumentModeType.EDIT && control.getAllControl() != 0){
@@ -167,14 +168,21 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("taskdate", doc.getValueDate("taskdate"))
 		publishValue("tasktype", doc.getValueString("tasktype"))
 		publishValue("execblock", execs)
-		publishValue("control", control)
+        if(control.getAllControl() == 0){
+            def resetdates = [];
+            execs.executors.each {
+                resetdates.push(it.resetDate)
+            }
+            publishValue("resetdate", resetdates.max());
+            control.startDate = resetdates.max();
+            control.setStartDate(resetdates.max())
+        }
+        publishValue("control", control)
 		publishGlossaryValue("controltype",doc.getValueNumber("controltype"))
 		publishValue("briefcontent",_Helper.getNormalizedRichText(doc.getValueString("briefcontent")))
 		publishValue("comment",doc.getValueString("comment"))
 		publishValue("content",_Helper.getNormalizedRichText(doc.getValueString("content")))
-
         publishValue("signedfields", doc.getSign());
-        
 
         def taskauthor = session.getStructure().getEmployer(doc.getAuthorID());
         publishValue("taskauthorpk", taskauthor.getPublicKey());
@@ -192,5 +200,4 @@ class QueryOpen extends _FormQueryOpen {
 		 }
 		 */		
 	}
-
 }

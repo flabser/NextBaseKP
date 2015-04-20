@@ -42,44 +42,45 @@ class Coord_no extends _DoScript {
 		def rejectProject = { _Document document->
 			doc_blc.setCoordStatus(_CoordStatusType.REJECTED);
 			document.replaceViewText(blocksCollection.getStatus().name(), 3)
-			document.setLastUpdate(new Date());
-			document.setValueString("oldversion", "1")
-			document.setValueNumber("isrejected",1)
-			document.save("[supervisor]")
-			String vtext_old = document.getViewText()
-			String url_old = document.getURL()
-			String ddbid_old = document.getID()
-			/*Формирование новой версии проекта*/
-			document.setNewDoc();
-			document.setValueNumber("isrejected", 0)
-			doc_blc.setCoordStatus(_CoordStatusType.NEWVERSION)
+			if(document.getDocumentForm() != 'sheet'){
+                document.setLastUpdate(new Date());
+                document.setValueString("oldversion", "1")
+                document.setValueNumber("isrejected",1)
+                document.save("[supervisor]")
+                String vtext_old = document.getViewText()
+                String url_old = document.getURL()
+                String ddbid_old = document.getID()
+                /*Формирование новой версии проекта*/
+                document.setNewDoc();
+                document.setValueNumber("isrejected", 0)
+                doc_blc.setCoordStatus(_CoordStatusType.NEWVERSION)
 
-			int docversion = document.getValueNumber("docversion") + 1
-			document.setValueNumber("docversion", docversion)
-			String vn = document.getValueString("vn")
-			document.setValueString("vn", vn.contains(",") ? vn.replaceFirst(",.", ",") + docversion.toString() : vn + "," + docversion.toString())
-			document.setValueDate("projectdate", new Date())
-			document.replaceViewText(' № ' + document.getValueString("vn") + ' ' + _Helper.getDateAsStringShort(document.getValueDate("projectdate")) + ' ' + session.getStructure().getEmployer(document.getAuthorID()).shortName + ' ' + document.getValueString('briefcontent'), 0)
-			def link_old = new _CrossLink(session, url_old, vtext_old)
-			document.addField("versionlink", link_old)
-			document.save("[supervisor]");
+                int docversion = document.getValueNumber("docversion") + 1
+                document.setValueNumber("docversion", docversion)
+                String vn = document.getValueString("vn")
+                document.setValueString("vn", vn.contains(",") ? vn.replaceFirst(",.", ",") + docversion.toString() : vn + "," + docversion.toString())
+                document.setValueDate("projectdate", new Date())
+                document.replaceViewText(' № ' + document.getValueString("vn") + ' ' + _Helper.getDateAsStringShort(document.getValueDate("projectdate")) + ' ' + session.getStructure().getEmployer(document.getAuthorID()).shortName + ' ' + document.getValueString('briefcontent'), 0)
+                def link_old = new _CrossLink(session, url_old, vtext_old)
+                document.addField("versionlink", link_old)
+                document.save("[supervisor]");
 
-			document.clearEditors()
-			document.clearReaders()
-			document.addEditor(document.getAuthorID())
-			def blocks = doc_blc.getBlocks()
-			blocks.each{
-				it.setBlockStatus(_BlockStatusType.AWAITING)
-				it.getCoordinators()*.resetCoordinator()
-			}
-			document.replaceViewText(doc_blc.getStatus().name(), 3)
-			document.save("[supervisor]")
-			def doc_old = cdb.getDocumentByID(ddbid_old)
-			def link_new = new _CrossLink(session, document)
-			doc_old.addField("versionlink", link_new)
-			doc_old.save("[supervisor]")
-
-            sendNewDocNotification(session, doc_blc, document);
+                document.clearEditors()
+                document.clearReaders()
+                document.addEditor(document.getAuthorID())
+                def blocks = doc_blc.getBlocks()
+                blocks.each{
+                    it.setBlockStatus(_BlockStatusType.AWAITING)
+                    it.getCoordinators()*.resetCoordinator()
+                }
+                document.replaceViewText(doc_blc.getStatus().name(), 3)
+                document.save("[supervisor]")
+                def doc_old = cdb.getDocumentByID(ddbid_old)
+                def link_new = new _CrossLink(session, document)
+                doc_old.addField("versionlink", link_new)
+                doc_old.save("[supervisor]")
+                sendNewDocNotification(session, doc_blc, document);
+            }
 		}
 		for (coord in coordlist){
 			if(coord.getUserID() == session.getUser().userID){

@@ -107,7 +107,13 @@ function pickListSingleOk(docid){
 				$("#parentsubkey").remove();
 				$("#frm").append("<input type='hidden' name='parentsubkey' id='parentsubkey' value='"+elcl+"'>")
 			}else{
-				$("#frm").append("<input type='hidden' name='"+ queryOpt.fieldname +"' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
+                if (queryOpt.fieldname == "coordblock"){
+                    $("input[name=coordblock]").remove();
+                    $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`tosign`0`"+$("input[name=author]").val()+"'>")
+                    $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`ser`0`"+docid+"'>")
+                }else{
+                    $("#frm").append("<input type='hidden' name='"+ queryOpt.fieldname +"' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
+                }
 			}
 		}
 	}
@@ -176,16 +182,24 @@ function pickListBtnOk(){
 							$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("class")+"'>")
 						})
 					}else{
-						$('input[name=chbox]:checked').each(function(indx, element){
-							$("#"+ queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>"+$(this).val()+"</td></tr>");
-							if (queryOpt.fieldname == "signer"){
-								$("#coordBlockSign").remove();
-								$("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`"+$(this).attr("id")+"'>")
-								$("#frm").append("<input type='hidden' name='signer' id='coordBlockSign' value='"+$(this).attr("id")+"'>")
-							}else{
-								$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("id")+"'>")
-							}
-						})
+                        if(queryOpt.fieldname == "coordblock") {
+                            $('input[name=chbox]:checked').each(function (indx, element) {
+                                $("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
+                                $("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='new`ser`0`" + $(this).attr("id") + "'>")
+                            })
+                            $("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $("input[name=author]").val() + "'>")
+                        }else{
+                            $('input[name=chbox]:checked').each(function (indx, element) {
+                                $("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
+                                if (queryOpt.fieldname == "signer") {
+                                    $("#coordBlockSign").remove();
+                                    $("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $(this).attr("id") + "'>")
+                                    $("#frm").append("<input type='hidden' name='signer' id='coordBlockSign' value='" + $(this).attr("id") + "'>")
+                                } else {
+                                    $("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='" + $(this).attr("id") + "'>")
+                                }
+                            })
+                        }
 					}
 				}
 			}

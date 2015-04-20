@@ -41,7 +41,7 @@ class DoScript extends _DoScript {
 		outline.addEntry(e4)
 		
 		def e5 = new _OutlineEntry(getLocalizedWord("Мне на согласование",lang), getLocalizedWord("Мне на согласование",lang), "waitforcoord", "Provider?type=page&id=waitforcoord&page=0")
-		def col5 = db.getCollectionOfDocuments("(form='officememoprj' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and viewtext5 ~ '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false, true)
+		def col5 = db.getCollectionOfDocuments("(form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and viewtext5 ~ '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false, true)
 		e5.setValue(col5.getCount())
 		e5.unread = col5.unreadCount;
 		outline.addEntry(e5)
@@ -53,7 +53,7 @@ class DoScript extends _DoScript {
 		outline.addEntry(e6)
 		
 		def e7 = new _OutlineEntry(getLocalizedWord("На согласовании",lang), getLocalizedWord("На согласовании",lang), "mywaitforcoord", "Provider?type=page&id=mywaitforcoord&page=0")
-		def col7 = db.getCollectionOfDocuments("(form='officememoprj' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and author = '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false)
+		def col7 = db.getCollectionOfDocuments("(form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and author = '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false)
 		e7.setValue(col7.getCount())
 		outline.addEntry(e7)
 		

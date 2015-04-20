@@ -1157,6 +1157,47 @@ function markRead(doctype, docid){
 	});
 }
 
+/*функция для отметке о некорректности заполнения табеля */
+function SheetIsIncorrectDialog(docid, doctype){
+    divhtml="<div class='comment' id='commentBox'>" +
+    "<div class='headerComment'><font class='headertext'>"+commentcaption+"</font>" +
+    "<div class='closeButton'  onclick='commentCancel(); '>" +
+    "<img style='width:15px; height:15px; margin-left:3px; margin-top:2px' src='/SharedResources/img/iconset/cross.png'/>" +
+    "</div></div>" +
+    "<div class='contentComment'>" +
+    "<br/><table style=' margin-top:2%; width:100%'>" +
+    "<tr>" +
+    "<td style='text-align:center'><textarea  name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%'/>" +
+    "</td>" +
+    "</tr>" +
+    "</table><br/>" +
+    "</div>"+
+    "<div class='buttonPaneComment button_panel' style='margin-top:1%; text-align:right; width:98%'>" +
+    "<button onclick='javascript:SheetIsIncorrectSend("+docid+","+doctype+")' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
+    "<button onclick='javascript:commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
+    "</div>" +
+    "</div>";
+    $("body").append(divhtml);
+    $("#commentBox .button_panel").children("button").button()
+    $("#commentBox").draggable({handle:"div.headerComment"});
+    centring('commentBox',470,250);
+    $("#commentBox textarea").focus()
+}
+
+function SheetIsIncorrectSend(docid, doctype){
+    var commentText= $("#commentText").val();
+    $.ajax({
+		type: "post",
+		url: "Provider?type=page&id=sheetisincorrect&doctype="+doctype+"&key="+docid+"&commenttext="+commentText ,
+		cache:false,
+		success:function (xml){
+            $("#commentBox").remove();
+			$("body").notify({"text":"Табель отмечен как некорректный","onopen":function(){$("body").hidenotify({"delay":1200,"onclose":function(){$("#notifydiv").remove(); $("#canceldoc").click()}})},"loadanimation":false})
+		}
+	});
+
+}
+
 function deleterow(sesid,filename, fieldid){
 	//$("#progressbar").progressbar("destroy");
 	$("#progressstate").hide();

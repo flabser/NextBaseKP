@@ -38,6 +38,10 @@ class DoScript extends _DoScript {
 		
         def contractdocs = new _OutlineEntry(getLocalizedWord("Договоры",lang), getLocalizedWord("Договоры",lang), "contract", "Provider?type=page&id=contract&page=0");
 		orgdocs_outline.addEntry(addEntryByGlossary(session, contractdocs, "contract","contracttype", false));
+        if (user.hasRole("reader_sheet") || user.hasRole("registrator_sheet")){
+            def sheetdocs = new _OutlineEntry(getLocalizedWord("Табели",lang), getLocalizedWord("Табели",lang), "sheet", "Provider?type=page&id=sheet&page=0");
+		    orgdocs_outline.addEntry(sheetdocs);
+        }
 
         outline.addOutline(orgdocs_outline)
 		list.add(orgdocs_outline)

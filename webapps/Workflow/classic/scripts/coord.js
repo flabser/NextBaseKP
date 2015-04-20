@@ -178,6 +178,7 @@ function savePrjAsDraft(redirecturl){
 /* кнопка "Отправить" */
 function saveAndSend(redirecturl){
 	if($("#coordBlockSign").val()==null || $("#coordBlockSign").val()==0 ){
+        alert(555)
 		infoDialog(choosesigner)
 	}else{
 		$("#coordstatus").val("coordinated");

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule type="form" id="sheet" mode="on">
+	<description>Табель</description>
+	<xsltfile>forms/sheet.xsl</xsltfile>
+	<doctype>main</doctype>
+	<events>
+		<queryopen source="file">form.sheet.QueryOpen</queryopen>
+		<querysave source="file">form.sheet.QuerySave</querysave>
+		 <postsave source="file">form.sheet.PostSave</postsave>
+	</events> 
+	<title source="KEYWORD">Табель</title>
+	<caption name="close" source="KEYWORD">Закрыть</caption>
+	<caption name="recipient" source="KEYWORD">Получатели</caption>
+	<caption name="briefcontent" source="KEYWORD">Краткое содержание</caption>
+	<caption name="regdoc" source="KEYWORD">Зарегистрировать документ</caption>
+	<caption name="properties" source="KEYWORD">Свойства</caption>
+	<caption name="attachments" source="KEYWORD">Вложения</caption>
+	<caption name="saved" source="KEYWORD">Сохраненный</caption>
+	<caption name="newdoc" source="KEYWORD">Новый документ</caption>
+	<caption name="editing" source="KEYWORD">Редактирование</caption>
+	<caption name="readonly" source="KEYWORD">Только для чтения</caption>
+	<caption name="modenotdefined" source="KEYWORD">Режим не определен</caption>
+	<caption name="content" source="KEYWORD">Содержание</caption>
+	<caption name="doctypemultilang" source="KEYWORD">Исходящий документ</caption>
+	<caption name="attach" source="KEYWORD">Прикрепить</caption>
+	<caption name="delattach" source="KEYWORD">Удалить</caption>
+	<caption name="openattach" source="KEYWORD">Открыть</caption>
+	<caption name="logout" source="KEYWORD">Завершить работу</caption>
+	<caption name="cancel" source="KEYWORD">Отмена</caption>
+	<caption name="changeview" source="KEYWORD">Изменить вид</caption>
+	<caption name="files" source="KEYWORD">Файлы</caption>
+	<caption name="additional" source="KEYWORD">Дополнительно</caption>
+	<caption name="statusdoc" source="KEYWORD">Состояние документа</caption>
+	<caption name="permissions" source="KEYWORD">Права доступа</caption>
+	<caption name="infofread" source="KEYWORD">Информация о прочтении</caption>
+	<caption name="searchcaption" source="KEYWORD">поиск</caption>
+	<caption name="infofreaders" source="KEYWORD">Кем прочтен</caption>
+	<caption name="new" source="KEYWORD">Новый</caption>
+	<caption name="category" source="KEYWORD">Категория</caption>
+	<caption name="help" source="KEYWORD">Помощь</caption>
+	<caption name="conectedproject" source="KEYWORD">Связан с проектом</caption>
+	<caption name="correspforacquaintance" source="KEYWORD">Список сотрудников для ознакомления</caption>
+	<caption name="projectdoc" source="KEYWORD">Проект документа</caption>
+	<caption name="documentsavedcaption" source="KEYWORD">Идет сохранение документа...</caption>
+	<caption name="documentmarkread" source="KEYWORD">Документ отмечен как прочтенный</caption>
+	<caption name="pleasewaitdocsave" source="KEYWORD">Пожалуйста ждите... Идет сохранение документа</caption>
+	<caption name="lang" source="KEYWORD">Язык документа</caption>
+	<caption name="corr" source="KEYWORD">Получатели</caption>
+	<caption name="np" source="KEYWORD">Кол-во листов</caption>
+	<caption name="deliverytype" source="KEYWORD">Вид отправки</caption>
+	<caption name="np2" source="KEYWORD">экз.</caption>
+	<caption name="choosevalue" source="KEYWORD">Выберите значение</caption>
+	<caption name="warning" source="KEYWORD">Предупреждение</caption>
+	<caption name="ndelo" source="KEYWORD">Код</caption>
+	<caption name="vnin" source="KEYWORD">Является ответным на входящий документ</caption>
+	<caption name="backvnish" source="KEYWORD">Ответный входящий документ</caption>
+	<caption name="blanknumber" source="KEYWORD">№ бланка</caption>
+	<caption name="signedby" source="KEYWORD">Подписал</caption>
+	<caption name="project" source="KEYWORD">Проект</caption>
+	<caption name="intexec" source="KEYWORD">Внутренние исполнители</caption>
+	<caption name="author" source="KEYWORD">Автор</caption>
+	<caption name="vid" source="KEYWORD">Тип документа</caption>
+	<caption name="vn" source="KEYWORD">Исходящий</caption>
+	<caption name="contentsource" source="KEYWORD">Основной текст</caption>
+	<caption name="dvn" source="KEYWORD">от</caption>
+	<caption name="din" source="KEYWORD">от</caption>
+	<caption name="har" source="KEYWORD">Характер вопроса</caption>
+	<caption name="saving" source="KEYWORD">Сохранение</caption>
+	<caption name="showfilename" source="KEYWORD">Укажите имя файла для вложения</caption>
+	<caption name ="addcommentforattachment" source ="KEYWORD">Добавить комментарий к вложению?</caption>
+	<caption name="summary" source="KEYWORD">Краткое содержание</caption>
+	<caption name="timeofreading" source="KEYWORD">Время прочтения</caption>
+	<caption name="whomread" source="KEYWORD">Кем прочтен</caption>
+	<caption name="infofreaders" source="KEYWORD">Кем прочтен</caption>
+	<caption name="DS" source="KEYWORD">ЭЦП</caption>
+	<caption name="attention" source="KEYWORD">Внимание</caption>
+	<caption name="add_comment" source="KEYWORD">Добавить комментарий</caption>
+	<caption name="delete_file" source="KEYWORD">Удалить файл</caption>
+	<caption name="comments" source="KEYWORD">комментарий</caption>
+	<caption name ="view_userprofile" source ="KEYWORD">Посмотреть свойства текущего пользователя</caption>
+	<caption name ="yes" source ="KEYWORD">Да</caption>
+	<caption name ="no" source ="KEYWORD">Нет</caption>
+	<caption name="saveclose" source="KEYWORD">Сохранить и закрыть</caption>
+	<caption name="nomentype" source="KEYWORD">Номенклатура дел</caption>
+	<caption name ="addresscorr" source ="KEYWORD">Адрес получателя</caption>
+	<!-- вкладка согласование -->
+	<caption name="coordination" source="KEYWORD">Согласование</caption>
+	<caption name="type" source="KEYWORD">Тип</caption>
+	<caption name="contributors" source="KEYWORD">Участники</caption>
+	<caption name="contributorscoord" source="KEYWORD">Участники согласования</caption>
+	<caption name="waittime" source="KEYWORD">Время ожидания</caption>
+	<caption name="statuscoord" source="KEYWORD">Статус согласования</caption>
+	<caption name="parcoord" source="KEYWORD">Параллельное</caption>
+	<caption name="sercoord" source="KEYWORD">Последовательное</caption>
+	<caption name="curcoorder" source="KEYWORD">текущий согл.</caption>
+	<caption name="waiting" source="KEYWORD">Ожидает ответа</caption>
+	<caption name="unlimtimecoord" source="KEYWORD">Неограничено</caption>
+	<caption name="oncoordinating" source="KEYWORD">На согласовании</caption>
+	<caption name="agreed" source="KEYWORD">Согласован</caption>
+	<caption name="expectbegincoord" source="KEYWORD">Ожидание начала согласования</caption>
+	<caption name="typenotdefined" source="KEYWORD">Тип не определен</caption>
+	<caption name="agree" source="KEYWORD">Согласен</caption>
+	<caption name="disagree" source="KEYWORD">Не согласен</caption>
+	<caption name="awairesponse" source="KEYWORD">Ожидает ответа</caption>
+	<caption name="complete" source="KEYWORD">Завершен</caption>
+	<caption name="commentcaption" source="KEYWORD">Комментарий</caption>
+	<caption name="coordparam" source="KEYWORD">Параметры согласования</caption>
+	<caption name="hours" source="KEYWORD">часов</caption>
+	<caption name="yescaption" source="KEYWORD">да</caption>
+	<caption name="nocaption" source="KEYWORD">нет</caption>
+	<caption name="soglasovan" source="KEYWORD">Согласован</caption>
+	<caption name="rejected" source="KEYWORD">Отклонен</caption>
+	<caption name="newversion" source="KEYWORD">Новая версия</caption>
+	<caption name="waitingsign" source="KEYWORD">Ожидает подпись</caption>
+	<caption name="signed" source="KEYWORD">Подписан</caption>
+	<caption name="notcoordinatingproject" source="KEYWORD">Не требующий согласования</caption>
+	<caption name="prosrochen" source="KEYWORD">Просрочен</caption>
+	<caption name="projectactivecoord" source="KEYWORD">Проект на согласовании</caption>
+	<caption name="alllevelcoordcomplete" source="KEYWORD">Проект прошел все этапы согласования</caption>
+	<caption name="projectrejected" source="KEYWORD">Проект был отклонен</caption>
+	<caption name="projectnewversion" source="KEYWORD">Проект пересмотрен в новой редакции</caption>
+	<caption name="projectwaitingsign" source="KEYWORD">Проект ожидает подпись</caption>
+	<caption name="projectwassigned" source="KEYWORD">Проект подписан</caption>
+	<caption name="projectnotcoordinating" source="KEYWORD">Проект не требует согласования</caption>
+	<caption name="projectwasdelayed" source="KEYWORD">Проект был просрочен во время согласования</caption>
+	<caption name="new" source="KEYWORD">Новый</caption>
+	<caption name="docissign" source="KEYWORD">Документ подписан</caption>
+	<caption name="docisrejected" source="KEYWORD">Документ отклонен</caption>
+	<caption name="dociscoordyou" source="KEYWORD">Документ согласован вами</caption>
+	<caption name="docisrejectedyou" source="KEYWORD">Документ отклонен вами</caption>
+	<caption name="docversion" source="KEYWORD">Версия</caption>
+	<caption name="project" source="KEYWORD">Проект</caption>
+	<caption name="signer" source="KEYWORD">Кем будет подписан</caption>
+	<caption name="days" source="KEYWORD">дней</caption>
+	<caption name="day" source="KEYWORD">день</caption>
+	<caption name="hourss" source="KEYWORD">часа</caption>
+	<caption name="unlimited" source="KEYWORD">Неограничено</caption>
+	<caption name="tosign" source="KEYWORD">На подпись</caption>
+</rule>

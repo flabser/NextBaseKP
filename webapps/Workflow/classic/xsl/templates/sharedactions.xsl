@@ -26,7 +26,20 @@
 			</button>
 		</xsl:if>
 	</xsl:template>
-	
+
+	<!-- кнопка не правильно заполнен табель  -->
+	<xsl:template name="incorrect_sheet">
+		<xsl:if test="document/actionbar/action[@id='incorrect_sheet']/@mode = 'ON'">
+			<button title="{document/actionbar/action[@id='incorrect_sheet']/@hint}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="btnincorrectsheet" style="margin-right:5px" autocomplete="off">
+				<xsl:attribute name="onclick">javascript:SheetIsIncorrectDialog(<xsl:value-of select="document/@docid"/>, <xsl:value-of select="document/@doctype"/>); </xsl:attribute>
+				<span>
+					<img src="/SharedResources/img/classic/icons/disk.png" class="button_img"/>
+					<font class="button_text"><xsl:value-of select="document/actionbar/action[@id='incorrect_sheet']/@caption"/></font>
+				</span>
+			</button>
+		</xsl:if>
+	</xsl:template>
+
 	<!-- кнопка подписать  -->
 	<xsl:template name="eds_sign">
 		<xsl:if test="document/actionbar/action[@id='eds_sign']/@mode = 'ON'">

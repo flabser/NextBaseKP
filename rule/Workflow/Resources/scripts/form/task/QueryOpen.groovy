@@ -74,14 +74,14 @@ class QueryOpen extends _FormQueryOpen {
 	def getRespProgress(_Document gdoc, _Session session) {
 		String progress = "";
 		gdoc.getResponses().each {
-			progress += "<entry url='" + it.getFullURL().replace("&", "&amp;") + "'>" +"<viewtext>" +it.getViewText().replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;") +"</viewtext>" +"<responses>" + getRespProgress(it, session) + "</responses>" + "</entry>"
+			progress += "<entry url='" + it.getURL().replace("&", "&amp;") + "'>" +"<viewtext>" +it.getViewText().replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;") +"</viewtext>" +"<responses>" + getRespProgress(it, session) + "</responses>" + "</entry>"
 		};
 		return progress;
 	}
 	
 	def publishParentDocs(_Document mdoc, _Session session, String status) {
 		String progress = getRespProgress(mdoc, session);
-		progress = "<entry url='" + mdoc.getFullURL().replace("&", "&amp;") + "'>" +"<viewtext>" +mdoc.getViewText().replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;") +"</viewtext>"+ "<responses>" + progress + "</responses></entry>";
+		progress = "<entry url='" + mdoc.getURL().replace("&", "&amp;") + "'>" +"<viewtext>" +mdoc.getViewText().replace("<", "&lt;").replace(">", "&gt;").replace("&", "&amp;") +"</viewtext>"+ "<responses>" + progress + "</responses></entry>";
 		publishValue(true, "progress", progress);
 	}
 

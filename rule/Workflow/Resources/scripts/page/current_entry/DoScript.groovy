@@ -20,6 +20,14 @@ class DoScript extends _DoScript {
 			def customParam = new _Tag("customparam","&keyword="+formData.getEncodedValueSilently("keyword"))
 			rootTag.addTag(customParam)
 		}
+		if( formData.getEncodedValueSilently("id") == "docsbyglossary"){
+			def customParam = new _Tag("customparam","&formid="+formData.getEncodedValueSilently("formid")+"&glossaryform="+formData.getEncodedValueSilently("glossaryform")+"&glossaryid="+formData.getEncodedValueSilently("glossaryid"))
+			rootTag.addTag(customParam)
+		}
+		if( formData.getEncodedValueSilently("id") == "docsbyglossaryprj"){
+			def customParam = new _Tag("customparam","&formid="+formData.getEncodedValueSilently("formid")+"&glossaryform="+formData.getEncodedValueSilently("glossaryform")+"&glossaryid="+formData.getEncodedValueSilently("glossaryid"))
+			rootTag.addTag(customParam)
+		}
         entryTag.setAttr("formid",formData.getValueSilently("formid"))
 
 		rootTag.addTag(entryTag)

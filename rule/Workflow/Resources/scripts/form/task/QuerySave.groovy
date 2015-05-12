@@ -4,6 +4,7 @@ import kz.nextbase.script.constants._AllControlType
 import kz.nextbase.script.events._FormQuerySave
 import kz.nextbase.script.task._Control
 import kz.nextbase.script.task._ExecsBlocks
+import kz.nextbase.script.task._GrantedBlockCollection
 
 class QuerySave extends _FormQuerySave {
 
@@ -28,6 +29,12 @@ class QuerySave extends _FormQuerySave {
 		doc.addNumberField("category", webFormData.getNumberValueSilently("category",-1))
 		doc.addFile("rtfcontent", webFormData)
 		doc.addFile("eds_cert", webFormData);
+
+        def granthistory = (_GrantedBlockCollection)doc.getValueObject("grantblocks")
+        if (!granthistory) {
+            granthistory = new _GrantedBlockCollection(session)
+        }
+        doc.addField("grantblocks", granthistory)
 
 		def pdoc = doc.getParentDocument()
 		if (pdoc){

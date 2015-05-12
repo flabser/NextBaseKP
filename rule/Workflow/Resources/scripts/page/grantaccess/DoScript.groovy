@@ -20,8 +20,11 @@ class DoScript extends _DoScript {
         def grantedBlock = new _GrantedBlock(session)
         grantedBlock.addGrantUsers(recipients)
         grantedBlock.setGrantor(session.getCurrentAppUser())
-        def grant_collection = new _GrantedBlockCollection(session);
-        grant_collection.addBlock(grantedBlock);
+        def grant_collection = (_GrantedBlockCollection)doc.getValueObject("grantblocks")
+        if (!grant_collection) {
+            grant_collection = new _GrantedBlockCollection(session)
+        }
+        grant_collection.addBlock(grantedBlock)
         doc.addField("grantblocks", grant_collection)
 		doc.save("[supervisor]")
         try {

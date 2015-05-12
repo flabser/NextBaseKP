@@ -143,6 +143,12 @@ class QueryOpen extends _FormQueryOpen {
 		}catch(_Exception e){
 			
 		}
+
+        def grant_story = doc.getValueObject("grantblocks")
+        if (grant_story) {
+            publishValue("grantblocks", grant_story)
+        }
+
 		if(pdoc && pdoc.getDocumentForm() == 'task'){
 			def	pcontrol  = (_Control)pdoc.getValueObject("control")
 			publishValue("maxdate", _Helper.getDateAsString(pcontrol.getCtrlDate()))

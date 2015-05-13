@@ -3,8 +3,8 @@ import kz.nextbase.script._Session
 import kz.nextbase.script._WebFormData
 import kz.nextbase.script.constants._DocumentType
 import kz.nextbase.script.events._DoScript
-import kz.nextbase.script.task._GrantedBlockCollection
 import kz.nextbase.script.task._GrantedBlock
+import kz.nextbase.script.task._GrantedBlockCollection
 
 import java.text.SimpleDateFormat
 
@@ -17,6 +17,7 @@ class DoScript extends _DoScript {
 		recipients.each {
            doc.addReader(it)
         }
+        recipients = (recipients as List).unique() as String[]
         def grantedBlock = new _GrantedBlock(session)
         grantedBlock.addGrantUsers(recipients)
         grantedBlock.setGrantor(session.getCurrentAppUser())
@@ -26,6 +27,11 @@ class DoScript extends _DoScript {
         }
         grant_collection.addBlock(grantedBlock)
         doc.addField("grantblocks", grant_collection)
+        doc.addStringField("grantor", doc.getAuthorID())
+
+        def grantusers = grant_collection.blocks.grantedBlock.grantUsers.user.userID.collectMany {it}
+        println grantusers
+        doc.replaceListField("grantusers", grantusers)
 		doc.save("[supervisor]")
         try {
             if (doc.parentDocID != 0 && doc.parentDocType != _DocumentType.UNKNOWN) {

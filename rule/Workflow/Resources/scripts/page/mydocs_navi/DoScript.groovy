@@ -61,7 +61,17 @@ class DoScript extends _DoScript {
 		def col8 = db.getCollectionOfDocuments("(form='officememoprj' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and author='" + session.getCurrentUserID() + "' and viewtext3 = 'SIGNING'", false)
 		e8.setValue(col8.getCount())
 		outline.addEntry(e8)
-		
+
+		def e10 = new _OutlineEntry(getLocalizedWord("На ознакомление",lang), getLocalizedWord("На ознакомление",lang), "waitforacquaint", "Provider?type=page&id=waitforacquaint&page=0")
+		def col10 = db.getCollectionOfDocuments("grantor = '" + session.getCurrentUserID() + "'", false)
+		e10.setValue(col10.getCount())
+		outline.addEntry(e10)
+
+		def e11 = new _OutlineEntry(getLocalizedWord("Мне на ознакомление",lang), getLocalizedWord("Мне на ознакомление",lang), "mywaitforacquaint", "Provider?type=page&id=mywaitforacquaint&page=0")
+		def col11 = db.getCollectionOfDocuments("grantusers ~ '" + session.getCurrentUserID() + "'", false)
+		e11.setValue(col11.getCount())
+		outline.addEntry(e11)
+
 		def e9 = new _OutlineEntry(getLocalizedWord("Избранные",lang), getLocalizedWord("Избранные",lang), "favdocs", "Provider?type=page&id=favdocs&page=0")
 		e9.setValue(db.getCount(_QueryMacroType.FAVOURITES))
 		outline.addEntry(e9)

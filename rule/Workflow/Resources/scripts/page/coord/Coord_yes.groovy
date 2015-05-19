@@ -33,7 +33,7 @@ class Coord_yes extends _DoScript {
         def coordlist = block.getCurrentCoordinators();
         boolean finalblock = false;
         def doc_blc = (_BlockCollection) doc.getValueObject("coordination")
-        def attachid = formData.getListOfValues("fileid")
+        def attachid = (formData.containsField("fileid") ? formData.getListOfValues("fileid") : null)
         attachid = attachid?.collect {it as int}
 
 

@@ -34,7 +34,7 @@ class Coord_yes extends _DoScript {
         boolean finalblock = false;
         def doc_blc = (_BlockCollection) doc.getValueObject("coordination")
         def attachid = formData.getListOfValues("fileid")
-        attachid = attachid?.collect {it as int}
+        attachid = attachid.collect {it as int}
 
 
         def rejectProject = { _Document document ->
@@ -70,7 +70,7 @@ class Coord_yes extends _DoScript {
                 Boolean isComment = formData.containsField("comment")
                 String comment = (isComment ? formData.getValue("comment") : "");
                 coord.setDecision(_DecisionType.AGREE, comment != null ? comment : "");
-                if (attachid) coord.setAttachID(attachid)
+                coord.setAttachID(attachid)
                 if (block && block.getBlockType() == _BlockType.SERIAL_COORDINATION) {
                     def nextCoord = block.getNextCoordinator(coord);
                     if (nextCoord && nextCoord.getUserID()) {

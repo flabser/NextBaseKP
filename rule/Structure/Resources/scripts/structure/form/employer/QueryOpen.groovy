@@ -25,6 +25,7 @@ class QueryOpen extends _FormQueryOpen {
 		def pdoc = db.getDocumentByComplexID(webFormData.getValue("parentdoctype"),webFormData.getValue("parentdocid"))
 		if (pdoc != null){
 			if (pdoc.getDocumentType() == _DocumentType.ORGANIZATION){
+
 				publishValue("organization", pdoc.getViewText())
 			}else{
 				publishValue("parent", pdoc.getViewText())

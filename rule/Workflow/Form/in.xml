@@ -306,6 +306,10 @@
 		}
 		]]>
 	</querysave> -->
+	<caption name="timeofacquaint" source="KEYWORD">Время ознакомления</caption>
+	<caption name="initiatorofacquaint" source="KEYWORD">Ознакомитель</caption>
+	<caption name="infofacquaint" source="KEYWORD">Информация о ознакомлении</caption>
+	<caption name="user" source="KEYWORD">Пользователь</caption>
 	<caption name="close" source="KEYWORD">Закрыть</caption>
 	<caption name="doctypemultilang" source="KEYWORD">Входящий документ</caption>
 	<caption name="progress" source="KEYWORD">Ход исполнения</caption>

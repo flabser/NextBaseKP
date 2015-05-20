@@ -7,7 +7,11 @@
 		<queryopen source="file">form.out.QueryOpen</queryopen> 
 		<querysave source="file">form.out.QuerySave</querysave>
 		 <postsave source="file">form.out.PostSave</postsave> 
-	</events> 
+	</events>
+	<caption name="timeofacquaint" source="KEYWORD">Время ознакомления</caption>
+	<caption name="initiatorofacquaint" source="KEYWORD">Ознакомитель</caption>
+	<caption name="infofacquaint" source="KEYWORD">Информация о ознакомлении</caption>
+	<caption name="user" source="KEYWORD">Пользователь</caption>
 	<title source="KEYWORD">Исходящий документ</title>
 	<caption name="close" source="KEYWORD">Закрыть</caption>
 	<caption name="regdoc" source="KEYWORD">Зарегистрировать документ</caption>

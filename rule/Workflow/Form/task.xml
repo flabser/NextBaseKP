@@ -17,6 +17,10 @@
 	<caption name="removedby" source="KEYWORD">кто снял</caption>
 	<caption name="control" source="KEYWORD">Контроль</caption>
 	<caption name="progress" source="KEYWORD">Ход исполнения</caption>
+	<caption name="timeofacquaint" source="KEYWORD">Время ознакомления</caption>
+	<caption name="initiatorofacquaint" source="KEYWORD">Ознакомитель</caption>
+	<caption name="infofacquaint" source="KEYWORD">Информация о ознакомлении</caption>
+	<caption name="user" source="KEYWORD">Пользователь</caption>
 	<caption name="cancelcaption" source="KEYWORD">Отмена</caption>
 	<caption name="saved" source="KEYWORD">Сохраненный</caption>
 	<caption name="newdoc" source="KEYWORD">Новый документ</caption>

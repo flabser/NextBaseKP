@@ -37,6 +37,8 @@ class Coord_no extends _DoScript {
 		def	blocksCollection  = (_BlockCollection)doc.getValueObject("coordination")
 		def block = (_Block)blocksCollection.getCurrentBlock()
 		def coordlist = block.getCurrentCoordinators()
+		def attachid = (formData.containsField("fileid") ? formData.getListOfValues("fileid") : null)
+		attachid = attachid?.collect {it as int}
 		boolean finalblock = false
 		def doc_blc = (_BlockCollection)doc.getValueObject("coordination")
 		def rejectProject = { _Document document->
@@ -85,6 +87,7 @@ class Coord_no extends _DoScript {
 		for (coord in coordlist){
 			if(coord.getUserID() == session.getUser().userID){
 				coord.setDecision(_DecisionType.DISAGREE, formData.getValueSilently("comment"))
+				if (attachid) coord.setAttachID(attachid)
 				if (block.getBlockType() == _BlockType.SERIAL_COORDINATION){
 					block.setBlockStatus(_BlockStatusType.COORDINATED);
 					rejectProject(doc);

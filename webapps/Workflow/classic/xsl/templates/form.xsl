@@ -374,8 +374,8 @@
 						<script type="text/javascript">
 							usersWhichReadInTable(this,<xsl:value-of select="document/@doctype"/>,<xsl:value-of select="document/@docid"/>)
 						</script>
-						<table class="table-border-gray" id="userswhichreadtbl" style="width:100%">
-							<tr>
+						<table class="table-border-gray" id="userswhichreadtbl" style="width:70%">
+							<tr style="height:40px; font-weight:bold">
 								<td style="width:350px; text-align:center">
 									<xsl:value-of select="document/captions/whomread/@caption"/>
 								</td>
@@ -386,6 +386,52 @@
 						</table>
 					</td>
 				</tr>
+				<xsl:if test="document/fields/grantblocks">
+					<tr>
+						<td class="fc">
+							<xsl:value-of select="document/captions/initiatorofacquaint/@caption"/> :
+						</td>
+						<td>
+							<xsl:value-of select="document/fields/grantblocks/blocks/entry/grantor"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="fc">
+							<xsl:value-of select="document/captions/timeofacquaint/@caption"/> :
+						</td>
+						<td>
+							<xsl:value-of select="document/fields/grantblocks/blocks/entry/grantdate"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="fc">
+							<xsl:value-of select="document/captions/infofacquaint/@caption"/> :
+						</td>
+						<td>
+							<table class="table-border-gray" id="usersacquainttbl" style="width:70%">
+								<tr style="height:40px; font-weight:bold">
+									<td style="width:350px; text-align:center">
+										<xsl:value-of select="document/captions/user/@caption"/>
+									</td>
+									<td style="width:250px; text-align:center">
+										<xsl:value-of select="document/captions/timeofacquaint/@caption"/>
+									</td>
+								</tr>
+								<xsl:for-each select="document/fields/grantblocks/blocks/entry/grantusers/entry">
+									<tr>
+										<td style="width:350px; text-align:left">
+											<xsl:value-of select="."/>
+										</td>
+										<td style="width:250px; text-align:left">
+
+										</td>
+									</tr>
+								</xsl:for-each>
+							</table>
+						</td>
+					</tr>
+				</xsl:if>
+			</xsl:if>
 				<!-- <tr>
 					<td class="fc">
 						<xsl:value-of select="document/captions/DS/@caption"/> :
@@ -442,7 +488,6 @@
 						</font>		
 					</td>
 				</tr> -->
-			</xsl:if>
 		</table>
 	</xsl:template>
 	

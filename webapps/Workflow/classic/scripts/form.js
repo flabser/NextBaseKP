@@ -1462,7 +1462,8 @@ function usersWhichRead(el,doctype, id){
 			$(xml).find("entry").each(function(){
 				if ($(this).attr('username') != undefined){
 					$("#userWhichRead").append("&#xA0;"+$(this).attr('username')+ "&#xA0;&#xA0; "+$(this).attr('eventtime')+ "&#xA0;</br>");
-					notEmpty = true; 
+					notEmpty = true;
+
 				}
 			})
 			if (notEmpty == true){
@@ -1484,6 +1485,7 @@ function usersWhichReadInTable(el,doctype, id){
 			$(xml).find("entry").each(function(){
 				if ($(this).attr('username') != undefined && $("#userswhichreadtbl td:contains('"+ $(this).attr('username') +"')").length == 0 ){
 					$("#userswhichreadtbl").append("<tr><td>"+$(this).attr('username')+ "</td><td>"+$(this).attr('eventtime')+ "</td></tr>");
+					$("#usersacquainttbl td:contains("+$(this).attr('username')+")").next("td").append($(this).attr('eventtime'));
 				}
 			})
 		}

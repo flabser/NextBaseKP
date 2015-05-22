@@ -52,6 +52,12 @@ class PostSave extends _FormPostSave {
 	   def mailAgent = ses.getMailAgent()
 	   String xmppmsg ="";
 	   if(control.allControl == 0){
+		  /* def descendants =doc.getDescendants();
+		   descendants.each(){
+			   if(it.getDocumentForm() == "task"){
+				   def descontrol = (_Control)it.getValueObject("control")
+			   }
+		   }*/
 		   xmppmsg = "Уведомление о снятии документа с контроля \n"
 		   xmppmsg += "Задание: " + doc.getValueString("briefcontent") + "  снято с контроля \n"
 		   xmppmsg += doc.getFullURL() + "\n"

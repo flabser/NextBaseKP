@@ -177,7 +177,7 @@ class QueryOpen extends _FormQueryOpen {
         if(control.getAllControl() == 0){
             def resetdates = [];
             execs.executors.each {
-                resetdates.push(it.resetDate)
+                resetdates.add(it.resetDate)
             }
             publishValue("resetdate", resetdates.max());
             control.startDate = resetdates.max();

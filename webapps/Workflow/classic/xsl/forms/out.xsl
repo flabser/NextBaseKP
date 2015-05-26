@@ -243,10 +243,15 @@
 												<xsl:value-of select="document/captions/vn/@caption"/> № :
 											</td>
 									    	<td>
-						                    	<input type="text" name="vn" value="{document/fields/vn}" size="10" class="td_noteditable" onfocus="javascript:$(this).blur()" readonly="readonly" style="width:80px;"/>
+						                    	<input type="text" name="vn" value="{document/fields/vn}" size="10" class="td_editable" style="width:80px;">
+													<xsl:if test="$editmode != 'edit' or document/fields/vn !=''">
+														<xsl:attribute name="class" select="'td_noteditable'"/>
+														<xsl:attribute name="readonly" select="'readonly'"/>
+													</xsl:if>
+												</input>
 						                        &#xA0;
-						                        <xsl:value-of select="document/fields/dvn/@caption"/>&#xA0;
-						                       	<input type="text" class="td_noteditable" value="{document/fields/dvn}" readonly="readonly" onfocus="javascript: $(this).blur()" style="width:80px;"/>
+						                        <xsl:value-of select="document/captions/dvn/@caption"/>&#xA0;
+						                       	<input type="text" class="td_noteditable" value="{substring(document/fields/dvn,1,10)}" readonly="readonly" onfocus="javascript: $(this).blur()" style="width:80px;"/>
 						                   </td>   					
 										</tr>
 										<!-- Получатель -->

@@ -41,20 +41,24 @@ class QuerySave extends _FormQuerySave {
         Date dates = new Date()
 
 		def redirectURL = session.getURLOfLastPage()
-		
+
 		if (doc.isNewDoc || !doc.getValueString("vn")){
 			def db = session.getCurrentDatabase()
-            int num = db.getRegNumber("out_" + webFormData.getValueSilently("project"))
-			String vnAsText = Integer.toString(num)
-			doc.replaceStringField("vn", vnAsText)
+			String vnAsText;
+			int num = db.getRegNumber("out_" + webFormData.getValueSilently("project"));
 			doc.replaceIntField("vnnumber",num)
+			vnAsText = Integer.toString(num)
+			if(webFormData.getValueSilently("vn") != ''){
+				vnAsText = webFormData.getValueSilently("vn");
+			}
+			doc.replaceStringField("vn", vnAsText)
 			doc.replaceDateField("dvn", new Date())
 			localizedMsgBox(getLocalizedWord("Документ зарегистрирован под № ",lang) + vnAsText);
 			redirectURL.changeParameter("page", "0")
 		//	doc.addStringField("mailnotification", "")
 			doc.setViewNumber(num)
 		}
-		doc.setViewText(getLocalizedWord('Исходящий документ',lang) + ' № ' + doc.getValueString('vnnumber') + ' ' + getLocalizedWord('от',lang) + ' ' + dates.format("dd.MM.yyyy HH.mm.ss") + ' ' + session.getStructure().getEmployer(doc.getValueString('author')).shortName + ' : ' + doc.getValueString('briefcontent'))
+		doc.setViewText(getLocalizedWord('Исходящий документ',lang) + ' № ' + doc.getValueString('vn') + ' ' + getLocalizedWord('от',lang) + ' ' + dates.format("dd.MM.yyyy HH.mm.ss") + ' ' + session.getStructure().getEmployer(doc.getValueString('author')).shortName + ' : ' + doc.getValueString('briefcontent'))
 		doc.addViewText(doc.getValueString('briefcontent'))
 		doc.addViewText(webFormData.getValueSilently("corrstring"))
 		doc.addViewText('')

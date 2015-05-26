@@ -67,7 +67,8 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("title",getLocalizedWord("Исходящий документ", lang) + " ")
 		publishEmployer("author",doc.authorID)
 		publishValue("vn",doc.getValueString("vn"))
-		publishValue("dvn",doc.getValueString("dvn"))
+		def dvn = doc.getValueString("dvn") != '' ? doc.getValueString("dvn") : ses.getCurrentDateAsString();
+		publishValue("dvn",dvn);
 		if (doc.getField("vid")) {
 			publishGlossaryValue("vid",doc.getValueGlossary("vid"))
 		}

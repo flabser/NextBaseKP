@@ -48,9 +48,7 @@ class QueryOpen extends _FormQueryOpen {
 			actionBar.addAction(new _Action(getLocalizedWord("Перепоручение",lang),getLocalizedWord("Перепоручение",lang),"compose_task"))
 			actionBar.addAction(new _Action(getLocalizedWord("Исполнить",lang),getLocalizedWord("Исполнить",lang),"compose_execution"))
 		}
-		if(doc.getAuthorID() == user.getUserID()){
-			actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
-		}
+		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
 		if(doc.getEditMode() == _DocumentModeType.EDIT && user.hasRole("registrator_outgoing")){
 			if(doc.getValueString("vn") != ''){
 				actionBar.addAction(new _Action(getLocalizedWord("Сохранить и закрыть",lang),getLocalizedWord("Сохранить и закрыть",lang),_ActionType.SAVE_AND_CLOSE))

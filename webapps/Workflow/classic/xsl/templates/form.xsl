@@ -389,22 +389,6 @@
 				<xsl:if test="document/fields/grantblocks">
 					<tr>
 						<td class="fc">
-							<xsl:value-of select="document/captions/initiatorofacquaint/@caption"/> :
-						</td>
-						<td>
-							<xsl:value-of select="document/fields/grantblocks/blocks/entry/grantor"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="fc">
-							<xsl:value-of select="document/captions/timeofacquaint/@caption"/> :
-						</td>
-						<td>
-							<xsl:value-of select="document/fields/grantblocks/blocks/entry/grantdate"/>
-						</td>
-					</tr>
-					<tr>
-						<td class="fc">
 							<xsl:value-of select="document/captions/infofacquaint/@caption"/> :
 						</td>
 						<td>
@@ -417,15 +401,20 @@
 										<xsl:value-of select="document/captions/timeofacquaint/@caption"/>
 									</td>
 								</tr>
-								<xsl:for-each select="document/fields/grantblocks/blocks/entry/grantusers/entry">
-									<tr>
-										<td style="width:350px; text-align:left">
-											<xsl:value-of select="."/>
-										</td>
-										<td style="width:250px; text-align:left">
-
-										</td>
+								<xsl:for-each select="document/fields/grantblocks/blocks/entry">
+									<tr style="background: #efefef">
+										<td colspan="2"><xsl:value-of select="concat(/request/document/captions/initiatorofacquaint/@caption,' : ', grantor, '&#xA0;&#xA0;&#xA0;' , /request/document/captions/timesendacquaint/@caption, ' : ', grantdate)"/></td>
 									</tr>
+									<xsl:for-each select="grantusers/entry">
+										<tr>
+											<td style="width:350px; text-align:left">
+												<xsl:value-of select="."/>
+											</td>
+											<td style="width:250px; text-align:left">
+
+											</td>
+										</tr>
+									</xsl:for-each>
 								</xsl:for-each>
 							</table>
 						</td>

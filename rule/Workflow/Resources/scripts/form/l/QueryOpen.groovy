@@ -51,9 +51,7 @@ class QueryOpen extends _FormQueryOpen {
 		if(user.hasRole("supervisor")){
 			actionBar.addAction(new _Action(_ActionType.GET_DOCUMENT_ACCESSLIST))
 		}
-		if(doc.getAuthorID() == user.getUserID()){
-			actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
-		}
+		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		publishElement(actionBar)
 		

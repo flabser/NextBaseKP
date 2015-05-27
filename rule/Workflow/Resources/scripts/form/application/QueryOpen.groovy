@@ -49,13 +49,11 @@ class QueryOpen extends _FormQueryOpen {
 		if(doc.getValueString("signer") == user.getUserID()){
 			show_compose_actions = true;
 		}
-		 if(show_compose_actions){
-			 actionBar.addAction(new _Action(getLocalizedWord("Резолюция",lang),getLocalizedWord("Резолюция",lang),"compose_task"))
-			 actionBar.addAction(new _Action(getLocalizedWord("Исполнить",lang),getLocalizedWord("Исполнить",lang),"compose_execution"))
-		 }
-		 if(doc.getAuthorID() == user.getUserID()){
-			 actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
-		 }
+		if(show_compose_actions){
+			actionBar.addAction(new _Action(getLocalizedWord("Резолюция",lang),getLocalizedWord("Резолюция",lang),"compose_task"))
+			actionBar.addAction(new _Action(getLocalizedWord("Исполнить",lang),getLocalizedWord("Исполнить",lang),"compose_execution"))
+		}
+		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		
 		publishEmployer("author",doc.getAuthorID())

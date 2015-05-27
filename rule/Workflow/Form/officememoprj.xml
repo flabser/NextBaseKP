@@ -8,7 +8,8 @@
 		<querysave source="file">form.officememoprj.QuerySave</querysave>
  		<postsave source="file">form.officememoprj.PostSave</postsave>
 	</events>
-	<caption name="timeofacquaint" source="KEYWORD">Время ознакомления</caption>
+	<caption name="timesendacquaint" source="KEYWORD">Дата отправки на ознакомление</caption>
+	<caption name="timeofacquaint" source="KEYWORD">Дата ознакомления</caption>
 	<caption name="initiatorofacquaint" source="KEYWORD">Ознакомитель</caption>
 	<caption name="infofacquaint" source="KEYWORD">Информация о ознакомлении</caption>
 	<caption name="user" source="KEYWORD">Пользователь</caption>

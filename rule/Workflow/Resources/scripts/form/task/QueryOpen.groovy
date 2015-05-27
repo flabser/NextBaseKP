@@ -105,9 +105,7 @@ class QueryOpen extends _FormQueryOpen {
 		if(doc.getEditMode() == _DocumentModeType.EDIT && (session.getGlobalSettings().edsSettings.isOn == RunMode.ON) && control.getAllControl() != 0){
 			actionBar.addAction(new _Action(getLocalizedWord("Подписать",lang),getLocalizedWord("Подписать с помощью ЭЦП",lang),_ActionType.EDS_SIGN))
 		}
-		if(doc.getAuthorID() == user.getUserID()){
-			actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
-		}
+		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
 
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		if(user.hasRole("supervisor")){

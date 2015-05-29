@@ -344,7 +344,6 @@
 <!-- 									<xsl:call-template name="newoutdocprj"/> -->
 <!-- 									<xsl:call-template name="newworkdocprj"/> -->
 									<xsl:call-template name="resetcontrol"/>
-									<xsl:call-template name="acquaint"/>
 									<xsl:call-template name="printdocument"/>
 								</xsl:if>
 								<!-- кнопка "напомнить" -->

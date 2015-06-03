@@ -71,6 +71,11 @@ class QueryOpen extends _FormQueryOpen {
 		if (doc.getField("vid")) {
 			publishGlossaryValue("vid",doc.getValueGlossary("vid"))
 		}
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
+
 		publishValue("din",doc.getValueString("din"))
 		if (doc.getField("corr")) {
 			publishGlossaryValue("corr",doc.getValueGlossary("corr"))

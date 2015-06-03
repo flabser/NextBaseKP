@@ -55,7 +55,11 @@ class QueryOpen extends _FormQueryOpen {
 		 }
 		 actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
-		
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
+
 		publishEmployer("author",doc.getAuthorID())
 		publishEmployer("signer",doc.getValueString("signer"))
 		/*publishValue("recipient",doc.getValueObject("recipient"))*/

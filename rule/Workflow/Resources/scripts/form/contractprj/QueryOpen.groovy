@@ -111,6 +111,11 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("corrstring",doc.getValueString("corrstring"))
 		publishValue("coordination", blockCollection)
 		publishEmployer("contractexec", doc.getValueList("contractexec"))
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
+
 		if (doc.getField("contractor")) {
 			publishGlossaryValue("contractor",doc.getValueGlossary("contractor"))
 		}

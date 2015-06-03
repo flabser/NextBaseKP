@@ -108,8 +108,12 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("briefcontent",doc.getValueString("briefcontent"))
 		publishValue("contentsource",doc.getValueString("contentsource"))
 		publishValue("coordination", blockCollection)
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
 
-        try{
+		try{
             def workdoclink  = (_CrossLink)doc.getValueObject("link")
             publishValue("link", workdoclink)
         }catch(Exception e){}

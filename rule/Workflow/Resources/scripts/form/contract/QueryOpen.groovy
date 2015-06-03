@@ -74,6 +74,11 @@ class QueryOpen extends _FormQueryOpen {
 		if (doc.getField("initdivision") != null) {
 			publishDepartment("initdivision", doc.getValueString("initdivision") as int)
 		}
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
+
 		if (doc.getField("contracttype")) {
 			publishGlossaryValue("contracttype",doc.getValueGlossary("contracttype"))
 		}

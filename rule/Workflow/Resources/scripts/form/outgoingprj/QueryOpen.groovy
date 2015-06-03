@@ -105,6 +105,10 @@ class QueryOpen extends _FormQueryOpen {
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		publishElement(actionBar)
 
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
 
 		publishValue("title",getLocalizedWord("Проект исходящего документа", lang) + " ")
 		publishEmployer("author",doc.getAuthorID())

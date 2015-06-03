@@ -66,6 +66,10 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("contentsource",_Helper.getNormalizedRichText(doc.getValueString("contentsource")))
 		def link  = (_CrossLink)doc.getValueObject("link")
 		publishValue("link", link)
+		def grant_story = doc.getValueObject("grantblocks")
+		if (grant_story) {
+			publishValue("grantblocks", grant_story)
+		}
 
 		try{
 			publishAttachment("rtfcontent","rtfcontent")

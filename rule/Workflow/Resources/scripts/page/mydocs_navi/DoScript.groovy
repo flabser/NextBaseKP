@@ -2,6 +2,7 @@ package page.mydocs_navi
 import kz.nextbase.script._Session
 import kz.nextbase.script._WebFormData
 import kz.nextbase.script.constants._QueryMacroType
+import kz.nextbase.script.constants._ReadConditionType
 import kz.nextbase.script.events._DoScript
 import kz.nextbase.script.outline._Outline
 import kz.nextbase.script.outline._OutlineEntry
@@ -68,7 +69,7 @@ class DoScript extends _DoScript {
 		outline.addEntry(e10)
 
 		def e11 = new _OutlineEntry(getLocalizedWord("Мне на ознакомление",lang), getLocalizedWord("Мне на ознакомление",lang), "mywaitforacquaint", "Provider?type=page&id=mywaitforacquaint&page=0")
-		def col11 = db.getCollectionOfDocuments("grantusers ~ '" + session.getCurrentUserID() + "'", false)
+		def col11 = db.getCollectionOfDocuments("grantusers ~ '" + session.getCurrentUserID() + "'", 0, false, false, false, _ReadConditionType.ONLY_UNREAD)
 		e11.setValue(col11.getCount())
 		outline.addEntry(e11)
 

@@ -374,12 +374,12 @@
 						<script type="text/javascript">
 							usersWhichReadInTable(this,<xsl:value-of select="document/@doctype"/>,<xsl:value-of select="document/@docid"/>)
 						</script>
-						<table class="table-border-gray" id="userswhichreadtbl" style="width:70%">
+						<table class="table-border-gray" id="userswhichreadtbl">
 							<tr style="height:40px; font-weight:bold">
-								<td style="width:350px; text-align:center">
+								<td style="width:500px; text-align:center">
 									<xsl:value-of select="document/captions/whomread/@caption"/>
 								</td>
-								<td style="width:250px; text-align:center">
+								<td style="width:200px; text-align:center">
 									<xsl:value-of select="document/captions/timeofreading/@caption"/>
 								</td>
 							</tr>
@@ -388,29 +388,29 @@
 				</tr>
 				<xsl:if test="document/fields/grantblocks">
 					<tr>
-						<td class="fc">
+						<td class="fc" style="padding-top:20px">
 							<xsl:value-of select="document/captions/infofacquaint/@caption"/> :
 						</td>
-						<td>
-							<table class="table-border-gray" id="usersacquainttbl" style="width:70%">
+						<td style="padding-top:20px">
+							<table class="table-border-gray" id="usersacquainttbl">
 								<tr style="height:40px; font-weight:bold">
-									<td style="width:350px; text-align:center">
+									<td style="width:500px; text-align:center">
 										<xsl:value-of select="document/captions/user/@caption"/>
 									</td>
-									<td style="width:250px; text-align:center">
+									<td style="width:200px; text-align:center">
 										<xsl:value-of select="document/captions/timeofacquaint/@caption"/>
 									</td>
 								</tr>
 								<xsl:for-each select="document/fields/grantblocks/blocks/entry">
 									<tr style="background: #efefef">
-										<td colspan="2"><xsl:value-of select="concat(/request/document/captions/initiatorofacquaint/@caption,' : ', grantor, '&#xA0;&#xA0;&#xA0;' , /request/document/captions/timesendacquaint/@caption, ' : ', grantdate)"/></td>
+										<td colspan="2"><xsl:value-of select="concat(/request/document/captions/initiatorofacquaint/@caption,' : ',  grantdate ,'&#xA0;&#xA0;', grantor)"/></td>
 									</tr>
 									<xsl:for-each select="grantusers/entry">
 										<tr>
-											<td style="width:350px; text-align:left">
+											<td style="width:500px; text-align:left">
 												<xsl:value-of select="."/>
 											</td>
-											<td style="width:250px; text-align:left">
+											<td style="width:200px; text-align:left">
 
 											</td>
 										</tr>

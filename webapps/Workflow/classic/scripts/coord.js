@@ -209,17 +209,17 @@ function FormData(field, value){
 function addComment(action){
 	enableblockform()
 	divhtml ="<div id='dialog-message-comment' title='"+commentcaption+"'>";
-	/*divhtml +="<div id='decision-tabs'><ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>" +
+	divhtml +="<div id='decision-tabs'><ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>" +
 					"<li class='ui-state-default ui-corner-top'>" +
 						"<a href='#tabs-comment'>Комментарий</a>" +
 					"</li>" +
 					"<li class='ui-state-default ui-corner-top'>" +
 						"<a href='#tabs-attach'>Вложение</a>" +
 					"</li>" +
-				"</ul>";*/
-	//divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/></div>";
-	divhtml +="<textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/>";
-	/*divhtml +="<div class='ui-tabs-panel' id='tabs-attach' style='height:205px'>" +
+				"</ul>";
+	divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/></div>";
+	//divhtml +="<textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/>";
+	divhtml +="<div class='ui-tabs-panel' id='tabs-attach' style='height:205px'>" +
 					"<form action='Uploader' name='decision_comment_upload' id='decision_comment_upload' method='post' enctype='multipart/form-data' style='min-width:100px'>"+
 					"<input type='hidden' name='type' value='rtfcontent'/>"+
 					"<input type='hidden' name='formsesid' value='"+$("input[name=formsesid]").val()+"'/>"+
@@ -228,7 +228,7 @@ function addComment(action){
 					"<style>.ui-progressbar .ui-progressbar-value { background-image: url(/SharedResources/jquery/css/base/images/pbar-ani.gif); }</style>"+
 					"<table id='decision_comment_upltable' style='margin-top:5px'></table>"+
 					"</div></form>" +
-				"</div></div>"*/
+				"</div></div>"
 	divhtml+="</div>";
 	
 	$("body").append(divhtml);
@@ -374,8 +374,7 @@ function decision(yesno, key, action){
 /* Отправка динамической формы на сервер*/
 function submitFormDecision(useraction){
 	enableblockform()
-	data = $("#dynamicform").serialize();
-	data += $("#decision_comment_upload").serialize();
+	data = $("#dynamicform, #decision_comment_upload").serialize();
 	$.ajax({
 		type: "POST",
 		url: "Provider",

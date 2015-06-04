@@ -178,7 +178,7 @@
 	<caption name="timesendacquaint" source="KEYWORD">Дата отправки на ознакомление</caption>
 	<caption name="timeofacquaint" source="KEYWORD">Дата ознакомления</caption>
 	<caption name="initiatorofacquaint" source="KEYWORD">Ознакомитель</caption>
-	<caption name="infofacquaint" source="KEYWORD">Информация о ознакомлении</caption>
+	<caption name="infofacquaint" source="KEYWORD">информация об ознакомлении</caption>
 	<caption name="user" source="KEYWORD">Пользователь</caption>
 	<caption name="close" source="KEYWORD">Закрыть</caption>
 	<caption name="properties" source="KEYWORD">Свойства</caption>

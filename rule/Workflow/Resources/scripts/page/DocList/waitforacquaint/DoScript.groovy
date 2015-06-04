@@ -1,11 +1,9 @@
 package page.DocList.waitforacquaint
-
 import kz.nextbase.script._Session
 import kz.nextbase.script._WebFormData
+import kz.nextbase.script.constants._ReadConditionType
 import kz.nextbase.script.events._DoScript
 import nextbase.groovy.*
-
-import java.text.SimpleDateFormat
 
 class DoScript extends _DoScript {
 	
@@ -20,7 +18,7 @@ class DoScript extends _DoScript {
 		
 		def formula = "grantor = '" + session.getCurrentUserID() + "'";
 		def db = session.getCurrentDatabase()
-		def col = db.getCollectionOfDocuments(formula, page, true, true, new SimpleDateFormat("dd.MM.yyyy"))
+		def col = db.getCollectionOfDocuments(formula, page, true, true, false, _ReadConditionType.ONLY_UNREAD, "grantusers")
 		setContent(col)
 	}
 }

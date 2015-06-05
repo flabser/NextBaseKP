@@ -308,7 +308,7 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template name="docInfo">
+	<xsl:template name="authorInfo">
 		<span style="float:right; font-size:11px"> 
 			<b><xsl:value-of select="document/captions/author/@caption"/></b>: 
 			<font style="font-weight:normal;"><xsl:value-of select="document/fields/author"/></font>

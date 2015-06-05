@@ -139,7 +139,7 @@
 										<li class="ui-state-default ui-corner-top">
 											<a href="#tabs-4"><xsl:value-of select="document/captions/additional/@caption"/></a>
 										</li>
-										<xsl:call-template name="docInfo"/>
+										<xsl:call-template name="authorInfo"/>
 									</ul>
 									<form action="Provider" name="frm" method="post" id="frm" enctype="application/x-www-form-urlencoded">
 										<div class="ui-tabs-panel" id="tabs-1">

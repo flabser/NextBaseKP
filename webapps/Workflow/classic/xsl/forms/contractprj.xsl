@@ -398,10 +398,9 @@
 													<xsl:value-of select="document/captions/contractexec/@caption"/> :
 												</font>
 												<xsl:if test="$editmode = 'edit'">
-													<a href="">
-														<xsl:attribute name="href">javascript:dialogBoxStructure('bossandemppicklist','false','contractexec','frm', 'contractexectbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
+													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
+														<xsl:attribute name="onclick">javascript:dialogBoxStructure('bossandemppicklist','false','contractexec','frm', 'contractexectbl');</xsl:attribute>
+													</img>
 												</xsl:if>
 											</td>
 											<td>
@@ -451,10 +450,9 @@
 													<xsl:value-of select="$captions/signer/@caption"/> :
 												</font>
 												<xsl:if test="$editmode = 'edit'">
-													<a>
-														<xsl:attribute name="href">javascript:dialogBoxStructure('workdocsigners','false','signer','frm', 'signertbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
+													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
+														<xsl:attribute name="onclick">javascript:dialogBoxStructure('workdocsigners','false','signer','frm', 'signertbl');</xsl:attribute>
+													</img>
 												</xsl:if>
 											</td>
 											<td>

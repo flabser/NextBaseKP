@@ -626,35 +626,15 @@
 					<xsl:variable name="extension" select="tokenize(lower-case($filename), '\.')[last()]"/>
 					<xsl:variable name="resolution"/>
 					<xsl:attribute name='id' select="$id"/>
-					<td>
+					<td style="border:0 !important;">
 						<div class="test" style="width:90%; overflow:hidden; display:inline-block">
-							<xsl:choose>
-								<xsl:when test="$extension = 'jpg1' or $extension = 'jpeg1' or $extension = 'gif1' or $extension = 'bmp1' or $extension = 'png1'">
-									<img class="imgAtt" title="{$filename}" style="border:1px solid lightgray; max-width:800px; max-height:600px; margin-bottom:5px">
-										<xsl:attribute name="onload">checkImage(this)</xsl:attribute>
-										<xsl:attribute name='src'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/></xsl:attribute>
-									</img>
-									<xsl:if test="$editmode = 'edit'">
-										<xsl:if test="comment =''">
-											<a href='' style="vertical-align:top;" title='комментарий'>
-												<xsl:attribute name='href'>javascript:addCommentToAttach('<xsl:value-of select="$id"/>')</xsl:attribute>
-												<img id="commentaddimg{$id}" src="/SharedResources/img/classic/icons/comment_add.png" style="width:16px; height:16px" >
-													<xsl:attribute name="title" select="//document/captions/add_comment/@caption"/>
-												</img>
-											</a>
-										</xsl:if>
-									</xsl:if>
-								</xsl:when>
-								<xsl:otherwise>
-									<img src="/SharedResources/img/iconset/file_extension_{$extension}.png" style="margin-right:5px">
-										<xsl:attribute name="onerror">javascript:changeAttIcon(this)</xsl:attribute>
-									</img>
-									<a style="vertical-align:5px">
-										<xsl:attribute name='href'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/>	</xsl:attribute>
-										<xsl:value-of select='replace(replace($filename,"%2b","+"),"%25","%")'/>
-									</a>&#xA0;&#xA0;
-								</xsl:otherwise>
-							</xsl:choose>
+							<img src="/SharedResources/img/iconset/file_extension_{$extension}.png" style="margin-right:5px">
+								<xsl:attribute name="onerror">javascript:changeAttIcon(this)</xsl:attribute>
+							</img>
+							<a style="vertical-align:5px">
+								<xsl:attribute name='href'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/>	</xsl:attribute>
+								<xsl:value-of select='replace(replace($filename,"%2b","+"),"%25","%")'/>
+							</a>&#xA0;&#xA0;
 						</div>
 					</td>
 				</tr>

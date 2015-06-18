@@ -632,7 +632,7 @@
 								<xsl:when test="$extension = 'jpg1' or $extension = 'jpeg1' or $extension = 'gif1' or $extension = 'bmp1' or $extension = 'png1'">
 									<img class="imgAtt" title="{$filename}" style="border:1px solid lightgray; max-width:800px; max-height:600px; margin-bottom:5px">
 										<xsl:attribute name="onload">checkImage(this)</xsl:attribute>
-										<xsl:attribute name='src'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=<xsl:value-of select="$doctype"/>&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/></xsl:attribute>
+										<xsl:attribute name='src'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/></xsl:attribute>
 									</img>
 									<xsl:if test="$editmode = 'edit'">
 										<xsl:if test="comment =''">

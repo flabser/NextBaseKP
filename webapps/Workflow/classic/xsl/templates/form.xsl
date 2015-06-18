@@ -643,12 +643,6 @@
 												</img>
 											</a>
 										</xsl:if>
-										<a href='' style="vertical-align:top; margin-left:8px">
-											<xsl:attribute name='href'>javascript:deleterow('<xsl:value-of select="$formsesid"/>','<xsl:value-of select='$filename'/>','<xsl:value-of select="$id" />')</xsl:attribute>
-											<img src="/SharedResources/img/iconset/cross.png" style="width:13px; height:13px">
-												<xsl:attribute name="title" select="//document/captions/delete_file/@caption"/>
-											</img>
-										</a>
 									</xsl:if>
 								</xsl:when>
 								<xsl:otherwise>
@@ -656,7 +650,7 @@
 										<xsl:attribute name="onerror">javascript:changeAttIcon(this)</xsl:attribute>
 									</img>
 									<a style="vertical-align:5px">
-										<xsl:attribute name='href'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=<xsl:value-of select="$doctype"/>&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/>	</xsl:attribute>
+										<xsl:attribute name='href'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/>	</xsl:attribute>
 										<xsl:value-of select='replace(replace($filename,"%2b","+"),"%25","%")'/>
 									</a>&#xA0;&#xA0;
 								</xsl:otherwise>

@@ -459,6 +459,7 @@
 			                                                                                 комментарий: <xsl:value-of select="comment"/>
 																						</xsl:when>
 																					</xsl:choose>
+																					<xsl:call-template name="coord_comment_attach"/>
 																				</div>
 																			</div>
 																		</td>

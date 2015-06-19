@@ -569,6 +569,7 @@
                                                                                     <xsl:value-of select="$captions/comment/@caption"/>: <xsl:value-of select="comment"/>
                                                                                 </xsl:when>
                                                                             </xsl:choose>
+                                                                            <xsl:call-template name="coord_comment_attach"/>
                                                                         </div>
                                                                         <!-- <div class='coord_comment_action'>
                                                                             <a href='#' class='close doclink'>Скрыть</a><a href='#' class='open doclink'>Показать все</a>

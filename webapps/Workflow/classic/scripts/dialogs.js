@@ -27,14 +27,14 @@ function toggleOrgTreeStructure(elid){
 
 function toggleDepTreeStructure(countEl, action, dociddoctype){
 	if (action == 'close'){
-		el = $("#"+dociddoctype)
+		el = $("#"+dociddoctype);
 		for (var i = 0; i < countEl ; i++){
 			el = $(el).next("div['display' = 'block']").css("display","none")
 		}
 		$("#treedep"+dociddoctype).attr("href","javascript:toggleDepTreeStructure("+countEl+",'open',"+ dociddoctype +")")
 		$("#treedepimg"+dociddoctype).attr("src","/SharedResources/img/classic/1/plus.png")
 	}else{
-		el = $("#"+dociddoctype)
+		el = $("#"+dociddoctype);
 		for (var i = 0; i < countEl ; i++ ){
 			el = $(el).next("div['display' = 'none']").css("display","block")
 		}
@@ -53,7 +53,7 @@ function checkallOrg(el, tableid){
 }
 
 function checkDepInp(el, countEl){
-	elem = $(el).parent("div").next("div")
+	elem = $(el).parent("div").next("div");
 	for (var i = 0; i < countEl ; i++ ){
 		el.checked ? $(elem).children("input[type=checkbox]").attr("checked","true") : $(elem).children("input[type=checkbox]").removeAttr("checked");
 		if(queryOpt.fieldname == "executor"){
@@ -93,8 +93,8 @@ function pickListSingleOk(docid){
 	}else{
 		if(queryOpt.fieldname == 'extexecutor'){
 			$("#intexectable tr.EXTERNAL").remove();
-			ddbid=$("#"+docid).attr("ddbid")
-			extexecval='2`'+ddbid+'`1``'
+			ddbid=$("#"+docid).attr("ddbid");
+			extexecval='2`'+ddbid+'`1``';
 			$('#intexectable').append("<tr class='EXTERNAL'>" +
 				"<td>"+text+"<input  type='hidden' class='idContrExec' value='"+docid+"'/><input type='hidden' class='controlres' name='extexecutor' value='"+ extexecval +"'/><input type='hidden' class='responsible' value='1'/></td>" +
 				"<td class='controlOffDate'/>" +
@@ -122,7 +122,7 @@ function pickListSingleOk(docid){
 	 }else{
 		 newTable="<table id="+ queryOpt.tablename +"><tr><td style='width:600px;' class='td_editable'>"+ text +"</td></tr></table>"
 	 }
-	$("#"+ queryOpt.tablename).replaceWith(newTable)
+	$("#"+ queryOpt.tablename).replaceWith(newTable);
 	pickListClose(); 
 }
 
@@ -252,8 +252,8 @@ function centring(id,wh,ww){
 		winW=$('#'+id).width(),
 		scrollA=$("body").scrollTop(), 
 		scrollB=$("body").scrollLeft();
-	htop=scrollA+((h/2)-(winH/2))
-	hleft=scrollB+((w/2)-(winW/2))
+	htop=scrollA+((h/2)-(winH/2));
+	hleft=scrollB+((w/2)-(winW/2));
 	$('#'+id).css({"top":htop, "left":hleft}) ;
 }
 
@@ -288,9 +288,9 @@ var elementCoord;
 function addCoordinator(docid,el){
 	//docid - userID  выбранного корреспондента
 	// el - строка таблицы с выбранным корреспондентом
-	cwb=$(".coordinatorsWithBlock")
+	cwb=$(".coordinatorsWithBlock");
 	signer=$("#signer").val(); 
-	recipient=$("#recipient").val()
+	recipient=$("#recipient").val();
 	if($("."+docid).val()!= null){
 		text=alreadychosen;
 		infoDialog(text);
@@ -311,7 +311,7 @@ function removeCoordinator(docid,el){
 }
 
 /*выделение и снятие выделения корреспондента в таблице одинарным щелчком мыши */
-var prevSelectItem=null
+var prevSelectItem=null;
 
 function selectItem (el){
 	elementCoord=el;
@@ -330,12 +330,12 @@ function plusCoordinator(){
 		infoDialog("Вы не выбрали участника согласования для добавления");
 	}
 	if($("."+userID).val() != null){
-		infoDialog(alreadychosen)
+		infoDialog(alreadychosen);
 		isWithBlock="true"
 	}
 	if (isWithBlock=="false"){
 		signer=$("#signer").val(); 
-		recipient=$("#recipient").val()
+		recipient=$("#recipient").val();
 		if (userID == signer){
 			infoDialog(issignerofsz);
 		}else{
@@ -383,7 +383,7 @@ function disableblockform(){
 }
 
 function dialogBoxStructure(query,isMultiValue, field, form, table) {
-	enableblockform()
+	enableblockform();
 	queryOpt.fieldname = field;
 	queryOpt.formname = form;
 	queryOpt.isMultiValue = isMultiValue;
@@ -401,12 +401,12 @@ function dialogBoxStructure(query,isMultiValue, field, form, table) {
 	divhtml += "<button onclick='pickListClose()'><font class='button_text'>"+cancelcaption+"</font></button>";    
 	divhtml += "</div><div id='executorsColl' display='none'/></div>";
 	$("body").append(divhtml);
-	$("#picklist #btnpane").children("button").button()
+	$("#picklist #btnpane").children("button").button();
 	$("#picklist").draggable({handle:"div.header"});
 	centring('picklist',500,500);
 	$("#picklist").focus().css('display', "none");
 	$("#headertext").text($("#"+field+"caption").val());
-	$("body").css("cursor","wait")
+	$("body").css("cursor","wait");
 	reqType='view';
 	if(query=='corrcat'){
 		reqType='page';
@@ -426,7 +426,7 @@ function dialogBoxStructure(query,isMultiValue, field, form, table) {
 			}else{
 				if(isMultiValue=="false"){
 					elem=$(data);
-					$(elem).find("input[type=checkbox]").attr("type","radio")
+					$(elem).find("input[type=checkbox]").attr("type","radio");
 					data = elem;
 				}
 				$("#contentpane").html(data);
@@ -453,14 +453,14 @@ function dialogBoxStructure(query,isMultiValue, field, form, table) {
 					$("#divSearch").append(searchTbl);
 				}
 				$('#picklist').fn_disableSelection();
-				$('#blockWindow').css("display","block")
+				$('#blockWindow').css("display","block");
 				$('#picklist').css("display","inline-block").focus();
 			}
 		},
 		error:function (xhr, ajaxOptions, thrownError){
             if (xhr.status == 400){
-         	  $("body").children().wrapAll("<div id='doerrorcontent' style='display:none'/>")
-         	  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>")
+         	  $("body").children().wrapAll("<div id='doerrorcontent' style='display:none'/>");
+         	  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>");
          	  $("li[type='square'] > a").attr("href","javascript:backtocontent()")
             }
          }  
@@ -498,7 +498,7 @@ jQuery.fn.extend({
 /* функция поиска корреспондентов в форме 'Новое согласование'*/
 function findCorCoord(){
 	var value=$('#searchCor').val(),
-		len=value.length
+		len=value.length;
 	if (len > 0){
 		$("#picklistCoorder div[name=itemStruct]").css("display","none");
 		$("#contentdiv").find("div[name=itemStruct]").each(function(){
@@ -514,7 +514,7 @@ function findCorCoord(){
 /* функция поиска в структуре*/
 function findCorStructure(){
 	var value=$('#searchCor').val(),
-		len=value.length
+		len=value.length;
 	if (len > 0){
 		$("div[name=itemStruct]").css("display","none");
 		$("#contentpane").find("div[name=itemStruct]").each(function(){
@@ -611,8 +611,8 @@ function changeViewStructure (viewType){
 		},
 		error:function (xhr, ajaxOptions, thrownError){
 			if (xhr.status == 400){
-				$("body").children().wrapAll("<div id='doerrorcontent' style='display:none'/>")
-				$("body").append("<div id='errordata'>"+xhr.responseText+"</div>")
+				$("body").children().wrapAll("<div id='doerrorcontent' style='display:none'/>");
+				$("body").append("<div id='errordata'>"+xhr.responseText+"</div>");
 				$("li[type='square'] > a").attr("href","javascript:backtocontent()")
 			}
 		}  
@@ -636,8 +636,8 @@ function ajaxFind(){
 		},
 		error:function (xhr, ajaxOptions, thrownError){
             if (xhr.status == 400){
-         	  $("body").children().wrapAll("<div id='doerrorcontent' style='display:none'></div>")
-         	  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>")
+         	  $("body").children().wrapAll("<div id='doerrorcontent' style='display:none'></div>");
+         	  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>");
          	  $("li[type='square'] > a").attr("href","javascript:backtocontent()")
             }
          }    
@@ -686,7 +686,7 @@ function expandChapterCorr(docid,num,url,doctype, page){
 		url:url+"&page="+queryOpt.pagenum,
 		dataType:'html',
 		success: function(data) {
-			$("#contentpane").html(data)
+			$("#contentpane").html(data);
 			$("#img"+complexid).attr("src","/SharedResources/img/classic/1/minus.png");
 			$("#a"+complexid).attr("href","javascript:collapsChapterCorr('"+docid+"','"+num+"','"+ url+"','"+doctype+"','"+page+"')");
 		}
@@ -701,7 +701,7 @@ function collapsChapterCorr(docid,num,url,doctype, page) {
 		url:"Provider?type=view&id=corrcat&command=collaps`"+docid+"&page="+ queryOpt.pagenum ,
 		dataType:'html',
 		success: function(data){
-			$("#contentpane").html(data)
+			$("#contentpane").html(data);
 			$("#img"+complexid).attr("src","/SharedResources/img/classic/1/plus.png");
 			$("#a"+complexid).attr("href","javascript:expandChapterCorr('"+docid+"','"+num+"','"+ url+"','"+doctype+"','"+page+"')");
 		}
@@ -716,7 +716,7 @@ function openListRespDoc(docid,doctype,num,page) {
 		success: function(xml){
 			level=parseInt($(".tblCorr"+complexid).attr('level'));
 			newlevel=level+1;
-			$("<table style='border-collapse:collapse; width:100%' id='respList"+complexid+"'/>").insertAfter(".tblCorr"+complexid)
+			$("<table style='border-collapse:collapse; width:100%' id='respList"+complexid+"'/>").insertAfter(".tblCorr"+complexid);
 			table=$("#respList"+complexid);
 			i=1;
 			$(xml).find("entry[docid][doctype]").each(function(indx, element){
@@ -724,7 +724,7 @@ function openListRespDoc(docid,doctype,num,page) {
 					__doctype=$(this).attr("doctype"),
 					__complexid=__docid+__doctype,
 					__ddbid=$(this).attr("id"),
-					iconresponse='<img src="/SharedResources/img/classic/tree_spacer.gif"/>'
+					iconresponse='<img src="/SharedResources/img/classic/tree_spacer.gif"/>';
 				if($(this).attr("hasresponse") != '0'){
 					iconresponse="<a style='margin-right:3px' id='a"+__complexid+"' href='javascript:openListRespDoc("+$(this).attr("docid")+","+$(this).attr("doctype")+", i, 1)'><img border='0' src='/SharedResources/img/classic/1/plus.png' id='img"+__complexid+"'/></a>"
 				}
@@ -733,8 +733,8 @@ function openListRespDoc(docid,doctype,num,page) {
 				newcontent="<tr><td><table style='border-collapse:collapse; width:100%; text-align:left; cursor:pointer' level='"+newlevel+"' class='tblCorr"+__complexid+"'>" +
 					"<tr onmouseover='javascript:entryOver(this)' onmouseout='javascript:entryOut(this)'>" +
 					"<td ondblclick='javascript:pickListSingleOk("+__docid+")'>"+iconresponse+"<input type='checkbox' name='chbox' ddbid='"+__ddbid+"' value="+viewtext1+" id='"+$(this).attr("docid")+"'/>"+ corrname +"</td></tr></table></td></tr>"
-				$(table).append(newcontent)
-				$(".tblCorr"+__complexid).css("margin-left",level*20+"px")
+				$(table).append(newcontent);
+				$(".tblCorr"+__complexid).css("margin-left",level*20+"px");
 				i++;
 			})
 		}

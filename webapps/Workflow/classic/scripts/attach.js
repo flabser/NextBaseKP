@@ -1,5 +1,5 @@
 /* author John - Lab of the future */
-var req
+var req;
 function dragAndDropAttach(){
 	jQuery.event.props.push('dataTransfer');
 	var data = {

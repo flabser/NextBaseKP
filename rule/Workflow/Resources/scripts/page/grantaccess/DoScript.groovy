@@ -39,7 +39,8 @@ class DoScript extends _DoScript {
             if (doc.parentDocID != 0 && doc.parentDocType != _DocumentType.UNKNOWN) {
                 mdoc = doc.getGrandParentDocument()
                 if (mdoc) {
-                    mdoc.addReaders(recipients)
+                    mdoc.addReaders(recipients as ArrayList<String>)
+                   // mdoc.addReaders(recipients)
                     mdoc.save("[supervisor]")
                 }
             } else {

@@ -8,7 +8,7 @@
 	<xsl:template match="/request[@id !='signers'][@id !='workdocsigners'][@id!='admdepemployers'][@id!='coordinatorsworkdocdept']/query/entry/responses">
 		<xsl:for-each select="descendant::entry">
 			<xsl:sort select="@viewtext"/>
-			<xsl:if test="@doctype = 889">
+			<xsl:if test="@doctype = 889 and viewtext2 != '-1'">
 				<div style="cursor:pointer; text-align:left" name="itemStruct">
 						<xsl:if test="userid != ''">
 							<xsl:attribute name="onmouseover">javascript:entryOver(this)</xsl:attribute>
@@ -37,7 +37,7 @@
 			<xsl:if test="../@id = 'workdocsigners'">
 				<xsl:for-each select="descendant::entry">
 					<xsl:sort select="viewcontent/viewtext1"/>
-					<xsl:if test="@doctype = 889">
+					<xsl:if test="@doctype = 889  and viewtext2 != '-1'">
 						<div style="display:block; width:100%; cursor:pointer; text-align:left" name="itemStruct">
 							<xsl:if test="userid !=''">
 								<xsl:attribute name="onmouseover">javascript:entryOver(this)</xsl:attribute>
@@ -67,7 +67,7 @@
 			<xsl:if test="../@id = 'coordinatorsworkdocdept'">
 				<xsl:for-each select="descendant::entry">
 					<xsl:sort select="viewcontent/viewtext1"/>
-					<xsl:if test="@doctype = 889">
+					<xsl:if test="@doctype = 889  and viewcontent/viewtext2 != '-1'">
 						<div style="display:block; width:100%; cursor:pointer; text-align:left" name="itemStruct">
 							<xsl:if test="userid !=''">
 								<xsl:attribute name="onmouseover">javascript:entryOver(this)</xsl:attribute>
@@ -97,7 +97,7 @@
 			<xsl:if test="../@id = 'signers'">
 				<xsl:for-each select="descendant::entry">
 					<xsl:sort select="viewcontent/viewtext1"/>
-					<xsl:if test="@doctype = 889">
+					<xsl:if test="@doctype = 889  and viewtext2 != '-1'">
 						<div style="display:block; width:100%; cursor:pointer; text-align:left" name="itemStruct">
 							<xsl:if test="userid !=''">
 								<xsl:attribute name="onmouseover">javascript:entryOver(this)</xsl:attribute>
@@ -126,7 +126,7 @@
 		<xsl:template match="/request[@id='admdepemployers']/query">
             <xsl:for-each select="descendant::entry[ancestor-or-self::entry/@viewtext='Административно-правовой департамент']">
             <xsl:sort select="@viewtext"/>
-                <xsl:if test="@doctype = 889">
+                <xsl:if test="@doctype = 889  and viewtext2 != '-1'">
                     <div style="cursor:pointer; text-align:left" name="itemStruct">
                         <xsl:if test="userid != ''">
                             <xsl:attribute name="onmouseover">javascript:entryOver(this)</xsl:attribute>

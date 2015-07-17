@@ -86,13 +86,13 @@ function addCoord(){
 				"<td></td>" +
 			"</tr>" +
 		"</table>" +
-		"<table width='98%' height='65%' style='margin-top:1%'><tr><td width='45%'>" +
+		"<table style='margin-top:1%; height:65%; width:98%'><tr><td width='45%'>" +
 			"<div id='contentdiv' style='overflow:auto; border:1px solid #d3d3d3; width:100%; display:inline-block; height:305px;'>" +
 			"</div></td>" +
 			"<td width='4%'><div style='display:inline-block; height:100%;'>" +
 				"<table style='font-size:2em; position:relative; top:35%; left:5%'>" +
-					"<tr><td><img style='cursor:pointer' onclick='javascript:plusCoordinator()'src='/SharedResources/img/classic/arrow_right.gif'/><td></tr>" +
-				"<tr><td><img style='cursor:pointer' onclick='javascript:minusCoordinator()' src='/SharedResources/img/classic/arrow_left.gif'/><td></tr>" +
+					"<tr><td><img style='cursor:pointer' onclick='plusCoordinator()' src='/SharedResources/img/classic/arrow_right.gif'/><td></tr>" +
+				"<tr><td><img style='cursor:pointer' onclick='minusCoordinator()' src='/SharedResources/img/classic/arrow_left.gif'/><td></tr>" +
 				"</table>" +
 		"</div></td>"+
 			"<td width='45%'><div id='coorderToBlock' style='overflow:auto; border:1px solid #d3d3d3; width:100%; height:305px; display:inline-block;'>" +
@@ -108,7 +108,11 @@ function addCoord(){
 	"</div>";
 	$("body").append(divhtml);
 	$("#coordParam #btnpane span").children("button").button();
-	picklistCoordinators()
+	if($("input[name=id]").val() == "officememoprjdept"){
+		picklistCoordinatorsWorkdocDept();
+	}else{
+		picklistCoordinators();
+	}
 	$("#coordParam").draggable({handle:"div.headerBoxCoord"});
 	centring('coordParam',500,650); // (id окна, высота окна, ширина окна)
 }
@@ -216,7 +220,7 @@ function addComment(action){
 						"<a href='#tabs-attach'>Вложение</a>" +
 					"</li>" +
 				"</ul>";
-	divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/></div>";
+	divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='maxCountSymbols(this, 1024, event, true)'/></div>";
 	//divhtml +="<textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/>";
 	divhtml +="<div class='ui-tabs-panel' id='tabs-attach' style='height:205px'>" +
 					"<form action='Uploader' name='decision_comment_upload' id='decision_comment_upload' method='post' enctype='multipart/form-data' style='min-width:100px'>"+
@@ -308,7 +312,7 @@ function stopdocument(docid){
 			text: create_new_version,
 			click: function(){ 
 				$(this).dialog("close").remove();
-				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 				$("body").append(form);
 				actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 				new FormData('actionDate',actionTime);
@@ -323,9 +327,9 @@ function stopdocument(docid){
 			text: stop_coord,
 			click: function(){ 
 				$(this).dialog("close").remove();
-				hotkeysnav() 
+				hotkeysnav();
 				$("#dialog-message").dialog("close").remove();
-				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 				$("body").append(form);
 				actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 				new FormData('actionDate',actionTime);
@@ -349,7 +353,7 @@ function stopdocument(docid){
 
 /* обработка действий пользователя при согласовании и подписании. Кнопки "Согласен" и "Не согласен" */
 function decision(yesno, key, action){
-	form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+	form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 	$("body").append(form);
 	actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 	new FormData('actionDate',actionTime);
@@ -421,7 +425,7 @@ function submitFormDecision(useraction){
 					disableblockform();
 					$(document).unbind("keydown");
 					divhtml ="<div id='dialog-message' title='Предупреждение'>";
-					divhtml+="<div style='height:40px; width:100%; text-align:center; padding-top:25px; font-size:13px'>Напоминание отправлено</div></div>"
+					divhtml+="<div style='height:40px; width:100%; text-align:center; padding-top:25px; font-size:13px'>Напоминание отправлено</div></div>";
 					$("body").append(divhtml);
 					$("#dialog-message").dialog({
 						modal: true,

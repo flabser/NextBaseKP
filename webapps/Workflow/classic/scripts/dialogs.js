@@ -282,6 +282,20 @@ function picklistCoordinators(){
 	});
 }
 
+function picklistCoordinatorsWorkdocDept(){
+	$.ajax({
+		type: "get",
+		url: 'Provider?type=view&id=coordinatorsworkdocdept',
+		success:function (data){
+			if(data.match("html")){
+				window.location="Provider?type=static&id=start&autologin=0"
+			}
+			$("#contentdiv").html(data);
+			$('#searchCor').focus();
+		}
+	});
+}
+
 var elementCoord;
 
 /*По просьбе КП убрал проверку на дуюлирование в согласователях подписантах и получателях*/

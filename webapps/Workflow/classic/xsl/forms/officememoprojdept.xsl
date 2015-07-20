@@ -704,6 +704,17 @@
 								<input type="hidden" name="id" value="{/request/@id}"/>
 								<input type="hidden" name="key" value="{document/@docid}"/>
                                 <input type="hidden" name="author" value="{$fields/author/@attrval}"/>
+                                <input type="hidden" name="signer" value="{$fields/author/@attrval}"/>
+								<xsl:if test="$status = 'new'">
+									<input id="coordBlockSign" type="hidden" value="new`tosign`0`testsotr" name="coordblock"/>
+								</xsl:if>
+								<xsl:if test="$status != 'new'">
+									<xsl:for-each select="$fields/coordination/blocks/entry">
+										<xsl:if test="type='TO_SIGN'">
+											<input type="hidden" id='coordBlockSign' name="coordblock"  value="{id}`tosign`0`{coordinators/entry/employer/userid}`{status}" />
+										</xsl:if>
+									</xsl:for-each>
+								</xsl:if>
 								<input type="hidden" name="projectdate" value="{$fields/projectdate}"/>
 								<input type="hidden" name="coordstatus" id="coordstatus" value="{$fields/coordination/status}"/>
 								<input type="hidden" name="docversion" id="docversion" value="{$fields/docversion}"/>

@@ -10,7 +10,7 @@
 	<xsl:template match="viewtext2" mode="line"/>
 	<xsl:template match="*" mode="line">
 		<xsl:if test="name(.) != 'userid'">
-			<xsl:if test="@doctype = 889">
+			<xsl:if test="@doctype = 889  and viewtext2 != '-1'">
 				<div style="display:block; width:100%; cursor:pointer; text-align:left" name="itemStruct">
 					<xsl:if test="userid !=''">
 						<xsl:attribute name="onclick">selectItem(this)</xsl:attribute>

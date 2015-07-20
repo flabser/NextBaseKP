@@ -613,7 +613,35 @@
 			</table>
 		</div>
 	</xsl:template>
-	
+
+	<xsl:template name="coord_comment_attach">
+		<table style="border:0 !important; border-collapse:collapse" width="99%">
+			<xsl:variable name='doctype' select="/request/document/@doctype"/>
+			<xsl:variable name='formsesid' select="/request/formsesid"/>
+
+			<xsl:for-each select="entry">
+				<tr>
+					<xsl:variable name='id' select='@hash'/>
+					<xsl:variable name='filename' select='@filename'/>
+					<xsl:variable name="extension" select="tokenize(lower-case($filename), '\.')[last()]"/>
+					<xsl:variable name="resolution"/>
+					<xsl:attribute name='id' select="$id"/>
+					<td style="border:0 !important;">
+						<div class="test" style="width:90%; overflow:hidden; display:inline-block">
+							<img src="/SharedResources/img/iconset/file_extension_{$extension}.png" style="margin-right:5px">
+								<xsl:attribute name="onerror">javascript:changeAttIcon(this)</xsl:attribute>
+							</img>
+							<a style="vertical-align:5px">
+								<xsl:attribute name='href'>Provider?type=getattach&amp;formsesid=<xsl:value-of select="$formsesid"/>&amp;doctype=906&amp;key=<xsl:value-of select="@id"/>&amp;field=rtfcontent&amp;id=rtfcontent&amp;file=<xsl:value-of select='$filename'/>	</xsl:attribute>
+								<xsl:value-of select='replace(replace($filename,"%2b","+"),"%25","%")'/>
+							</a>&#xA0;&#xA0;
+						</div>
+					</td>
+				</tr>
+			</xsl:for-each>
+		</table>
+	</xsl:template>
+
 	<xsl:template name="attach_cert">
 		<div id="attach" style="display:block;">
 			<table style="border:0; border-collapse:collapse" id="upltable" width="99%">

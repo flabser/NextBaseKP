@@ -369,10 +369,9 @@
 													<xsl:value-of select="$captions/signer/@caption"/> :
 												</font>
 												<xsl:if test="$editmode = 'edit'">
-													<a>
-														<xsl:attribute name="href">javascript:dialogBoxStructure('workdocsigners','false','signer','frm', 'signertbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
+													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
+														<xsl:attribute name="onclick">javascript:dialogBoxStructure('workdocsigners','false','signer','frm', 'signertbl');</xsl:attribute>
+													</img>
 												</xsl:if>
 											</td>
 											<td>
@@ -468,7 +467,7 @@
 														cols="83" onkeypress="maxCountSymbols (this, 172, event)"
 														rows="3" class="textarea_editable">
 														<xsl:if test="$editmode != 'edit'">
-															<xsl:attribute name="onfocus">javascript: $(this).blur()</xsl:attribute>
+															<xsl:attribute name="onfocus">javascript:$(this).blur()</xsl:attribute>
 															<xsl:attribute name="class">textarea_noteditable</xsl:attribute>
 														</xsl:if>
 														<xsl:if test="$editmode = 'edit'">
@@ -658,6 +657,7 @@
 		                                                                                 <xsl:value-of select="$captions/comment/@caption"/>: <xsl:value-of select="comment"/>
 																					</xsl:when>
 																				</xsl:choose>
+																				<xsl:call-template name="coord_comment_attach"/>
 																			</div>
 																			<!-- <div class='coord_comment_action'>
 																	        	<a href='#' class='close doclink'>Скрыть</a><a href='#' class='open doclink'>Показать все</a>

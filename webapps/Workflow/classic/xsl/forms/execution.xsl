@@ -242,10 +242,9 @@
 													<xsl:value-of select="document/captions/executor/@caption"/> : 
 												</font>
 												<xsl:if test="$editmode ='edit'">
-													<a href="">
-														<xsl:attribute name="href">javascript:dialogBoxStructure('bossandemppicklist','true','executor','frm', 'intexecutbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
+													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
+														<xsl:attribute name="onclick">javascript:dialogBoxStructure('bossandemppicklist','true','executor','frm', 'intexecutbl');</xsl:attribute>
+													</img>
 												</xsl:if>
 											</td>
 											<td>
@@ -312,7 +311,7 @@
 														<xsl:if test="document/@editmode = 'edit'">	
 															<br/>
 															<a href="javascript:$.noop()" class="button-auto-value">
-																<xsl:attribute name ="title"><xsl:value-of select ="document/captions/executed/@caption"/></xsl:attribute>
+																<xsl:attribute name="title" select="document/captions/executed/@caption"/>
 																<xsl:attribute name="onclick">javascript:addquickanswer('report','<xsl:value-of select ="document/captions/executed/@caption"/>',this)</xsl:attribute>
 																<xsl:attribute name="onmouseover">javascript:previewquickanswer('report','<xsl:value-of select ="document/captions/executed/@caption"/>',this)</xsl:attribute>
 																<xsl:attribute name="onmouseout">javascript:endpreviewquickanswer('report','<xsl:value-of select ="document/captions/executed/@caption"/>',this)</xsl:attribute>

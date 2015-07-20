@@ -470,10 +470,9 @@
 													<xsl:value-of select="document/captions/initemp/@caption"/> :
 												</font>
 												<xsl:if test="$editmode = 'edit'">
-													<a href="">
-														<xsl:attribute name="href">javascript:dialogBoxStructure('bossandemppicklist','false','initemp','frm', 'initemptbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
+													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
+														<xsl:attribute name="onclick">javascript:dialogBoxStructure('bossandemppicklist','false','initemp','frm', 'initemptbl');</xsl:attribute>
+													</img>
 												</xsl:if>
 											</td>
 											<td>
@@ -764,6 +763,7 @@
 			                                                                                 комментарий: <xsl:value-of select="comment"/>
 																						</xsl:when>
 																					</xsl:choose>
+																					<xsl:call-template name="coord_comment_attach"/>
 																				</div>
 																			</div>
 																		</td>

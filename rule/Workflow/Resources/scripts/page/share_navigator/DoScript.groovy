@@ -17,9 +17,12 @@ class DoScript extends _DoScript {
 
 
 		def orgdocs_outline = new _Outline(getLocalizedWord("Документы организации",lang), getLocalizedWord("Документы организации",lang), "orgdocs")
-		def workdoc = new _OutlineEntry(getLocalizedWord("Служебные записки",lang), getLocalizedWord("Служебные записки",lang), "workdoc", "Provider?type=page&id=workdoc&page=0")
+		def workdoc = new _OutlineEntry(getLocalizedWord("СЗ на имя руководителей",lang), getLocalizedWord("СЗ на имя руководителей",lang), "workdoc", "Provider?type=page&id=workdoc&page=0")
         orgdocs_outline.addEntry(workdoc);
-		
+
+		def workdocdept = new _OutlineEntry(getLocalizedWord("СЗ между подразделениями",lang), getLocalizedWord("СЗ между подразделениями",lang), "workdocdept", "Provider?type=page&id=workdocdept&page=0")
+        orgdocs_outline.addEntry(workdocdept);
+
 		def application = new _OutlineEntry(getLocalizedWord("Заявления",lang), getLocalizedWord("Заявления",lang), "application", "Provider?type=page&id=application&page=0")
 		orgdocs_outline.addEntry(application);
 
@@ -46,8 +49,12 @@ class DoScript extends _DoScript {
         outline.addOutline(orgdocs_outline)
 		list.add(orgdocs_outline)
 		def projects_outline = new _Outline(getLocalizedWord("Проекты организации",lang), getLocalizedWord("Проекты организации",lang), "projects")
-		def officememoprj = new _OutlineEntry(getLocalizedWord("Служебные записки",lang), getLocalizedWord("Служебные записки",lang), "officememoprj", "Provider?type=page&id=officememoprj&page=0")
+		def officememoprj = new _OutlineEntry(getLocalizedWord("СЗ на имя руководителей",lang), getLocalizedWord("СЗ на имя руководителей",lang), "officememoprj", "Provider?type=page&id=officememoprj&page=0")
         projects_outline.addEntry(officememoprj);
+
+		def officememoprjdept = new _OutlineEntry(getLocalizedWord("СЗ между подразделениями",lang), getLocalizedWord("СЗ между подразделениями",lang), "officememoprjdept", "Provider?type=page&id=officememoprjdept&page=0")
+        projects_outline.addEntry(officememoprjdept);
+
         def applicationprj = new _OutlineEntry(getLocalizedWord("Заявления",lang), getLocalizedWord("Заявления",lang), "applicationprj", "Provider?type=page&id=applicationprj&page=0")
         projects_outline.addEntry(applicationprj);
 

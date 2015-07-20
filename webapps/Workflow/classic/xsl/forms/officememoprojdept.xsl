@@ -20,7 +20,7 @@
 				<xsl:call-template name="cssandjs"/>
 				<style>
 					@media print { 
-					 #docwrapper{position: static !important}
+					   #docwrapper{position: static !important}
 					  .printcoord  .ui-tabs-nav,.printcoord .formtitle,.printcoord #resizer,.printcoord button,.printcoord #outline,.printcoord #documentheader{
 					  	display:none;
 					  } 
@@ -49,7 +49,7 @@
 					     .doclink{
 					     	color:black !important;
 					     }
-					     .printdocument .td_noteditable, .printdocument .td_editable, .printdocument .textarea_noteditable, .printdocument .textarea_editable, .printdocument .select_editable, .printdocument .select_noteditable{
+					     .printdocument .td_noteditable, .printdocument .td_editable, .printdocument .textarea_noteditable, .printdocument .textarea_editable{
 					     	color:black !important;
 					     	background:#fff !important;
 					     	border:none !important;
@@ -211,7 +211,7 @@
 						<div class="formtitle">
 							<!-- заголовок -->
 							<div class="title" style="float:left">
-								<xsl:call-template name="doctitleprj"/>
+								<font><xsl:value-of select="document/fields/title"/></font>
 								<span id="whichreadblock">Прочтен</span>
 							</div>
 						</div>
@@ -220,7 +220,6 @@
 								<xsl:call-template name="showxml"/>
 								<xsl:call-template name="get_document_accesslist"/>
 								<xsl:call-template name="projects_buttons"/>
-<!-- 								<xsl:call-template name="ECPsign"/> -->
 								<xsl:call-template name="acquaint"/>
 								<xsl:call-template name="printdocument"/>
 							</span>
@@ -364,136 +363,6 @@
                                                 </td>
                                             </tr>
                                         </xsl:if>
-                                        <!-- поле "Тип договора" -->
-										<tr>
-											<td class="fc">
-												<xsl:value-of select="document/captions/contracttype/@caption"/> :
-											</td>
-											<td>
-												<select size="1" name="contracttype" style="width:611px;" class="select_editable">
-													<xsl:if test="$editmode != 'edit'">
-														<xsl:attribute name="class">select_noteditable</xsl:attribute>
-														<xsl:attribute name="disabled"/>
-														<option value="">
-															<xsl:attribute name="selected">selected</xsl:attribute>
-															<xsl:value-of select="document/fields/contracttype"/>
-														</option>
-													</xsl:if>
-													<xsl:variable name="contracttype" select="document/fields/contracttype/@attrval"/>
-													<xsl:for-each select="document/glossaries/contracttype/query/entry">
-														<option value="{@docid}">
-															<xsl:if test="$contracttype=@docid">
-																<xsl:attribute name="selected">selected</xsl:attribute>
-															</xsl:if>
-															<xsl:value-of select="viewcontent/viewtext1"/>
-														</option>
-													</xsl:for-each>
-												</select>
-											</td>
-										</tr>
-                                        <!-- Исполнитель -->
-                                        <tr>
-											<td class="fc">
-												<font style="vertical-align:top">
-													<xsl:value-of select="document/captions/contractexec/@caption"/> :
-												</font>
-												<xsl:if test="$editmode = 'edit'">
-													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
-														<xsl:attribute name="onclick">javascript:dialogBoxStructure('bossandemppicklist','false','contractexec','frm', 'contractexectbl');</xsl:attribute>
-													</img>
-												</xsl:if>
-											</td>
-											<td>
-<!-- 												<input id="executor" style="width:600px"></input> -->
-												<table id="contractexectbl">
-													<xsl:if test="document/fields/contractexec/entry =''">
-														<tr>
-														<!--<input id="tags"/>-->
-															 <td style="width:600px;" class="td_editable">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																<xsl:value-of select="."/>&#xA0;
-															</td> 
-														</tr>
-													</xsl:if>
-													<xsl:if test="not(document/fields/contractexec/entry)">
-														<tr>
-															<td style="width:600px;" class="td_editable">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																&#xA0;
-															</td>
-														</tr>
-													</xsl:if>
-													<xsl:for-each select="document/fields/contractexec/entry">
-														<tr>
-															<xsl:variable name="num" select="position()"/>
-															<td style="width:600px;" class="td_editable">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																<xsl:value-of select="."/>&#xA0;
-															</td>
-															
-														</tr>
-													</xsl:for-each>
-												</table>
-												<input type="hidden" id="contractexeccaption" value="{document/captions/contractexec/@caption}"/>
-												<input type="hidden" name="contractexec" id="contractexec" value="{document/fields/contractexec/entry/@attrval}"/>
-											</td>
-										</tr>
-                                        <tr>
-											<td class="fc">
-												<font style="vertical-align:top">
-													<xsl:value-of select="$captions/signer/@caption"/> :
-												</font>
-												<xsl:if test="$editmode = 'edit'">
-													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
-														<xsl:attribute name="onclick">javascript:dialogBoxStructure('workdocsigners','false','signer','frm', 'signertbl');</xsl:attribute>
-													</img>
-												</xsl:if>
-											</td>
-											<td>
-												<xsl:if test="document/@status='new'">
-													<table id="signertbl" style="border-spacing:0px 3px;">
-														<tr>
-															<td class="td_editable" style="width:600px;">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																&#xA0;
-															</td>
-														</tr>
-													</table>
-												</xsl:if>
-												<xsl:if test="document/@status != 'new'">
-													<table id="signertbl" style="border-spacing:0px 3px;">
-														<tr>
-															<td class="td_editable" style="width:600px;">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																<xsl:value-of select="$fields/coordination/blocks/entry[type='TO_SIGN']/coordinators/entry/employer/fullname"/>&#xA0;
-															</td>
-														</tr>
-													</table>
-												</xsl:if>
-												<xsl:for-each select="$fields/coordination/blocks/entry">
-													<xsl:if test="type='TO_SIGN'">
-														<input type="hidden" id='coordBlockSign' name="coordblock"
-															value="{id}`tosign`0`{coordinators/entry/employer/userid}`{status}" />
-													</xsl:if>
-												</xsl:for-each>
-												<input type="hidden" id="signercaption" value="{$captions/signer/@caption}"/>
-												<script>
-													if ($("#signertbl tr").length &lt; 1){
-														$("#signertbl").append('<tr><td class="td_editable" style="width:600px;">&#xA0;</td></tr>');
-													}
-												</script>
-											</td>
-										</tr>
 										<!-- Получатель -->
 										<!--<tr>
 											<td class="fc">
@@ -537,24 +406,6 @@
 												<input type="hidden" id="recipientcaption" value="{$captions/recipients/@caption}"/>
 											</td>
 										</tr>-->
-										<!-- поле "Название договора" -->
-										<tr>
-											<td class="fc" style="padding-top:5px">
-												<xsl:value-of select="document/captions/contractname/@caption"/> :
-											</td>
-											<td style="padding-top:5px">
-												<input type="text" value="{document/fields/contractname}" name="contractname" class="td_editable" style="width:400px;">
-													<xsl:if test="$editmode != 'edit'">
-														<xsl:attribute name="readonly">readonly</xsl:attribute>
-														<xsl:attribute name="class">td_noteditable</xsl:attribute>
-													</xsl:if>
-													<xsl:if test="$editmode = 'edit'">
-														<xsl:attribute name="onfocus">fieldOnFocus(this)</xsl:attribute>
-														<xsl:attribute name="onblur">fieldOnBlur(this)</xsl:attribute>
-													</xsl:if>
-												</input>
-											</td>
-										</tr>
 										<!-- Краткое содержание -->
 										<tr>
 											<td class="fc" style="padding-top:5px">
@@ -580,43 +431,6 @@
 													<input type="hidden" name="briefcontent"
 														value="{document/fields/briefcontent}"/>
 												</xsl:if>
-											</td>
-										</tr>
-										<!-- поле "Контрагент" -->
-										<tr>
-											<td class="fc" style="padding-top:5px">
-												<font style="vertical-align:top">
-													<xsl:value-of select="document/captions/contractor/@caption"/> :
-												</font>
-												<!-- <xsl:if test="$editmode = 'edit'">
-													<img src="/SharedResources/img/iconset/report_magnify.png" style="cursor:pointer">
-														<xsl:attribute name="onclick">javascript:dialogBoxStructure('corrcat','false','contractor','frm', 'corresptbl');</xsl:attribute>
-													</img>
-												</xsl:if>-->
-											</td>
-											<td style="padding-top:5px">
-												<input type="text" value="{document/fields/corrstring}" name="corrstring" style="width:500px" class="td_editable">
-													<xsl:if test="$editmode != 'edit'">
-														<xsl:attribute name="class">td_noteditable</xsl:attribute>
-													</xsl:if>
-													<xsl:if test="document/fields/contractor and document/fields/contractor !=''">
-														<xsl:attribute name="value" select="document/fields/contractor"/>
-													</xsl:if>
-												</input>
-												<!--  <table id="corresptbl" style="border-spacing:0px 3px; margin-top:-3px">
-													<tr>
-														<td style="width:600px;" class="td_editable">
-															<xsl:if test="$editmode != 'edit'">
-																<xsl:attribute name="class">td_noteditable</xsl:attribute>
-															</xsl:if>
-															<xsl:value-of select="document/fields/contractor"/>&#xA0;
-															<span style='float:right; border-left:1px solid #ccc; width:17px; padding-right:10px; padding-left:2px; padding-top:1px; color:#ccc; font-size:10.5px'><font><xsl:value-of select="document/fields/corr/@attrval"/></font></span>
-														</td>
-													</tr>
-												</table>
-												<input type="hidden" value="{document/fields/contractor/@attrval}" id="contractor" name="contractor"/>
-												<input type="hidden" value="{document/captions/contractor/@caption}" id="contractorcaption"/>
-												-->
 											</td>
 										</tr>
 									</table>
@@ -766,7 +580,7 @@
 														<table>
 															<xsl:for-each select="coordinators/entry">
 																<tr>
-																	<td style=" border:none; padding:5px 0px !important; vertical-align:top">
+																	<td style="border:none; padding:5px 0px !important; vertical-align:top">
 																		<xsl:value-of select="employer/fullname"/>
 																		<p style="margin:0px">
 																			<xsl:choose>
@@ -783,6 +597,7 @@
 																				</xsl:when>
 																			</xsl:choose>
 																		</p>
+																	
 																		<div class="coord_comment_box close">
 																			<div class='coord_comment_txt'>
 																				<xsl:choose>
@@ -794,17 +609,18 @@
 																				</xsl:choose>
 																				<xsl:call-template name="coord_comment_attach"/>
 																			</div>
-																			<div class='coord_comment_action'>
+																			<!-- <div class='coord_comment_action'>
 																	        	<a href='#' class='close doclink'>Скрыть</a><a href='#' class='open doclink'>Показать все</a>
-																	   		</div>
-																	   		<script>
+																	   		</div> -->
+																	   		<!-- <script>
 																	   			$(".coord_comment_box").each(function(){
 																	   				if($(this).height() &lt; 150){
 																	   					$(this).children(".coord_comment_action").css("display","none")
 																	   				}
 																	   			})
-																	   		</script>
+																	   		</script> -->
 																		</div>
+																		
 																	</td>
 																</tr>
 															</xsl:for-each>

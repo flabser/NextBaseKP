@@ -1,24 +1,24 @@
 var idtr="";
 var count=0; //переменная для подсчета количесива блоков согласования
-var contributorscoord='Участники согласования'
-var	type='Тип'
-var	parcoord='Параллельное'
-var	sercoord='Последовательное'
-var	waittime='Время ожидания'
-var	coordparam='Параметры согласования'
-var	hours ='Часов'
-var	answercommentcaption ='Оставить комментарий ответа?'
-var	warning ='Предупреждение'
-var	docissign ='Документ подписан'
-var	docisrejected ='Документ отклонен'
-var	dociscoordyou ='Документ согласован вами'
-var	docisrejectedyou ='Документ отклонен вами'
+var contributorscoord='Участники согласования';
+var	type='Тип';
+var	parcoord='Параллельное';
+var	sercoord='Последовательное';
+var	waittime='Время ожидания';
+var	coordparam='Параметры согласования';
+var	hours ='Часов';
+var	answercommentcaption ='Оставить комментарий ответа?';
+var	warning ='Предупреждение';
+var	docissign ='Документ подписан';
+var	docisrejected ='Документ отклонен';
+var	dociscoordyou ='Документ согласован вами';
+var	docisrejectedyou ='Документ отклонен вами';
 var choosemember ="Выберите участников согласования";
 var nochosenblocktodelete="Не выбран блок согласования для удаления";
-var successfullydeleted ="Успешно удалено"
-var hourss = "часа"
-var day = "день"
-var days = "дней"
+var successfullydeleted ="Успешно удалено";
+var hourss = "часа";
+var day = "день";
+var days = "дней";
 var unlimited ="Неограничено";
 var newcoord ="Новое согласование";
 var choosesigner="Поле 'Кем будет подписан' не заполнено";
@@ -37,7 +37,7 @@ function hideDialog(){
 }
 
 function addCoord(){
-	enableblockform()
+	enableblockform();
 	el="coordParam";
 	divhtml="<div class='picklistCoord' id='coordParam' onkeyUp='keyDown(el);'>" +
 	"<div class='headerBoxCoord' style='width:100%'>" +
@@ -86,13 +86,13 @@ function addCoord(){
 				"<td></td>" +
 			"</tr>" +
 		"</table>" +
-		"<table width='98%' height='65%' style='margin-top:1%'><tr><td width='45%'>" +
+		"<table style='margin-top:1%; height:65%; width:98%'><tr><td width='45%'>" +
 			"<div id='contentdiv' style='overflow:auto; border:1px solid #d3d3d3; width:100%; display:inline-block; height:305px;'>" +
 			"</div></td>" +
 			"<td width='4%'><div style='display:inline-block; height:100%;'>" +
 				"<table style='font-size:2em; position:relative; top:35%; left:5%'>" +
-					"<tr><td><img style='cursor:pointer' onclick='javascript:plusCoordinator()'src='/SharedResources/img/classic/arrow_right.gif'/><td></tr>" +
-				"<tr><td><img style='cursor:pointer' onclick='javascript:minusCoordinator()' src='/SharedResources/img/classic/arrow_left.gif'/><td></tr>" +
+					"<tr><td><img style='cursor:pointer' onclick='plusCoordinator()' src='/SharedResources/img/classic/arrow_right.gif'/><td></tr>" +
+				"<tr><td><img style='cursor:pointer' onclick='minusCoordinator()' src='/SharedResources/img/classic/arrow_left.gif'/><td></tr>" +
 				"</table>" +
 		"</div></td>"+
 			"<td width='45%'><div id='coorderToBlock' style='overflow:auto; border:1px solid #d3d3d3; width:100%; height:305px; display:inline-block;'>" +
@@ -108,7 +108,11 @@ function addCoord(){
 	"</div>";
 	$("body").append(divhtml);
 	$("#coordParam #btnpane span").children("button").button();
-	picklistCoordinators()
+	if($("input[name=id]").val() == "officememoprjdept"){
+		picklistCoordinatorsWorkdocDept();
+	}else{
+		picklistCoordinators();
+	}
 	$("#coordParam").draggable({handle:"div.headerBoxCoord"});
 	centring('coordParam',500,650); // (id окна, высота окна, ширина окна)
 }
@@ -127,19 +131,19 @@ function coordOk(){
 		$("#coorderToBlock .chbox").each(function(){
 			brConstr += "<br/>";
 			coorderID+="<input type='hidden' class='"+this.id+"' value='"+this.id+"'/>"
-		})
+		});
 		/* нумерация блоков согласования */	
 		countTR=$("#coordTableView tr").length;
 		/* построение строки для отображения блоков согласования в форме */
 		tdCheckbox="<td style='border-bottom: 1px solid lightgray'><input type='checkbox' name='chbox' id='"+countTR+"'>"+brConstr+"</td>";
 		tdNum="<td style='text-align:center; border-bottom: 1px solid lightgray'>"+countTR+""+brConstr+"</td>";
-		tdTypeCoord="<td style='text-align:center; border-bottom:1px solid lightgray'>"
+		tdTypeCoord="<td style='text-align:center; border-bottom:1px solid lightgray'>";
 		typeCoordVal == "ser" ? tdTypeCoord += sercoord : tdTypeCoord += parcoord+brConstr;
-		tdTypeCoord += brConstr+"</td>"
+		tdTypeCoord += brConstr+"</td>";
 		tdCoorderName="<td style='border-bottom: 1px solid lightgray'>";
 		$("#coorderToBlock div").each(function(){
 			tdCoorderName+="<font style='margin-top:10%'>"+$(this).text()+"</font><br/>"
-		})
+		});
 		tdCoorderName+="</td>";
 		tdWaitTime="<td style='text-align:center; border-bottom:1px solid lightgray'>";
 		waitTimeVal==0 ? tdWaitTime += unlimited : tdWaitTime += waitTimeVal+" "+hours;
@@ -157,7 +161,7 @@ function delCoord(){
 	$("input[name='chbox']:checked").each(function(){
 		$(this).closest("tr").remove();
 		infoDialog(successfullydeleted);
-	})
+	});
 	$("#allchbox").removeAttr("checked");
 	if($("input[name='chbox']:checked").length == 0){
 		infoDialog(nochosenblocktodelete);
@@ -178,8 +182,7 @@ function savePrjAsDraft(redirecturl){
 /* кнопка "Отправить" */
 function saveAndSend(redirecturl){
 	if($("#coordBlockSign").val()==null || $("#coordBlockSign").val()==0 ){
-        alert(555)
-		infoDialog(choosesigner)
+		infoDialog(choosesigner);
 	}else{
 		$("#coordstatus").val("coordinated");
 		$("#action").val("send");
@@ -207,7 +210,7 @@ function FormData(field, value){
 
 /* Создание формы для ввода комментариев действий пользователя "Согласен" или "Не согласен" */
 function addComment(action){
-	enableblockform()
+	enableblockform();
 	divhtml ="<div id='dialog-message-comment' title='"+commentcaption+"'>";
 	divhtml +="<div id='decision-tabs'><ul class='ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all'>" +
 					"<li class='ui-state-default ui-corner-top'>" +
@@ -217,7 +220,7 @@ function addComment(action){
 						"<a href='#tabs-attach'>Вложение</a>" +
 					"</li>" +
 				"</ul>";
-	divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/></div>";
+	divhtml +="<div class='ui-tabs-panel' id='tabs-comment'><textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='maxCountSymbols(this, 1024, event, true)'/></div>";
 	//divhtml +="<textarea name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%' onkeypress='javascript:maxCountSymbols(this, 1024, event, true)'/>";
 	divhtml +="<div class='ui-tabs-panel' id='tabs-attach' style='height:205px'>" +
 					"<form action='Uploader' name='decision_comment_upload' id='decision_comment_upload' method='post' enctype='multipart/form-data' style='min-width:100px'>"+
@@ -228,7 +231,7 @@ function addComment(action){
 					"<style>.ui-progressbar .ui-progressbar-value { background-image: url(/SharedResources/jquery/css/base/images/pbar-ani.gif); }</style>"+
 					"<table id='decision_comment_upltable' style='margin-top:5px'></table>"+
 					"</div></form>" +
-				"</div></div>"
+				"</div></div>";
 	divhtml+="</div>";
 	
 	$("body").append(divhtml);
@@ -309,7 +312,7 @@ function stopdocument(docid){
 			text: create_new_version,
 			click: function(){ 
 				$(this).dialog("close").remove();
-				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 				$("body").append(form);
 				actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 				new FormData('actionDate',actionTime);
@@ -324,9 +327,9 @@ function stopdocument(docid){
 			text: stop_coord,
 			click: function(){ 
 				$(this).dialog("close").remove();
-				hotkeysnav() 
+				hotkeysnav();
 				$("#dialog-message").dialog("close").remove();
-				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+				form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 				$("body").append(form);
 				actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 				new FormData('actionDate',actionTime);
@@ -350,7 +353,7 @@ function stopdocument(docid){
 
 /* обработка действий пользователя при согласовании и подписании. Кнопки "Согласен" и "Не согласен" */
 function decision(yesno, key, action){
-	form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>"
+	form="<form action='Provider' name='dynamicform' method='post' id='dynamicform' enctype='application/x-www-form-urlencoded'/>";
 	$("body").append(form);
 	actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
 	new FormData('actionDate',actionTime);
@@ -373,7 +376,7 @@ function decision(yesno, key, action){
 
 /* Отправка динамической формы на сервер*/
 function submitFormDecision(useraction){
-	enableblockform()
+	enableblockform();
 	data = $("#dynamicform, #decision_comment_upload").serialize();
 	$.ajax({
 		type: "POST",
@@ -381,7 +384,7 @@ function submitFormDecision(useraction){
 		data: data,
 		success: function(xml){
 			if(useraction == "acquaint"){
-				infoDialog("Документ отправлен на ознакомление")
+				infoDialog("Документ отправлен на ознакомление");
 				disableblockform();
 			}
 			if(useraction == "remind"){
@@ -400,13 +403,13 @@ function submitFormDecision(useraction){
 					   notify_text=dociscoordyou;
 					   break;
 				   case "coord_no":
-					   notify_text=docisrejectedyou
+					   notify_text=docisrejectedyou;
 					   break;
 				   case "stopcoord":
-					   notify_text="Согласование остановлено"
+					   notify_text="Согласование остановлено";
 					   break;
 				   case "newversion":
-					   notify_text="Создана новая версия документа"
+					   notify_text="Создана новая версия документа";
 						   break;
 				}
 				setTimeout(function() {
@@ -420,9 +423,9 @@ function submitFormDecision(useraction){
 				}
 				if (useraction == "remind"){
 					disableblockform();
-					$(document).unbind("keydown")
+					$(document).unbind("keydown");
 					divhtml ="<div id='dialog-message' title='Предупреждение'>";
-					divhtml+="<div style='height:40px; width:100%; text-align:center; padding-top:25px; font-size:13px'>Напоминание отправлено</div></div>"
+					divhtml+="<div style='height:40px; width:100%; text-align:center; padding-top:25px; font-size:13px'>Напоминание отправлено</div></div>";
 					$("body").append(divhtml);
 					$("#dialog-message").dialog({
 						modal: true,

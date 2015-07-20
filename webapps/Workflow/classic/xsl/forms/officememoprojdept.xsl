@@ -706,7 +706,7 @@
                                 <input type="hidden" name="author" value="{$fields/author/@attrval}"/>
                                 <input type="hidden" name="signer" value="{$fields/author/@attrval}"/>
 								<xsl:if test="$status = 'new'">
-									<input id="coordBlockSign" type="hidden" value="new`tosign`0`testsotr" name="coordblock"/>
+									<input id="coordBlockSign" type="hidden" value="new`tosign`0`{$fields/author/@attrval}" name="coordblock"/>
 								</xsl:if>
 								<xsl:if test="$status != 'new'">
 									<xsl:for-each select="$fields/coordination/blocks/entry">

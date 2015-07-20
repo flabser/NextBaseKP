@@ -196,7 +196,7 @@ class Coord_yes extends _DoScript {
                                                 int num = cdb.getRegNumber("workdocdept");
                                                 _doc.addStringField("vn", num.toString());
                                                 _doc.addNumberField("vnnumber", num);
-                                                _doc.setViewText("Служебная записка № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  " + session.getStructure()?.getEmployer(doc.getAuthorID())?.getShortName() + " " + doc.getValueString("briefcontent"));
+                                                _doc.setViewText("Служебная записка между департаментами № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  " + session.getStructure()?.getEmployer(doc.getAuthorID())?.getShortName() + " " + doc.getValueString("briefcontent"));
                                                 _doc.addDateField("ctrldate", session.getDatePlusDays(30))
                                                 _doc.setViewNumber(num)
                                                 doc.getReaders().each {

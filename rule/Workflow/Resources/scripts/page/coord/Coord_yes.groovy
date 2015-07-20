@@ -1,5 +1,6 @@
 package page.coord
 
+import kz.nextbase.script._CrossLink
 import kz.nextbase.script._Document
 import kz.nextbase.script._Helper
 import kz.nextbase.script._Session
@@ -27,7 +28,7 @@ class Coord_yes extends _DoScript {
         String msg = "";
         def doc = cdb.getDocumentByID(formData.getNumberValueSilently("key", -1))
         def struct = session.getStructure()
-        def author = struct?.getEmployer(doc.getValueString("author"))
+        def author = struct?.getEmployer(doc.getAuthorID())
         def blocksCollection = (_BlockCollection) doc.getValueObject("coordination")
         def block = (_Block) blocksCollection.getCurrentBlock();
         def coordlist = block.getCurrentCoordinators();
@@ -123,53 +124,107 @@ class Coord_yes extends _DoScript {
                                     }
                                     if (!decisions.any { it == _DecisionType.DISAGREE }) {
                                         doc_blc.setCoordStatus(_CoordStatusType.COORDINATED)
-                                        nextBlock.setBlockStatus(_BlockStatusType.COORDINATING)
-
-                                        def signer = session.getStructure().getEmployer(doc_blc.getSignBlock()?.getFirstCoordinator().userID)
-                                        msg = "После рассмотрения документа: \"" + doc.getValueString("briefcontent") + "\" он отправлен на подпись к " + signer?.getShortName();
-                                        msg += "\nДля работы с документом перейдите по ссылке " + doc.getFullURL();
-                                        msngAgent.sendMessageAfter([author?.getInstMessengerAddr()], /*doc.getGrandParentDocument().getValueString("project_name") + ": " +*/ msg);
-
-                                        msg = "Вам документ: \"" + doc.getValueString("briefcontent") + "\" на подпись. \nДля работы с документом перейдите по ссылке " + doc.getFullURL();
-                                        msngAgent.sendMessageAfter([signer?.getInstMessengerAddr()], /*doc.getGrandParentDocument().getValueString("project_name") + ": " + */ msg);
-
-                                        msubject = '[СЭД] [Проекты] Отправлен на подпись документ \"' + doc.getValueString("briefcontent") + '\"';
-                                        body = '<b><font color="#000080" size="4" face="Default Serif">Документ на подпись</font></b><hr>';
-                                        body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
-                                        body += '<tr>';
-                                        body += '<td style="border-bottom:1px solid #CCC;" valign="top" colspan="2">';
-                                        body += 'После рассмотрения документа: \"' + doc.getValueString("briefcontent") + '\" он отправлен на подпись к ';
-                                        body += signer?.getShortName() + ' <br>';
-                                        body += '</td></tr><tr>';
-                                        body += '<td colspan="2"></td>';
-                                        body += '</tr></table>';
-                                        body += '<p><font size="2" face="Arial">Для работы с документом перейдите по <a href="' + doc.getFullURL() + '">ссылке...</a></p></font>';
-
-                                        mailAgent.sendMailAfter([author?.getEmail()], msubject, body);
-
-                                        msubject = '[СЭД] [Проекты] -> Прошу подписать документ \"' + doc.getValueString("briefcontent") + '\"';
-                                        body = '<b><font color="#000080" size="4" face="Default Serif">Документ на подпись</font></b><hr>';
-                                        body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
-                                        body += '<tr>';
-                                        body += '<td style="border-bottom:1px solid #CCC;" valign="top" colspan="2">';
-                                        body += 'Вам документ: \"' + doc.getValueString("briefcontent") + '\" на подпись. <br>';
-                                        body += '</td></tr><tr>';
-                                        body += '<td colspan="2"></td>';
-                                        body += '</tr></table>';
-                                        body += '<p><font size="2" face="Arial">Для работы с документом перейдите по <a href="' + doc.getFullURL() + '">ссылке...</a></p></font>';
-
-                                        mailAgent.sendMailAfter([signer?.getEmail()], msubject, body);
-                                        body = ""
-                                        msg = ""
-                                        msubject = ""
-
                                         def signerCoord = doc_blc.getSignBlock()?.getFirstCoordinator();
-                                        signerCoord.setCurrent(true);
-                                        if (signerCoord.getUserID()) {
-                                            doc.addReader(signerCoord.getUserID());
-                                        }
+                                        def signer = session.getStructure().getEmployer(signerCoord.userID)
+                                        if (author.getUserID() != signer.getUserID()) {
+                                            nextBlock.setBlockStatus(_BlockStatusType.COORDINATING)
+                                            msg = "После рассмотрения документа: \"" + doc.getValueString("briefcontent") + "\" он отправлен на подпись к " + signer?.getShortName();
+                                            msg += "\nДля работы с документом перейдите по ссылке " + doc.getFullURL();
+                                            msngAgent.sendMessageAfter([author?.getInstMessengerAddr()], /*doc.getGrandParentDocument().getValueString("project_name") + ": " +*/ msg);
 
-                                        doc_blc.setCoordStatus(_CoordStatusType.SIGNING);
+                                            msg = "Вам документ: \"" + doc.getValueString("briefcontent") + "\" на подпись. \nДля работы с документом перейдите по ссылке " + doc.getFullURL();
+                                            msngAgent.sendMessageAfter([signer?.getInstMessengerAddr()], /*doc.getGrandParentDocument().getValueString("project_name") + ": " + */ msg);
+
+                                            msubject = '[СЭД] [Проекты] Отправлен на подпись документ \"' + doc.getValueString("briefcontent") + '\"';
+                                            body = '<b><font color="#000080" size="4" face="Default Serif">Документ на подпись</font></b><hr>';
+                                            body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
+                                            body += '<tr>';
+                                            body += '<td style="border-bottom:1px solid #CCC;" valign="top" colspan="2">';
+                                            body += 'После рассмотрения документа: \"' + doc.getValueString("briefcontent") + '\" он отправлен на подпись к ';
+                                            body += signer?.getShortName() + ' <br>';
+                                            body += '</td></tr><tr>';
+                                            body += '<td colspan="2"></td>';
+                                            body += '</tr></table>';
+                                            body += '<p><font size="2" face="Arial">Для работы с документом перейдите по <a href="' + doc.getFullURL() + '">ссылке...</a></p></font>';
+
+                                            mailAgent.sendMailAfter([author?.getEmail()], msubject, body);
+
+                                            msubject = '[СЭД] [Проекты] -> Прошу подписать документ \"' + doc.getValueString("briefcontent") + '\"';
+                                            body = '<b><font color="#000080" size="4" face="Default Serif">Документ на подпись</font></b><hr>';
+                                            body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
+                                            body += '<tr>';
+                                            body += '<td style="border-bottom:1px solid #CCC;" valign="top" colspan="2">';
+                                            body += 'Вам документ: \"' + doc.getValueString("briefcontent") + '\" на подпись. <br>';
+                                            body += '</td></tr><tr>';
+                                            body += '<td colspan="2"></td>';
+                                            body += '</tr></table>';
+                                            body += '<p><font size="2" face="Arial">Для работы с документом перейдите по <a href="' + doc.getFullURL() + '">ссылке...</a></p></font>';
+
+                                            mailAgent.sendMailAfter([signer?.getEmail()], msubject, body);
+                                            body = ""
+                                            msg = ""
+                                            msubject = ""
+
+                                            signerCoord.setCurrent(true);
+                                            if (signerCoord.getUserID()) {
+                                                doc.addReader(signerCoord.getUserID());
+                                            }
+
+                                            doc_blc.setCoordStatus(_CoordStatusType.SIGNING);
+                                        } else {
+                                            nextBlock.setBlockStatus(_BlockStatusType.COORDINATED);
+                                            signerCoord.setDecision(_DecisionType.AGREE, "")
+                                            doc_blc.setCoordStatus(_CoordStatusType.SIGNED)
+                                            doc.replaceViewText(doc_blc.getStatus().name(), 3)
+
+                                            def _doc = new _Document(cdb);
+                                            if (doc.getDocumentForm() == "officememoprj") {
+                                                _doc.setForm("workdoc")
+                                                _doc.addStringField("vn", doc.getValueString("vn"))
+                                                //_doc.addStringField("author",doc.getValueString("author"))
+                                                _doc.addDateField("dvn", new Date())
+                                                _doc.addStringField("corr", signerCoord?.getUserID())
+                                                _doc.addStringField("signer", signerCoord?.getUserID())
+                                                // _doc.addNumberField("finaldoctype", doc.getValueNumber("finaldoctype"));
+                                                /*  def recipients = (_EmployerCollection) doc.getValueObject("recipient")
+                                                  recipients.getEmployers().each { r ->
+                                                      if (r) {
+                                                          doc.addReader(r.getUserID());
+                                                      }
+                                                  }
+                                                  _doc.addField("recipient", recipients)*/
+                                                int num = cdb.getRegNumber("workdoc");
+                                                _doc.addStringField("vn", num.toString());
+                                                _doc.addNumberField("vnnumber", num);
+                                                _doc.setViewText("Служебная записка № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  " + session.getStructure()?.getEmployer(doc.getAuthorID())?.getShortName() + " " + doc.getValueString("briefcontent"));
+                                                _doc.addDateField("ctrldate", session.getDatePlusDays(30))
+                                                _doc.setViewNumber(num)
+                                                doc.getReaders().each {
+                                                    _doc.addReader(it.userID);
+                                                }
+                                                doc.copyAttachments(_doc);
+                                                _doc.setRichText("contentsource", doc.getValueString("contentsource"))
+                                                //_doc.addStringField("author", doc.getValueString("author"))
+                                                _doc.setAuthor(doc.authorID)
+                                                _doc.addStringField("briefcontent", doc.getValueString("briefcontent"))
+                                                _doc.addNumberField("projectdocid", doc.getDocID())
+                                                _doc.setParentDoc(doc)
+                                                _doc.setViewDate(new Date())
+                                                _doc.addField("link", new _CrossLink(session, doc))
+                                                _doc.addEditor("[registrator_outgoing]");
+                                                _doc.addEditor(doc.authorID);
+                                                _doc.save("[supervisor]")
+                                                _doc.replaceViewText(signerCoord?.getUserID(), 7)
+                                                _doc.save("[supervisor]")
+                                                doc.addField("link", new _CrossLink(session, _doc))
+                                                doc.setValueNumber("regdocid", _doc.getDocID())
+                                                def cBlock = doc_blc.getCurrentBlock()
+                                                if (cBlock) {
+                                                    doc.replaceViewText(cBlock.getCurrentCoordinatorsAsText(), 5)
+                                                }
+                                                doc.save("[supervisor]")
+                                            }
+                                        }
                                     } else {
                                         rejectProject(doc);
                                     }

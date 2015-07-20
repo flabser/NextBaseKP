@@ -2,7 +2,7 @@
 <rule type="page" id="officememoprjdept" mode="on" history="on">
 	<description></description>
 	<caching>NO_CACHING</caching>
-	<xsltfile>pages/officememoprj.xsl</xsltfile>
+	<xsltfile>pages/page-projects.xsl</xsltfile>
 	<element mode="ON" type="INCLUDED_PAGE">
 		<name>outline</name>
 		<value>outline</value>

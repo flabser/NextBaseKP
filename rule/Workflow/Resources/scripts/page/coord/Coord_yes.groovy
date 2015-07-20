@@ -178,8 +178,8 @@ class Coord_yes extends _DoScript {
                                             doc.replaceViewText(doc_blc.getStatus().name(), 3)
 
                                             def _doc = new _Document(cdb);
-                                            if (doc.getDocumentForm() == "officememoprj") {
-                                                _doc.setForm("workdoc")
+                                            if (doc.getDocumentForm() == "officememoprjdept") {
+                                                _doc.setForm("workdocdept")
                                                 _doc.addStringField("vn", doc.getValueString("vn"))
                                                 //_doc.addStringField("author",doc.getValueString("author"))
                                                 _doc.addDateField("dvn", new Date())
@@ -193,7 +193,7 @@ class Coord_yes extends _DoScript {
                                                       }
                                                   }
                                                   _doc.addField("recipient", recipients)*/
-                                                int num = cdb.getRegNumber("workdoc");
+                                                int num = cdb.getRegNumber("workdocdept");
                                                 _doc.addStringField("vn", num.toString());
                                                 _doc.addNumberField("vnnumber", num);
                                                 _doc.setViewText("Служебная записка № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  " + session.getStructure()?.getEmployer(doc.getAuthorID())?.getShortName() + " " + doc.getValueString("briefcontent"));

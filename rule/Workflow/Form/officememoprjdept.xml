@@ -22,7 +22,6 @@
 	<caption name="newdoc" source="KEYWORD">Новый документ</caption>
 	<caption name="editing" source="KEYWORD">Редактирование</caption>
 	<caption name="readonly" source="KEYWORD">Только для чтения</caption>
-	<caption name="choosevalue" source="KEYWORD">Выберите значение</caption>
 	<caption name="modenotdefined" source="KEYWORD">Режим не определен</caption>
 	<caption name="addblock" source="KEYWORD">Добавить блок</caption>
 	<caption name="removeblock" source="KEYWORD">Удалить блок</caption>
@@ -106,7 +105,7 @@
 	<caption name="signer" source="KEYWORD">Кем будет подписан</caption>
 	<caption name="deliverytype" source="KEYWORD">Вид доставки</caption>
 	<caption name="sendingtype" source="KEYWORD">Вид отправки</caption>
-	<caption name="recipients" source="KEYWORD">Получатели</caption>
+	<caption name="recipient" source="KEYWORD">Получатель</caption>
 	<caption name="briefcontent" source="KEYWORD">Краткое содержание</caption>
 	<caption name="projectdate" source="KEYWORD">от</caption>
 	<caption name="author" source="KEYWORD">Автор</caption>

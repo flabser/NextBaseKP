@@ -119,7 +119,6 @@
 	<caption name="noblockcoord" source="KEYWORD">Вы не создали ни одного блока согласования</caption>
 	<caption name="nochosenblocktodelete" source="KEYWORD">Не выбран блок согласования для удаления</caption>
 	<caption name="choosemember" source="KEYWORD">Выберите участников согласования</caption>
-	<caption name="choosevalue" source="KEYWORD">Выберите значение</caption>
 	<caption name="alreadychosen" source="KEYWORD">Данный корреспондент уже выбран для согласования</caption>
 	<caption name="isrecieverofsz" source="KEYWORD">Выбранный вами сотрудник является получателем служебной записки</caption>
 	<caption name="successfullydeleted" source="KEYWORD">Успешно удалено</caption>

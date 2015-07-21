@@ -46,7 +46,7 @@ class QueryOpen extends _FormQueryOpen {
 			}
 		}*/
 		
-		if(doc.getValueString("signer") == user.getUserID()){
+		if(doc.getValueString("recipient") == user.getUserID()){
 			show_compose_actions = true;
 		}
 		 if(show_compose_actions){

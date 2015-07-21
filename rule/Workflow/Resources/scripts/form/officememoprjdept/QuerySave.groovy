@@ -46,6 +46,7 @@ class QuerySave extends _FormQuerySave {
 		//doc.addField("recipient",recipient)
 		doc.addNumberField("docversion", webFormData.getNumberValueSilently("docversion",-1))
 		doc.addStringField("briefcontent", webFormData.getValue("briefcontent"))
+		doc.addStringField("recipient", webFormData.getValue("recipient"))
 		doc.addFile("rtfcontent", webFormData)
 		doc.addNumberField("nomentype", webFormData.getNumberValueSilently("nomentype",0))
 		doc.setRichText("contentsource", webFormData.getValueSilently("contentsource"))
@@ -165,7 +166,7 @@ class QuerySave extends _FormQuerySave {
 		}
 
 		doc.addField("coordination", blocksCollection)
-
+		doc.addReader(webFormData.getValue("recipient"));
 		def vt
 		Date dDate = new Date()
 		def returnURL = session.getURLOfLastPage()
@@ -218,10 +219,10 @@ class QuerySave extends _FormQuerySave {
 		}else if(action == "startcoord" && (webFormData.getListOfValuesSilently("coordBlock").length == 0)){
 			localizedMsgBox("В список согласования не включен ни один участник.")
 			return false
-		}/*else if (webFormData.getValueSilently("recipient") == ""){
+		}else if (webFormData.getValueSilently("recipient") == ""){
 			localizedMsgBox("Поле \"Получатель\" не заполнено.")
 			return false
-		}*/
+		}
 	}
 
 	def validateprj(_WebFormData webFormData){

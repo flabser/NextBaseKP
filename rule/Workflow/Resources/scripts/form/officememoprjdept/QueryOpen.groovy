@@ -108,6 +108,7 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("briefcontent",doc.getValueString("briefcontent"))
 		publishValue("contentsource",doc.getValueString("contentsource"))
 		publishValue("coordination", blockCollection)
+		publishEmployer("recipient",doc.getValueString("recipient"));
 		def grant_story = doc.getValueObject("grantblocks")
 		if (grant_story) {
 			publishValue("grantblocks", grant_story)

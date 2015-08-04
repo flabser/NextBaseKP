@@ -13,7 +13,7 @@ class DoScript extends _DoScript {
 		if (formData.containsField("page") && formData.getValue("page")){
 			page = Integer.parseInt(formData.getValue("page"))
 		}
-		def formula = "(form='order' or form='workdoc' or form='application' or form='out' or form='IN') and viewtext7 ~ '" + session.getCurrentUserID() + "'  and vn != '' and has_response = 0";
+		def formula = "(form='order' or form='workdoc' or form='workdocdept' or form='application' or form='out' or form='IN') and viewtext7 ~ '" + session.getCurrentUserID() + "'  and vn != '' and has_response = 0";
 		def db = session.getCurrentDatabase()
 		def col = db.getCollectionOfDocuments(formula, page, true, false, false, true)
 		setContent(col)

@@ -13,12 +13,26 @@ class QueryOpen extends _FormQueryOpen {
 
 	@Override
 	public void doQueryOpen(_Session session, _WebFormData webFormData, String lang) {
+		def user = session.getCurrentAppUser()
+
+		def nav = session.getPage("outline", webFormData)
+		publishElement(nav)
+
+		def actionBar = session.createActionBar();
+		actionBar.addAction(new _Action(getLocalizedWord("Сохранить и закрыть",lang),getLocalizedWord("Сохранить и закрыть",lang),_ActionType.SAVE_AND_CLOSE))
+		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
+		publishElement(actionBar)
+
+		publishValue("title",getLocalizedWord("Новая служебная записка между департаментами", lang))
+		publishEmployer("author", user.getUserID())
+		publishEmployer("signer", user.getUserID())
+		publishValue("dvn", session.getCurrentDateAsString())
 	}
 
 
 	@Override
 	public void doQueryOpen(_Session session, _Document doc, _WebFormData webFormData, String lang) {
-		def doctitle = "Служебная записка"
+		def doctitle = "Служебная записка между департаментами"
 		if (doc.getField("finaldoctype")) {
 			publishGlossaryValue("finaldoctype",doc.getValueNumber("finaldoctype"));
 			doctitle = session.getCurrentDatabase().getGlossaryDocument("finaldoctype", "docid="+doc.getValueNumber("finaldoctype").toString()).getViewText();
@@ -62,7 +76,7 @@ class QueryOpen extends _FormQueryOpen {
 
 		publishEmployer("author",doc.getAuthorID())
 		publishEmployer("signer",doc.getValueString("signer"))
-		/*publishValue("recipient",doc.getValueObject("recipient"))*/
+		publishEmployer("recipient",doc.getValueString("recipient"))
 		publishValue("vn",doc.getValueString("vn"))
 		publishValue("dvn",doc.getValueString("dvn"))
 		publishValue("briefcontent",doc.getValueString("briefcontent"))
@@ -76,14 +90,6 @@ class QueryOpen extends _FormQueryOpen {
 		}catch(_Exception e){
 
 		}
-		try{
-			def parentdoc = doc.getParentDocument();
-			def	blockCollection  = (_BlockCollection)parentdoc.getValueObject("coordination")
-			publishValue("coordination", blockCollection)
-		}catch(_Exception e){
-		
-		}
-
 		publishParentDoc(session,webFormData.getParentDocID())
 		 
 		 publishElement(actionBar)

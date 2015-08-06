@@ -235,7 +235,10 @@ class QuerySave extends _FormQuerySave {
 			localizedMsgBox('Поле \'Краткое содержание\' содержит значение превышающее 2046 символов');
 			return false;
 		}
-
+		if(webFormData.getListOfValuesSilently("coordBlock").length == 1){
+			localizedMsgBox("В список согласования не включен ни один участник.")
+			return false
+		}
 		/*if (webFormData.getValueSilently("recipient") == "" || !webFormData.containsField("recipient")){
 			localizedMsgBox("Поле \"Получатель\" не выбрано.")
 			return false

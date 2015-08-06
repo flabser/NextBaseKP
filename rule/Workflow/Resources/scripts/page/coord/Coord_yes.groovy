@@ -181,6 +181,7 @@ class Coord_yes extends _DoScript {
                                             if (doc.getDocumentForm() == "officememoprjdept") {
                                                 _doc.setForm("workdocdept")
                                                 _doc.addStringField("vn", doc.getValueString("vn"))
+                                                _doc.addStringField("recipient", doc.getValueString("recipient"))
                                                 //_doc.addStringField("author",doc.getValueString("author"))
                                                 _doc.addDateField("dvn", new Date())
                                                 _doc.addStringField("corr", signerCoord?.getUserID())
@@ -211,7 +212,7 @@ class Coord_yes extends _DoScript {
                                                 _doc.setParentDoc(doc)
                                                 _doc.setViewDate(new Date())
                                                 _doc.addField("link", new _CrossLink(session, doc))
-                                                _doc.addEditor("[registrator_outgoing]");
+                                                //_doc.addEditor("[registrator_outgoing]");
                                                 _doc.addEditor(doc.authorID);
                                                 _doc.save("[supervisor]")
                                                 _doc.replaceViewText(signerCoord?.getUserID(), 7)

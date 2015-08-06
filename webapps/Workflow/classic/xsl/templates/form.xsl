@@ -31,11 +31,11 @@
 
 	<!-- Набор javascript библиотек -->
 	<xsl:template name="cssandjs">
-		<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=5"/>
+		<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=6"/>
 <!-- 		<link type="text/css" rel="stylesheet" media="print" href="classic/css/print.css?ver=5"/> -->
-		<link type="text/css" rel="stylesheet" href="classic/css/form.css?ver=5"/>
-		<link type="text/css" rel="stylesheet" href="classic/css/actionbar.css?ver=5"/>
-		<link type="text/css" rel="stylesheet" href="classic/css/dialogs.css?ver=5"/>
+		<link type="text/css" rel="stylesheet" href="classic/css/form.css?ver=6"/>
+		<link type="text/css" rel="stylesheet" href="classic/css/actionbar.css?ver=6"/>
+		<link type="text/css" rel="stylesheet" href="classic/css/dialogs.css?ver=6"/>
 		<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.min.css"/>
 		<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.theme.min.css"/>
 		<link type="text/css" rel="Stylesheet" media="screen" href="/SharedResources/jquery/js/tiptip/tipTip.css"/>
@@ -261,14 +261,18 @@
 			<span id="iconresizer" class="ui-icon ui-icon-triangle-1-e" style="margin-left:-2px; position:relative; top:49%"/>
 		</div>
 	</xsl:template>
-	
+
+
+
 	<xsl:template name="documentheader">
 		<div id="documentheader" style="position:absolute; top:0px; left:0px; width:100%; background:url(classic/img/yellow_background.jpg); height:70px; border-bottom:1px solid #fcdd76; z-index:2">
 			<span style="float:left">
 				<img src="/SharedResources/logos/workflow_small.png" style="margin:5px 5px 0px 10px"/>
 				<font style="font-size:1.5em; vertical-align:20px; color:#555555; margin-left:5px">Workflow</font>
-				<font style="font-size:1em; vertical-align:20px; color:#555555; margin-left:5px"> документооборот </font>
+				<font style="font-size:1em; vertical-align:20px; color:#555555; margin-left:5px">документооборот
+				</font>
 			</span>
+
 			<span style="float:right; padding:5px 5px 5px 0px">
 				<a id="currentuser" title="{document/captions/view_userprofile/@caption}" href=" Provider?type=edit&amp;element=userprofile&amp;id=userprofile" style="text-decoration:none;color: #555555 ; font: 11px Tahoma; font-weight:bold">
 					<font>
@@ -292,8 +296,8 @@
 			<param name="ARCHIVE" value="/eds.jar, /commons-codec-1.3.jar" />
 		</APPLET> -->
 		<xsl:if test="document/@canbesign='1111'">
-			<script type="text/javascript" src="/edsApplet/js/jquery.blockUI.js" charset="utf-8"></script>
-        	<script type="text/javascript" src="/edsApplet/js/crypto_object.js" charset="utf-8"></script>
+			<script type="text/javascript" src="/edsApplet/js/jquery.blockUI.js" charset="utf-8"/>
+        	<script type="text/javascript" src="/edsApplet/js/crypto_object.js" charset="utf-8"/>
         	<script type="text/javascript">
 				edsApp.init();
 			</script>
@@ -494,14 +498,14 @@
 							</input>&#xA0;
 							<br/>
 							<style>.ui-progressbar .ui-progressbar-value { background-image: url(/SharedResources/jquery/css/base/images/pbar-ani.gif); }</style>
-							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"></div>
+							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"/>
 							<div id="progressstate" style="width:370px; display:none">
-								<font style="visibility:hidden; color:#999; font-size:11px; width:70%" id="readybytes"></font>
-								<font style="visibility:hidden; color:#999; font-size:11px; float:right;" id="percentready"></font>
+								<font style="visibility:hidden; color:#999; font-size:11px; width:70%" id="readybytes"/>
+								<font style="visibility:hidden; color:#999; font-size:11px; float:right;" id="percentready"/>
 								<font style="visibility:hidden; text-align:center; color:#999; font-size:11px; width:30%; text-align:center" id="initializing">Подготовка к загрузке</font>
 							</div>
 						</td>
-						<td></td>
+						<td/>
 					</tr>
 				</xsl:if>
 				<xsl:variable name='docid' select="document/@docid"/>
@@ -515,7 +519,7 @@
 						<xsl:variable name="extension" select="tokenize(lower-case($filename), '\.')[last()]"/>
 						<xsl:variable name="resolution"/>
 						<xsl:attribute name='id' select="$id"/>
-						<td class="fc"></td>
+						<td class="fc"/>
 						<td colspan="2">
 							<div class="test" style="width:90%; overflow:hidden; display:inline-block">
 								<xsl:choose>
@@ -600,7 +604,7 @@
 							</input>&#xA0;
 							<br/>
 							<style>.ui-progressbar .ui-progressbar-value { background-image: url(/SharedResources/jquery/css/base/images/pbar-ani.gif); }</style>
-							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"></div>
+							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"/>
 							<div id="progressstate" style="width:370px; display:none">
 								<font style="visibility:hidden; color:#999; font-size:11px; width:70%" id="readybytes"/>
 								<font style="visibility:hidden; color:#999; font-size:11px; float:right;" id="percentready"/>
@@ -653,7 +657,7 @@
 						<td>
 							<input type="password" size="40" border="#CCC" name="p_eds"/>
 						</td>
-						<td></td>
+						<td/>
 					</tr>
 					<tr>
 						<td class="fc">
@@ -669,7 +673,7 @@
 							</a> -->
 							<br/>
 							<style>.ui-progressbar .ui-progressbar-value { background-image: url(/SharedResources/jquery/css/base/images/pbar-ani.gif); }</style>
-							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"></div>
+							<div id="progressbar" style="width:370px; margin-top:5px; height:12px"/>
 							<div id="progressstate" style="width:370px; display:none">
 								<font style="visibility:hidden; color:#999; font-size:11px; width:70%" id="readybytes"/>
 								<font style="visibility:hidden; color:#999; font-size:11px; float:right;" id="percentready"/>
@@ -690,7 +694,7 @@
 						<xsl:variable name="extension" select="tokenize(lower-case($filename), '\.')[last()]"/>
 						<xsl:variable name="resolution"/>
 						<xsl:attribute name='id' select="$id"/>
-						<td class="fc"></td>
+						<td class="fc"/>
 						<td colspan="2">
 							<div class="test" style="width:90%; overflow:hidden; display:inline-block">
 								<xsl:choose>

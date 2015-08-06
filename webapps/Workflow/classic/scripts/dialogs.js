@@ -407,8 +407,8 @@ function dialogBoxStructure(query,isMultiValue, field, form, table) {
 	divhtml ="<div class='picklist' id='picklist' onkeyUp='keyDown(el, event);'>";
 	divhtml +="<div class='header'><font id='headertext' class='headertext'/>";
 	divhtml +="<div class='closeButton'><img style='width:15px; height:15px; margin-left:3px; margin-top:1px' src='/SharedResources/img/classic/icons/cross.png' onclick='pickListClose();'/>";
-	divhtml +="</div></div><div id='divChangeView' style='margin-top:-10px'><div id='divSearch' class='divSearch' style='display:inline-block; float:left; width:360px'></div>" 
-	divhtml +="<div  style='display:inline-block; float:right; width:100px; margin-top:20px'><a class='actionlink' id='btnChangeView' href='javascript:changeViewStructure(1)' style='margin-top:50px'><font style='font-size:11px'>"+changeviewcaption+"</font></a></div></div>";
+	divhtml +="</div></div><div id='divChangeView' style='margin-top:-10px'><div id='divSearch' class='divSearch' style='display:inline-block; float:left; width:360px'></div>";
+	divhtml +="</div>";
 	divhtml +="<div id='contentpane' class='contentpane'>Загрузка данных...</div>";  
 	divhtml += "<div id='btnpane' class='button_panel' style='margin-top:8%; margin:15px 15px 0; padding-bottom:15px;text-align:right;'>";
 	divhtml += "<button onclick='pickListBtnOk()' style='margin-right:5px'><font class='button_text'>ОК</font></button>" 

@@ -209,14 +209,14 @@ class QuerySave extends _FormQuerySave {
 	}
 
 	def validate(_WebFormData webFormData, String action){
-
+		def coordBlockCount = webFormData.getListOfValuesSilently("coordblock").length;
 		if (webFormData.getValueSilently("briefcontent") == ""){
 			localizedMsgBox("Поле \"Краткое содержание\" не заполнено.")
 			return false
 		}else if (webFormData.getValueSilently("signer") == ""){
 			localizedMsgBox("Поле \"Кем будет подписан\" не выбрано.")
 			return false
-		}else if(action == "startcoord" && (webFormData.getListOfValuesSilently("coordBlock").length == 0)){
+		}else if((action == "startcoord" || action == "send") && coordBlockCount == 1){
 			localizedMsgBox("В список согласования не включен ни один участник.")
 			return false
 		}else if (webFormData.getValueSilently("recipient") == ""){
@@ -235,7 +235,7 @@ class QuerySave extends _FormQuerySave {
 			localizedMsgBox('Поле \'Краткое содержание\' содержит значение превышающее 2046 символов');
 			return false;
 		}
-		if(webFormData.getListOfValuesSilently("coordBlock").length == 1){
+		if(webFormData.getListOfValuesSilently("coordblock").length == 1){
 			localizedMsgBox("В список согласования не включен ни один участник.")
 			return false
 		}

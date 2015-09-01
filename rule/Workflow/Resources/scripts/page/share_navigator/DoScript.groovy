@@ -32,7 +32,7 @@ class DoScript extends _DoScript {
         def outdocs = new _OutlineEntry(getLocalizedWord("Исходящие",lang), getLocalizedWord("Исходящие",lang), "out", "Provider?type=page&id=out&page=0")
         orgdocs_outline.addEntry(outdocs);
 
-		/*orgdocs_outline.addEntry(new _OutlineEntry(getLocalizedWord("Обращения граждан",lang), getLocalizedWord("Обращения граждан",lang), "letters", "Provider?type=page&id=letters&page=0"))*/
+		orgdocs_outline.addEntry(new _OutlineEntry(getLocalizedWord("Обращения граждан",lang), getLocalizedWord("Обращения граждан",lang), "letters", "Provider?type=page&id=letters&page=0"))
 		def taskdocs = new _OutlineEntry(getLocalizedWord("Задания",lang), getLocalizedWord("Задания",lang), "task", "Provider?type=page&id=task&page=0");
         orgdocs_outline.addEntry(taskdocs);
 		

@@ -18,7 +18,7 @@ class DoScript extends _DoScript {
 		def outline = new _Outline(getLocalizedWord("Мои документы",lang), getLocalizedWord("Мои документы",lang), "mydocs")
 		
 		def e1 = new _OutlineEntry(getLocalizedWord("На рассмотрение",lang), getLocalizedWord("На рассмотрение",lang), "toconsider", "Provider?type=page&id=toconsider&page=0")
-		def col1 = db.getCollectionOfDocuments("(form='order' or form='workdoc' or form='application' or form='out' or form='IN') and viewtext7 ~ '" + session.getCurrentUserID() + "' and vn != '' and has_response = 0", false, true)
+		def col1 = db.getCollectionOfDocuments("(form='order' or form='workdoc' or form='workdocdept' or form='application' or form='out' or form='IN') and viewtext7 ~ '" + session.getCurrentUserID() + "' and vn != '' and has_response = 0", false, true)
 		e1.setValue(col1.getCount())
         e1.unread = col1.unreadCount;
 		outline.addEntry(e1)
@@ -42,7 +42,7 @@ class DoScript extends _DoScript {
 		outline.addEntry(e4)
 		
 		def e5 = new _OutlineEntry(getLocalizedWord("Мне на согласование",lang), getLocalizedWord("Мне на согласование",lang), "waitforcoord", "Provider?type=page&id=waitforcoord&page=0")
-		def col5 = db.getCollectionOfDocuments("(form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and viewtext5 ~ '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false, true)
+		def col5 = db.getCollectionOfDocuments("(form='officememoprjdept' or form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and viewtext5 ~ '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false, true)
 		e5.setValue(col5.getCount())
 		e5.unread = col5.unreadCount;
 		outline.addEntry(e5)
@@ -54,7 +54,7 @@ class DoScript extends _DoScript {
 		outline.addEntry(e6)
 		
 		def e7 = new _OutlineEntry(getLocalizedWord("На согласовании",lang), getLocalizedWord("На согласовании",lang), "mywaitforcoord", "Provider?type=page&id=mywaitforcoord&page=0")
-		def col7 = db.getCollectionOfDocuments("(form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and author = '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false)
+		def col7 = db.getCollectionOfDocuments("(form='officememoprjdept' or form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and author = '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false)
 		e7.setValue(col7.getCount())
 		outline.addEntry(e7)
 		

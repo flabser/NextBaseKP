@@ -181,7 +181,9 @@ class Coord_yes extends _DoScript {
                                             if (doc.getDocumentForm() == "officememoprjdept") {
                                                 _doc.setForm("workdocdept")
                                                 _doc.addStringField("vn", doc.getValueString("vn"))
-                                                _doc.addStringField("recipient", doc.getValueString("recipient"))
+                                                def recipients = doc.getValueList("recipient")
+                                                _doc.replaceListField("recipient", recipients as ArrayList);
+                                                //_doc.addStringField("recipient", doc.getValueString("recipient"))
                                                 //_doc.addStringField("author",doc.getValueString("author"))
                                                 _doc.addDateField("dvn", new Date())
                                                 _doc.addStringField("corr", signerCoord?.getUserID())
@@ -215,7 +217,7 @@ class Coord_yes extends _DoScript {
                                                 //_doc.addEditor("[registrator_outgoing]");
                                                 _doc.addEditor(doc.authorID);
                                                 _doc.save("[supervisor]")
-                                                _doc.replaceViewText(signerCoord?.getUserID(), 7)
+                                                _doc.replaceViewText(doc.getValueList("recipient").toString(), 7)
                                                 _doc.save("[supervisor]")
                                                 doc.addField("link", new _CrossLink(session, _doc))
                                                 doc.setValueNumber("regdocid", _doc.getDocID())

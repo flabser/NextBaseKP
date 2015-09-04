@@ -34,6 +34,9 @@ class QueryOpen extends _FormQueryOpen {
 		//def blockCollection = new _BlockCollection(session)
 		def blockCollection = session.createBlockCollection()
 		publishValue("coordination", blockCollection)
+		if(user.hasRole("coordinator_workdocdept")){
+			publishValue("coordinator_workdocdept","coordinator_workdocdept")
+		}
 		
 	}
 
@@ -98,7 +101,9 @@ class QueryOpen extends _FormQueryOpen {
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		publishElement(actionBar)
 
-
+		if(user.hasRole("coordinator_workdocdept")){
+			publishValue("coordinator_workdocdept","coordinator_workdocdept")
+		}
 		publishValue("title",getLocalizedWord("Проект служебной записки", lang) + " № " + doc.getValueString("vn") + " " + getLocalizedWord("от", lang) + " " + doc.getValueString("projectdate"))
 		publishEmployer("author",doc.getAuthorID())
 		publishValue("vn",doc.getValueString("vn"))
@@ -108,7 +113,7 @@ class QueryOpen extends _FormQueryOpen {
 		publishValue("briefcontent",doc.getValueString("briefcontent"))
 		publishValue("contentsource",doc.getValueString("contentsource"))
 		publishValue("coordination", blockCollection)
-		publishEmployer("recipient",doc.getValueString("recipient"));
+		publishEmployer("recipient",doc.getValueList("recipient"));
 		def grant_story = doc.getValueObject("grantblocks")
 		if (grant_story) {
 			publishValue("grantblocks", grant_story)

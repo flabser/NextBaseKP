@@ -60,7 +60,7 @@ class QueryOpen extends _FormQueryOpen {
 			}
 		}*/
 		
-		if(doc.getValueString("recipient") == user.getUserID()){
+		if(doc.getValueList("recipient").contains(user.getUserID())){
 			show_compose_actions = true;
 		}
 		 if(show_compose_actions){
@@ -76,7 +76,7 @@ class QueryOpen extends _FormQueryOpen {
 
 		publishEmployer("author",doc.getAuthorID())
 		publishEmployer("signer",doc.getValueString("signer"))
-		publishEmployer("recipient",doc.getValueString("recipient"))
+		publishEmployer("recipient",doc.getValueList("recipient"));
 		publishValue("vn",doc.getValueString("vn"))
 		publishValue("dvn",doc.getValueString("dvn"))
 		publishValue("briefcontent",doc.getValueString("briefcontent"))

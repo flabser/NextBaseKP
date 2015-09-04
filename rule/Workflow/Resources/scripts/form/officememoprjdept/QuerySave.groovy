@@ -46,7 +46,8 @@ class QuerySave extends _FormQuerySave {
 		//doc.addField("recipient",recipient)
 		doc.addNumberField("docversion", webFormData.getNumberValueSilently("docversion",-1))
 		doc.addStringField("briefcontent", webFormData.getValue("briefcontent"))
-		doc.addStringField("recipient", webFormData.getValue("recipient"))
+		def recipients = webFormData.getListOfValues("recipient")
+		doc.replaceListField("recipient", recipients as ArrayList);
 		doc.addFile("rtfcontent", webFormData)
 		doc.addNumberField("nomentype", webFormData.getNumberValueSilently("nomentype",0))
 		doc.setRichText("contentsource", webFormData.getValueSilently("contentsource"))
@@ -97,8 +98,8 @@ class QuerySave extends _FormQuerySave {
 							if (coord){
 								coord.setCurrent(true)
 								doc.addReader(coord.getUserID())
-								def emp = struct.getEmployer(coord.getUserID())		
-								recipientsMail.add(emp.getEmail())							
+								def emp = struct.getEmployer(coord.getUserID())
+								recipientsMail.add(emp.getEmail())
 								recipientsID.add(emp.getInstMessengerAddr())
 							}
 						}else if (block.getBlockType() == _BlockType.PARALLEL_COORDINATION){
@@ -106,18 +107,18 @@ class QuerySave extends _FormQuerySave {
 							coords.each{coord ->
 								coord.setCurrent(true)
 								doc.addReader(coord.getUserID())
-								def emp = struct.getEmployer(coord.getUserID())						
+								def emp = struct.getEmployer(coord.getUserID())
 								recipientsMail.add(emp.getEmail())
 								recipientsID.add(emp.getInstMessengerAddr())
 							}
 						}
-						
+
 						/*if (recipientsID) {
 							String msg = "Вам документ на согласование: \"" + doc.getValueString("briefcontent") + "\" \nДля работы с документом перейдите по ссылке " + doc.getFullURL();
 							msngAgent.sendMessage(recipientsID, doc.getValueString("project_name") + ": " + msg);
 						}
-		
-		
+
+
 						String msubject = 'Прошу согласовать документ \"' + doc.getValueString("briefcontent") + '\"';
 						String body = '<b><font color="#000080" size="4" face="Default Serif">Документ на согласование</font></b><hr>';
 						body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
@@ -128,7 +129,7 @@ class QuerySave extends _FormQuerySave {
 						body += '<td colspan="2"></td>';
 						body += '</tr></table>';
 						body += '<p><font size="2" face="Arial">Для работы с документом перейдите по <a href="' + doc.getFullURL() + '">ссылке...</a></p></font>';
-		
+
 						if (recipientsMail) {
 							mailAgent.sendMailAfter(recipientsMail, msubject, body);
 						}*/
@@ -144,7 +145,7 @@ class QuerySave extends _FormQuerySave {
 							block = coordBlocks.get(blockNum)
 						}
 					}catch(IndexOutOfBoundsException e){
-					
+
 					}
 				}else{
 					//Для отправки на подпись
@@ -210,16 +211,17 @@ class QuerySave extends _FormQuerySave {
 
 	def validate(_WebFormData webFormData, String action){
 		def coordBlockCount = webFormData.getListOfValuesSilently("coordblock").length;
+		def coordinator_workdocdept = webFormData.getValueSilently("coordinator_workdocdept");
 		if (webFormData.getValueSilently("briefcontent") == ""){
 			localizedMsgBox("Поле \"Краткое содержание\" не заполнено.")
 			return false
 		}else if (webFormData.getValueSilently("signer") == ""){
 			localizedMsgBox("Поле \"Кем будет подписан\" не выбрано.")
 			return false
-		}else if((action == "startcoord" || action == "send") && coordBlockCount == 1){
+		}else if((action == "startcoord" || action == "send") && coordBlockCount == 1 && coordinator_workdocdept != "coordinator_workdocdept"){
 			localizedMsgBox("В список согласования не включен ни один участник.")
 			return false
-		}else if (webFormData.getValueSilently("recipient") == ""){
+		}else if (webFormData.getListOfValues("recipient").size() == 0){
 			localizedMsgBox("Поле \"Получатель\" не заполнено.")
 			return false
 		}

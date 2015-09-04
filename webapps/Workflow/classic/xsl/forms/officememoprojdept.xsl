@@ -244,15 +244,17 @@
 										<xsl:value-of select="$captions/content/@caption"/>
 									</a>
 								</li>
-								<li class="ui-state-default ui-corner-top">
-									<a href="#tabs-3">
-										<xsl:value-of select="$captions/coordination/@caption"/>
-									</a>
-								</li>
+								<xsl:if test="not(document/fields/coordinator_workdocdept) or $status != 'new'">
+									<li class="ui-state-default ui-corner-top">
+										<a href="#tabs-3">
+											<xsl:value-of select="$captions/coordination/@caption"/>
+										</a>
+									</li>
+								</xsl:if>
 								<li class="ui-state-default ui-corner-top">
 									<a href="#tabs-4" style="padding-right:5px">
 										<xsl:value-of select="$captions/attachments/@caption"/>
-										<img id="loading_attach_img" style="vertical-align: -3px; margin-left: 3px; visibility: hidden;" src="/SharedResources/img/classic/ajax-loader-small.gif"></img>
+										<img id="loading_attach_img" style="vertical-align: -3px; margin-left: 3px; visibility: hidden;" src="/SharedResources/img/classic/ajax-loader-small.gif"/>
 									</a>
 								</li>
 								<li class="ui-state-default ui-corner-top">
@@ -371,24 +373,37 @@
 												</font>
 												<xsl:if test="$editmode = 'edit'">
 													<a href="">
-														<xsl:attribute name="href">javascript:dialogBoxStructure('recipientworkdocdept','false','recipient','frm', 'recipienttbl');</xsl:attribute>
+														<xsl:attribute name="href">javascript:dialogBoxStructure('recipientworkdocdept','true','recipientworkdocdept','frm', 'recipienttbl');</xsl:attribute>
 														<img src="/SharedResources/img/iconset/report_magnify.png"/>
 													</a>
 												</xsl:if>
 											</td>
 											<td>
 												<table id="recipienttbl" style="border-spacing:0px 3px;">
-													<tr>
-														<td class="td_editable" style="width:600px;">
-															<xsl:if test="$editmode != 'edit'">
-																<xsl:attribute name="class">td_noteditable</xsl:attribute>
-															</xsl:if>
-															<xsl:value-of select="document/fields/recipient"/>
-															&#xA0;
-														</td>
-													</tr>
+													<xsl:if test="not(document/fields/recipient/entry)">
+														<tr>
+															<td class="td_editable" style="width:600px;">
+																<xsl:if test="$editmode != 'edit'">
+																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
+																</xsl:if>
+																&#xA0;
+															</td>
+														</tr>
+													</xsl:if>
+													<xsl:for-each select="document/fields/recipient/entry">
+														<tr>
+															<td class="td_editable" style="width:600px;">
+																<xsl:if test="$editmode != 'edit'">
+																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
+																</xsl:if>
+																<xsl:value-of select="."/>
+																&#xA0;
+																<input type="hidden" id="recipient" name="recipient" value="{@attrval}"/>
+															</td>
+														</tr>
+													</xsl:for-each>
 												</table>
-												<input type="hidden" id="recipient" name="recipient" value="{document/fields/recipient/@attrval}"/>
+
 												<input type="hidden" id="recipientcaption" value="{$captions/recipient/@caption}"/>
 											</td>
 										</tr>
@@ -465,221 +480,223 @@
 										</tr>
 									</table>
 								</div>
-								<div id="tabs-3">
-									<br/>
-									<xsl:if test="$editmode != 'edit'">
-									<div id='printCoordTitle' style="display:none; width:100%">Ход согласования документа: <br/><br/>
-										 <b style='margin-left:50px;'><xsl:value-of select="document/fields/title"/></b><br/>
-										 <font style='margin-left:50px'>Краткое содержание: </font><b><xsl:value-of select="document/fields/briefcontent"/></b>
-										 </div>
-										 <button type="button" id="printcoord" title="Печать согласования" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="margin-right:5px" autocomplete="off">
-											<xsl:attribute name="onclick">javascript:PrintCoord()</xsl:attribute>
-											<span>
-												<img src="/SharedResources/img/iconset/printer.png" class="button_img"/>
-												<font class="button_text">Печать согласования</font>
-											</span>
-										</button>
-										<br/><br/>
-									</xsl:if>
-									<xsl:if test="$editmode = 'edit' and $fields/coordination/status = 'DRAFT' or $fields/coordination/status = 'NEWVERSION'">
-										<table class="button_panel">
-											<tr>
-												<td>
-													<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button">
-														<xsl:attribute name="onclick">javascript:addCoord()</xsl:attribute>
-														<span>
-															<img src="/SharedResources/img/classic/icons/layout_add.png"
-																style="border:none; width:15px; height:15px; margin-right:3px; vertical-align:top"/>
-															<font style="font-size:12px; vertical-align:top">
-																<xsl:value-of select="$captions/addblock/@caption"/>
-															</font>
-														</span>
-													</button>
-												</td>
-												<td>
-													<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button">
-														<xsl:attribute name="onclick">javascript:delCoord()</xsl:attribute>
-														<span>
-															<img src="/SharedResources/img/classic/icons/layout_delete.png" style="border:none; width:15px; height:15px; margin-right:3px; vertical-align:top"/>
-															<font style="font-size:12px; vertical-align:top">
-																<xsl:value-of select="$captions/removeblock/@caption"/>
-															</font>
-														</span>
-													</button>
-												</td>
-											</tr>
-										</table>
-									</xsl:if>
-									<table id="coordTableView" style="border-collapse:collapse; margin-left:3px; width:100%" class="table-border-gray">
-										<tr style="text-align:center;">
-											<td width="1%">
-												<input type="checkbox" id="allchbox" onClick="checkAll(this);"/>
-											</td>
-											<td width="2%">№</td>
-											<td width="10%">
-												<xsl:value-of select="$captions/type/@caption"/>
-											</td>
-											<td width="61%">
-												<xsl:value-of select="$captions/contributors/@caption"/>
-											</td>
-											<td width="9%">
-												<xsl:value-of select="$captions/waittime/@caption"/>
-											</td>
-											<td width="10%">
-												<xsl:value-of select="$captions/statuscoord/@caption"/>
-											</td>
-										</tr>
-										<xsl:for-each select="$fields/coordination/blocks/entry">
-												<tr class="trblockCoord">
-													<td style="border-bottom: 1px solid lightgray">
-														<input type="checkbox" name="chbox" id="{position()}"/>
-														<xsl:for-each select="coordinators/entry">
-															<br/>
-														</xsl:for-each>
+								<xsl:if test="not(document/fields/coordinator_workdocdept) or $status != 'new'">
+									<div id="tabs-3">
+										<br/>
+										<xsl:if test="$editmode != 'edit'">
+										<div id='printCoordTitle' style="display:none; width:100%">Ход согласования документа: <br/><br/>
+											 <b style='margin-left:50px;'><xsl:value-of select="document/fields/title"/></b><br/>
+											 <font style='margin-left:50px'>Краткое содержание: </font><b><xsl:value-of select="document/fields/briefcontent"/></b>
+											 </div>
+											 <button type="button" id="printcoord" title="Печать согласования" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="margin-right:5px" autocomplete="off">
+												<xsl:attribute name="onclick">javascript:PrintCoord()</xsl:attribute>
+												<span>
+													<img src="/SharedResources/img/iconset/printer.png" class="button_img"/>
+													<font class="button_text">Печать согласования</font>
+												</span>
+											</button>
+											<br/><br/>
+										</xsl:if>
+										<xsl:if test="$editmode = 'edit' and $fields/coordination/status = 'DRAFT' or $fields/coordination/status = 'NEWVERSION'">
+											<table class="button_panel">
+												<tr>
+													<td>
+														<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button">
+															<xsl:attribute name="onclick">javascript:addCoord()</xsl:attribute>
+															<span>
+																<img src="/SharedResources/img/classic/icons/layout_add.png"
+																	style="border:none; width:15px; height:15px; margin-right:3px; vertical-align:top"/>
+																<font style="font-size:12px; vertical-align:top">
+																	<xsl:value-of select="$captions/addblock/@caption"/>
+																</font>
+															</span>
+														</button>
 													</td>
-													<td style="text-align:center; border-bottom: 1px solid lightgray">
-														<xsl:value-of select="position()"/>
-														<xsl:for-each select="coordinators/entry">
-															<br/>
-														</xsl:for-each>
-													</td>
-													<td style="border-bottom: 1px solid lightgray; text-align:center">
-														<xsl:choose>
-															<xsl:when test="type = 'PARALLEL_COORDINATION'">
-																<xsl:value-of select="$captions/parcoord/@caption"/>
-															</xsl:when>
-															<xsl:when test="type = 'SERIAL_COORDINATION'">
-																<xsl:value-of select="$captions/sercoord/@caption"/>
-															</xsl:when>
-															<xsl:when test="type = 'TO_SIGN'">
-																<xsl:value-of select="$captions/tosign/@caption"/>
-															</xsl:when>
-															<xsl:otherwise>
-																<xsl:value-of select="$captions/typenotdefined/@caption"/>
-															</xsl:otherwise>
-														</xsl:choose>
-														<xsl:for-each select="coordinators/entry">
-															<br/>
-														</xsl:for-each>
-													</td>
-													<td style="border-bottom: 1px solid lightgray">
-														<table>
-															<xsl:for-each select="coordinators/entry">
-																<tr>
-																	<td style="border:none; padding:5px 0px !important; vertical-align:top">
-																		<xsl:value-of select="employer/fullname"/>
-																		<p style="margin:0px">
-																			<xsl:choose>
-																				<xsl:when test="decision='AGREE'">
-																					<xsl:value-of select="concat(decisiondate,' ')"/>
-																					<b><xsl:value-of select="$captions/agree/@caption"/></b>
-																				</xsl:when>
-																				<xsl:when test="decision='DISAGREE'">
-																					<xsl:value-of select="concat(decisiondate,' ')"/>
-																					<b><xsl:value-of select="$captions/disagree/@caption"/></b>
-																				</xsl:when>
-																				<xsl:when test="iscurrent='true'">
-																					<xsl:value-of select="$captions/awairesponse/@caption"/>
-																				</xsl:when>
-																			</xsl:choose>
-																		</p>
-																	
-																		<div class="coord_comment_box close">
-																			<div class='coord_comment_txt'>
-																				<xsl:choose>
-																					<xsl:when test="comment = 'null'">
-																					</xsl:when>
-																					<xsl:when test="string-length(comment)!= 0">
-		                                                                                 <xsl:value-of select="$captions/comment/@caption"/>: <xsl:value-of select="comment"/>
-																					</xsl:when>
-																				</xsl:choose>
-																				<xsl:call-template name="coord_comment_attach"/>
-																			</div>
-																			<!-- <div class='coord_comment_action'>
-																	        	<a href='#' class='close doclink'>Скрыть</a><a href='#' class='open doclink'>Показать все</a>
-																	   		</div> -->
-																	   		<!-- <script>
-																	   			$(".coord_comment_box").each(function(){
-																	   				if($(this).height() &lt; 150){
-																	   					$(this).children(".coord_comment_action").css("display","none")
-																	   				}
-																	   			})
-																	   		</script> -->
-																		</div>
-																		
-																	</td>
-																</tr>
-															</xsl:for-each>
-														</table>
-													</td>
-													<td style="border-bottom: 1px solid lightgray; text-align:center">
-														<xsl:choose>
-															<xsl:when test="delaytime = 0">
-																<xsl:value-of select="$captions/unlimtimecoord/@caption"/>
-															</xsl:when>
-															<xsl:otherwise>
-																<xsl:value-of select="delaytime"/>
-															</xsl:otherwise>
-														</xsl:choose>
-														<xsl:for-each select="coordinators/entry">
-															<br/>
-														</xsl:for-each>
-													</td>
-													<td style="border-bottom: 1px solid lightgray; text-align:center">
-														<xsl:if test="type !='TO_SIGN'">
-															<xsl:choose>
-																<xsl:when test="status ='COORDINATING'">
-																	<xsl:value-of select="$captions/oncoordinating/@caption"/>
-																</xsl:when>
-																<xsl:when test="status ='COORDINATED'">
-																	<xsl:value-of select="$captions/complete/@caption"/>
-																</xsl:when>
-																<xsl:when test="status ='AWAITING'">
-																	<xsl:value-of select="$captions/expectbegincoord/@caption"/>
-																</xsl:when>
-																<xsl:when test="status ='EXPIRED'">
-																	<xsl:value-of select="$captions/prosrochen/@caption"/>
-																</xsl:when>
-																<xsl:when test="status ='UNDEFINED'">
-																	<xsl:value-of select="$captions/undefined/@caption"/>
-																</xsl:when>
-																<xsl:otherwise>
-																	<xsl:value-of select="$captions/undefined/@caption"/>
-																</xsl:otherwise>
-															</xsl:choose>
-														</xsl:if>
-														<xsl:if test="type ='TO_SIGN'">
-															<xsl:choose>
-																<xsl:when test="$fields/coordination/status = 'SIGNING'">
-																	<xsl:value-of select="$captions/waitingsign/@caption"/>
-																</xsl:when>
-																<xsl:when test="$fields/coordination/status = 'SIGNED'">
-																	<xsl:value-of select="$captions/signed/@caption"/>
-																</xsl:when>
-																<xsl:when test="$fields/coordination/status = 'REJECTED'">
-																	<xsl:value-of select="$captions/rejected/@caption"/>
-																</xsl:when>
-															</xsl:choose>
-														</xsl:if>
-														<xsl:for-each select="coordinators/entry">
-															<br/>
-															<input type="hidden" value="{employer/userid}" class="{employer/userid}"/>
-														</xsl:for-each>
-														<xsl:if test="type !='TO_SIGN'">
-															<input type="hidden" name="coordblock">
-																<xsl:attribute name="value"><xsl:value-of select="id"/>`<xsl:choose><xsl:when test="type='PARALLEL_COORDINATION'">par</xsl:when><xsl:when
-																	test="type='SERIAL_COORDINATION'">ser</xsl:when></xsl:choose>`<xsl:value-of
-																	select="delaytime" />`<xsl:for-each select="coordinators/entry"><xsl:value-of
-																	select="employer/userid"/><xsl:if test="following-sibling::*">^</xsl:if></xsl:for-each>`<xsl:value-of
-																	select="status"/></xsl:attribute>
-															</input>
-														</xsl:if>
+													<td>
+														<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="button">
+															<xsl:attribute name="onclick">javascript:delCoord()</xsl:attribute>
+															<span>
+																<img src="/SharedResources/img/classic/icons/layout_delete.png" style="border:none; width:15px; height:15px; margin-right:3px; vertical-align:top"/>
+																<font style="font-size:12px; vertical-align:top">
+																	<xsl:value-of select="$captions/removeblock/@caption"/>
+																</font>
+															</span>
+														</button>
 													</td>
 												</tr>
-										</xsl:for-each>
-									</table>
-									<br/>
-								</div>
+											</table>
+										</xsl:if>
+										<table id="coordTableView" style="border-collapse:collapse; margin-left:3px; width:100%" class="table-border-gray">
+											<tr style="text-align:center;">
+												<td width="1%">
+													<input type="checkbox" id="allchbox" onClick="checkAll(this);"/>
+												</td>
+												<td width="2%">№</td>
+												<td width="10%">
+													<xsl:value-of select="$captions/type/@caption"/>
+												</td>
+												<td width="61%">
+													<xsl:value-of select="$captions/contributors/@caption"/>
+												</td>
+												<td width="9%">
+													<xsl:value-of select="$captions/waittime/@caption"/>
+												</td>
+												<td width="10%">
+													<xsl:value-of select="$captions/statuscoord/@caption"/>
+												</td>
+											</tr>
+											<xsl:for-each select="$fields/coordination/blocks/entry">
+													<tr class="trblockCoord">
+														<td style="border-bottom: 1px solid lightgray">
+															<input type="checkbox" name="chbox" id="{position()}"/>
+															<xsl:for-each select="coordinators/entry">
+																<br/>
+															</xsl:for-each>
+														</td>
+														<td style="text-align:center; border-bottom: 1px solid lightgray">
+															<xsl:value-of select="position()"/>
+															<xsl:for-each select="coordinators/entry">
+																<br/>
+															</xsl:for-each>
+														</td>
+														<td style="border-bottom: 1px solid lightgray; text-align:center">
+															<xsl:choose>
+																<xsl:when test="type = 'PARALLEL_COORDINATION'">
+																	<xsl:value-of select="$captions/parcoord/@caption"/>
+																</xsl:when>
+																<xsl:when test="type = 'SERIAL_COORDINATION'">
+																	<xsl:value-of select="$captions/sercoord/@caption"/>
+																</xsl:when>
+																<xsl:when test="type = 'TO_SIGN'">
+																	<xsl:value-of select="$captions/tosign/@caption"/>
+																</xsl:when>
+																<xsl:otherwise>
+																	<xsl:value-of select="$captions/typenotdefined/@caption"/>
+																</xsl:otherwise>
+															</xsl:choose>
+															<xsl:for-each select="coordinators/entry">
+																<br/>
+															</xsl:for-each>
+														</td>
+														<td style="border-bottom: 1px solid lightgray">
+															<table>
+																<xsl:for-each select="coordinators/entry">
+																	<tr>
+																		<td style="border:none; padding:5px 0px !important; vertical-align:top">
+																			<xsl:value-of select="employer/fullname"/>
+																			<p style="margin:0px">
+																				<xsl:choose>
+																					<xsl:when test="decision='AGREE'">
+																						<xsl:value-of select="concat(decisiondate,' ')"/>
+																						<b><xsl:value-of select="$captions/agree/@caption"/></b>
+																					</xsl:when>
+																					<xsl:when test="decision='DISAGREE'">
+																						<xsl:value-of select="concat(decisiondate,' ')"/>
+																						<b><xsl:value-of select="$captions/disagree/@caption"/></b>
+																					</xsl:when>
+																					<xsl:when test="iscurrent='true'">
+																						<xsl:value-of select="$captions/awairesponse/@caption"/>
+																					</xsl:when>
+																				</xsl:choose>
+																			</p>
+
+																			<div class="coord_comment_box close">
+																				<div class='coord_comment_txt'>
+																					<xsl:choose>
+																						<xsl:when test="comment = 'null'">
+																						</xsl:when>
+																						<xsl:when test="string-length(comment)!= 0">
+																							 <xsl:value-of select="$captions/comment/@caption"/>: <xsl:value-of select="comment"/>
+																						</xsl:when>
+																					</xsl:choose>
+																					<xsl:call-template name="coord_comment_attach"/>
+																				</div>
+																				<!-- <div class='coord_comment_action'>
+																					<a href='#' class='close doclink'>Скрыть</a><a href='#' class='open doclink'>Показать все</a>
+																				</div> -->
+																				<!-- <script>
+																					$(".coord_comment_box").each(function(){
+																						if($(this).height() &lt; 150){
+																							$(this).children(".coord_comment_action").css("display","none")
+																						}
+																					})
+																				</script> -->
+																			</div>
+
+																		</td>
+																	</tr>
+																</xsl:for-each>
+															</table>
+														</td>
+														<td style="border-bottom: 1px solid lightgray; text-align:center">
+															<xsl:choose>
+																<xsl:when test="delaytime = 0">
+																	<xsl:value-of select="$captions/unlimtimecoord/@caption"/>
+																</xsl:when>
+																<xsl:otherwise>
+																	<xsl:value-of select="delaytime"/>
+																</xsl:otherwise>
+															</xsl:choose>
+															<xsl:for-each select="coordinators/entry">
+																<br/>
+															</xsl:for-each>
+														</td>
+														<td style="border-bottom: 1px solid lightgray; text-align:center">
+															<xsl:if test="type !='TO_SIGN'">
+																<xsl:choose>
+																	<xsl:when test="status ='COORDINATING'">
+																		<xsl:value-of select="$captions/oncoordinating/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="status ='COORDINATED'">
+																		<xsl:value-of select="$captions/complete/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="status ='AWAITING'">
+																		<xsl:value-of select="$captions/expectbegincoord/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="status ='EXPIRED'">
+																		<xsl:value-of select="$captions/prosrochen/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="status ='UNDEFINED'">
+																		<xsl:value-of select="$captions/undefined/@caption"/>
+																	</xsl:when>
+																	<xsl:otherwise>
+																		<xsl:value-of select="$captions/undefined/@caption"/>
+																	</xsl:otherwise>
+																</xsl:choose>
+															</xsl:if>
+															<xsl:if test="type ='TO_SIGN'">
+																<xsl:choose>
+																	<xsl:when test="$fields/coordination/status = 'SIGNING'">
+																		<xsl:value-of select="$captions/waitingsign/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="$fields/coordination/status = 'SIGNED'">
+																		<xsl:value-of select="$captions/signed/@caption"/>
+																	</xsl:when>
+																	<xsl:when test="$fields/coordination/status = 'REJECTED'">
+																		<xsl:value-of select="$captions/rejected/@caption"/>
+																	</xsl:when>
+																</xsl:choose>
+															</xsl:if>
+															<xsl:for-each select="coordinators/entry">
+																<br/>
+																<input type="hidden" value="{employer/userid}" class="{employer/userid}"/>
+															</xsl:for-each>
+															<xsl:if test="type !='TO_SIGN'">
+																<input type="hidden" name="coordblock">
+																	<xsl:attribute name="value"><xsl:value-of select="id"/>`<xsl:choose><xsl:when test="type='PARALLEL_COORDINATION'">par</xsl:when><xsl:when
+																		test="type='SERIAL_COORDINATION'">ser</xsl:when></xsl:choose>`<xsl:value-of
+																		select="delaytime" />`<xsl:for-each select="coordinators/entry"><xsl:value-of
+																		select="employer/userid"/><xsl:if test="following-sibling::*">^</xsl:if></xsl:for-each>`<xsl:value-of
+																		select="status"/></xsl:attribute>
+																</input>
+															</xsl:if>
+														</td>
+													</tr>
+											</xsl:for-each>
+										</table>
+										<br/>
+									</div>
+								</xsl:if>
 								<!-- Скрытые поля -->
 								<xsl:for-each select="$fields/coordination/blocks/entry">
 									<xsl:if test="type='TO_SIGN'">
@@ -706,13 +723,14 @@
 								<input type="hidden" name="docversion" id="docversion" value="{$fields/docversion}"/>
 								<input type="hidden" name="action" id="action"/>
 								<input type="hidden" name="department" value="{document/fields/department/@attrval}"/>
+								<input type="hidden" name="coordinator_workdocdept" value="{document/fields/coordinator_workdocdept}"/>
 								<xsl:call-template name="ECPsignFields"/>
 							</form>
 							<!-- Форма "Вложения" -->
 							<table style="display:none" id="extraCoordTable">
 							</table>
 							<table style="display:none" id="notesTable">
-								<tr></tr>
+								<tr/>
 							</table>
 							<div id="tabs-4">
 								<form action="Uploader" name="upload" id="upload" method="post" enctype="multipart/form-data">

@@ -500,7 +500,7 @@
 												</td>
 												<td>
 													<a href="" class="doclink" style="margin-left:3px">
-														<xsl:attribute name="href" select="document/fields/parentdoc/entry/@url"></xsl:attribute>
+														<xsl:attribute name="href" select="document/fields/parentdoc/entry/@url"/>
 														<xsl:value-of select="document/fields/parentdoc/entry"/>
 													</a>
 												</td>

@@ -314,17 +314,29 @@
 											</td>
 											<td>
 												<table id="recipienttbl" style="border-spacing:0px 3px;">
-													<tr>
-														<td class="td_editable" style="width:600px;">
-															<xsl:if test="$editmode != 'edit'">
-																<xsl:attribute name="class">td_noteditable</xsl:attribute>
-															</xsl:if>
-															<xsl:value-of select="document/fields/recipient"/>
-															&#xA0;
-														</td>
-													</tr>
+													<xsl:if test="not(document/fields/recipient/entry)">
+														<tr>
+															<td class="td_editable" style="width:600px;">
+																<xsl:if test="$editmode != 'edit'">
+																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
+																</xsl:if>
+																&#xA0;
+															</td>
+														</tr>
+													</xsl:if>
+													<xsl:for-each select="document/fields/recipient/entry">
+														<tr>
+															<td class="td_editable" style="width:600px;">
+																<xsl:if test="$editmode != 'edit'">
+																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
+																</xsl:if>
+																<xsl:value-of select="."/>
+																&#xA0;
+																<input type="hidden" id="recipient" name="recipient" value="{@attrval}"/>
+															</td>
+														</tr>
+													</xsl:for-each>
 												</table>
-												<input type="hidden" id="recipient" name="recipient" value="{document/fields/recipient/@attrval}"/>
 												<input type="hidden" id="recipientcaption" value="{$captions/recipient/@caption}"/>
 											</td>
 										</tr>

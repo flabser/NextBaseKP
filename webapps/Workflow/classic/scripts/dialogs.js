@@ -112,7 +112,13 @@ function pickListSingleOk(docid){
                     $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`tosign`0`"+$("input[name=author]").val()+"'>")
                     $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`ser`0`"+docid+"'>")
                 }else{
-                    $("#frm").append("<input type='hidden' name='"+ queryOpt.fieldname +"' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
+					if(queryOpt.fieldname == "recipientworkdocdept"){
+						$(".recipientworkdocdept, input[name=recipient]").remove();
+						$("#frm").append("<input type='hidden' name='coordblock' class='recipientworkdocdept' value='new`ser`0`"+docid+"'>")
+						$("#frm").append("<input type='hidden' name='recipient' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
+					}else{
+						$("#frm").append("<input type='hidden' name='"+ queryOpt.fieldname +"' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
+					}
                 }
 			}
 		}
@@ -172,34 +178,46 @@ function pickListBtnOk(){
 			}else{
 				if(queryOpt.fieldname == 'corr' || queryOpt.fieldname == 'recipient' && queryOpt.queryname == 'corrcat'){
 					$('input[name=chbox]:checked').each(function(indx, element){
+						$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("id")+"'>");
 						$("#"+ queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>"+$(this).val()+"<span style='float:right; border-left:1px solid #ccc; width:20px; padding-right:10px; padding-left:2px; padding-top:1px; color:#ccc; font-size:11px'>"+$(this).attr("id")+"</span></td></tr>");
-						$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("id")+"'>")
 					})
 				}else{
-					if(queryOpt.fieldname == "parentsubkey"){
+					if(queryOpt.fieldname == 'recipientworkdocdept'){
+						$(".recipientworkdocdept, input[name=recipient]").remove();
+						var workdocrecipients = [];
 						$('input[name=chbox]:checked').each(function(indx, element){
+							workdocrecipients.push($(this).attr("id"));
 							$("#"+ queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>"+$(this).val()+"</td></tr>");
-							$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("class")+"'>")
-						})
+							$("#"+ queryOpt.formname).append("<input type='hidden' name='recipient' id='"+queryOpt.fieldname+"' value='"+$(this).attr("id")+"'>")
+						});
+						var recipients = workdocrecipients.join("^");
+						$("#" + queryOpt.formname).append("<input type='hidden' name='coordblock' class='" + queryOpt.fieldname + "' value='new`ser`0`" + recipients + "'>");
 					}else{
-                        if(queryOpt.fieldname == "coordblock") {
-                            $('input[name=chbox]:checked').each(function (indx, element) {
-                                $("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
-                                $("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='new`ser`0`" + $(this).attr("id") + "'>")
-                            })
-                            $("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $("input[name=author]").val() + "'>")
-                        }else{
-                            $('input[name=chbox]:checked').each(function (indx, element) {
-                                $("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
-                                if (queryOpt.fieldname == "signer") {
-                                    $("#coordBlockSign").remove();
-                                    $("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $(this).attr("id") + "'>")
-                                    $("#frm").append("<input type='hidden' name='signer' id='coordBlockSign' value='" + $(this).attr("id") + "'>")
-                                } else {
-                                    $("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='" + $(this).attr("id") + "'>")
-                                }
-                            })
-                        }
+						if(queryOpt.fieldname == "parentsubkey"){
+							$('input[name=chbox]:checked').each(function(indx, element){
+								$("#"+ queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>"+$(this).val()+"</td></tr>");
+								$("#"+ queryOpt.formname).append("<input type='hidden' name='"+queryOpt.fieldname+"' id='"+queryOpt.fieldname+"' value='"+$(this).attr("class")+"'>")
+							})
+						}else{
+							if(queryOpt.fieldname == "coordblock") {
+								$('input[name=chbox]:checked').each(function (indx, element) {
+									$("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
+									$("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='new`ser`0`" + $(this).attr("id") + "'>")
+								})
+								$("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $("input[name=author]").val() + "'>")
+							}else{
+								$('input[name=chbox]:checked').each(function (indx, element) {
+									$("#" + queryOpt.tablename).append("<tr><td style='width:600px;' class='td_editable'>" + $(this).val() + "</td></tr>");
+									if (queryOpt.fieldname == "signer") {
+										$("#coordBlockSign").remove();
+										$("#frm").append("<input type='hidden' name='coordblock'  id='coordBlockSign' value='new`tosign`0`" + $(this).attr("id") + "'>");
+										$("#frm").append("<input type='hidden' name='signer' id='coordBlockSign' value='" + $(this).attr("id") + "'>")
+									} else {
+										$("#" + queryOpt.formname).append("<input type='hidden' name='" + queryOpt.fieldname + "' id='" + queryOpt.fieldname + "' value='" + $(this).attr("id") + "'>")
+									}
+								})
+							}
+						}
 					}
 				}
 			}

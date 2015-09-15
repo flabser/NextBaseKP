@@ -507,7 +507,7 @@
 													<xsl:value-of select="$captions/statuscoord/@caption"/>
 												</td>
 											</tr>
-											<xsl:for-each select="$fields/coordination/blocks/entry">
+											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN'][position() != last()]">
 													<tr class="trblockCoord">
 														<td style="text-align:center; border-bottom: 1px solid lightgray">
 															<xsl:value-of select="position()"/>

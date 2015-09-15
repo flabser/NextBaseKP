@@ -545,7 +545,7 @@
 													<xsl:value-of select="$captions/statuscoord/@caption"/>
 												</td>
 											</tr>
-											<xsl:for-each select="$fields/coordination/blocks/entry">
+											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN'][position() != last()]">
 													<tr class="trblockCoord">
 														<td style="border-bottom: 1px solid lightgray">
 															<input type="checkbox" name="chbox" id="{position()}"/>

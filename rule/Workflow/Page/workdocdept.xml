@@ -10,7 +10,7 @@
 	<element mode="ON" type="SCRIPT">
 		<name>action_bar</name>
 		<events>
-			<doscript source="file">page.actionbar.workdoc</doscript>
+			<doscript source="file">page.actionbar.workdocdept</doscript>
 		</events>
 	</element>
 	<element mode="ON" type="SCRIPT">

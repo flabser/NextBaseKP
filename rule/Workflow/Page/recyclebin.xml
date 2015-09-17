@@ -31,6 +31,9 @@
 	<caption name="btnRecover" source="KEYWORD">Восстановить</caption>
 	<caption name="BTNDELETEDOCUMENT" source="KEYWORD">Удалить документ</caption>
 	<caption name="name" source="KEYWORD">Название</caption>
+	<caption name="ip" source="KEYWORD">IP адрес инициатора</caption>
+	<caption name="initiator" source="KEYWORD">Инициатор</caption>
+	<caption name="deletedate" source="KEYWORD">Дата удаления</caption>
 	<caption name="helpcaption" source="KEYWORD">Помощь</caption>
 	<caption name="logout" source="KEYWORD">Завершить работу</caption>
 	<caption name="recyclebin" source="KEYWORD">Корзина</caption>

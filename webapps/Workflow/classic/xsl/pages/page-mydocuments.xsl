@@ -249,8 +249,8 @@
 				<title>
 					<xsl:value-of select="concat('Workflow документооборот - ', page/captions/viewnamecaption/@caption)"/>
 				</title>
-				<link type="text/css" rel="stylesheet" href="classic/css/outline.css?ver=5"/>
-				<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=5"/>
+				<link type="text/css" rel="stylesheet" href="classic/css/outline.css?ver=6"/>
+				<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=6"/>
 				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.min.css"/>
 				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.theme.min.css"/>
 				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/js/hotnav/jquery.hotnav.css"/>
@@ -261,10 +261,10 @@
 				<script type="text/javascript" src="/SharedResources/jquery/js/hotnav/jquery.hotnav.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/scrollTo/scrollTo.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/tiptip/jquery.tipTip.js"/>
-				<script type="text/javascript" src="classic/scripts/outline.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/view.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/form.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/page.js?ver=5"/>
+				<script type="text/javascript" src="classic/scripts/outline.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/view.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/form.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/page.js?ver=6"/>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$(".button_panel button").button();
@@ -365,8 +365,8 @@
 											<td style="text-align:center; height:30px; width:23px;" class="thcell">
 												<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this)"/>					
 											</td>
-											<td style="width:60px; padding:3px" class="thcell"></td>
-											<td style="width:60px; padding:3px" class="thcell"></td>
+											<td style="width:60px; padding:3px" class="thcell"/>
+											<td style="width:60px; padding:3px" class="thcell"/>
 											<xsl:if test="/request/@id != 'task' and /request/@id != 'taskforme'  and /request/@id !='mytasks' and /request/@id !='completetask' and /request/@id != 'waitforcoord' and /request/@id != 'waitforsign' and /request/@id != 'workdocprj' and /request/@id != 'outdocprj'  and /request/@id != 'outdocreg'">
 												<td style="width:60px;" class="thcell">
 													<xsl:call-template name="sortingcellpage">

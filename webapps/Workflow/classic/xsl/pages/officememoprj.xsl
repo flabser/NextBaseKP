@@ -65,7 +65,7 @@
 							</img>
 						</xsl:if>
 						<xsl:if test="not(hasresponse) and @hasresponse='0'">
-							<span style="width:11px; display:inline-block"></span>
+							<span style="width:11px; display:inline-block"/>
 						</xsl:if>
 						<a class="doclink" style="padding-left:5px;" href="{@url}" title="{@viewtext}">
 							<xsl:attribute name="onclick">javascript:beforeOpenDocument()</xsl:attribute>
@@ -360,7 +360,7 @@
 									<xsl:call-template name="pageinfo"/>
 									<div class="button_panel" style="margin-top:1px; height:34px">
 										<div style="float:left; margin-left:3px; margin-top:2px; margin-bottom:3px">
-											<xsl:if test="$actionbar/action[@id='new_document']/@mode = 'ON'">
+											<xsl:if test="$actionbar/action[@id='new_document']/@mode = 'ON' and /request/page/@id !='workdocdept'">
 												<button style="margin-right:5px" title="{$actionbar/action[@id='new_document']/@hint}" id="btnNewdoc">
 													<xsl:attribute name="href">javascript:window.location.href="<xsl:value-of select="$actionbar/action[@id='new_document']/@url"/>"; beforeOpenDocument()</xsl:attribute>
 													<xsl:attribute name="onclick">javascript:window.location.href="<xsl:value-of select="$actionbar/action[@id='new_document']/@url"/>"; beforeOpenDocument()</xsl:attribute>
@@ -376,7 +376,7 @@
 												</button>
 											</xsl:if>
 										</div>
-										<span style="float:right; padding-right:10px;"></span>
+										<span style="float:right; padding-right:10px;"/>
 									</div>
 									<div style="clear:both"/>
 									<div id="tableheader">
@@ -385,7 +385,7 @@
 												<td style="text-align:center;height:30px;width:23px;" class="thcell">
 													<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this)"/>					
 												</td>
-												<td style="width:60px;  padding:3px" class="thcell"></td>
+												<td style="width:60px;  padding:3px" class="thcell"/>
 												<xsl:if test="/request/@id = 'workdoc'">
 													<td style="width:60px;" class="thcell">
 														<xsl:call-template name="sortingcellpage">

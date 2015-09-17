@@ -298,7 +298,7 @@
 											<td style="text-align:center; height:30px; width:23px;" class="thcell">
 												<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this)"/>					
 											</td>
-											<td style="width:60px; padding:3px" class="thcell"></td>
+											<td style="width:60px; padding:3px" class="thcell"/>
 											<td style="width:60px;" class="thcell">
 												<xsl:call-template name="sortingcellpage">
 													<xsl:with-param name="namefield" select="'VIEWNUMBER'"/>

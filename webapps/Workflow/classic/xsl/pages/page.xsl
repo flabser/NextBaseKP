@@ -100,7 +100,7 @@
 						</xsl:choose>
 					</xsl:if>
 					<xsl:if test="not(hasresponse) and @hasresponse='0'">
-						<span style="width:18px; display:inline-block"></span>
+						<span style="width:18px; display:inline-block"/>
 					</xsl:if>
 					<font style="margin-left:5px; font-size:9px;">
 						<xsl:attribute name="color">
@@ -134,7 +134,7 @@
 							</xsl:choose>
 						</xsl:if>
 						<xsl:if test="not(hasresponse) and @hasresponse='0'">
-							<span style="width:11px; display:inline-block"></span>
+							<span style="width:11px; display:inline-block"/>
 						</xsl:if>
 						<a class="doclink" style="padding-left:5px;" href="{@url}" title="{@viewtext}">
 							<xsl:attribute name="onclick">javascript:beforeOpenDocument()</xsl:attribute>
@@ -409,9 +409,9 @@
 												<td style="text-align:center;height:30px;width:23px;" class="thcell">
 													<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this)"/>					
 												</td>
-												<td style="width:60px; padding:3px" class="thcell"></td>
+												<td style="width:60px; padding:3px" class="thcell"/>
 													<xsl:if test ="/request/@id='task' or //current_outline_entry/response/content/entry/@formid = 'task'">
-													    <td style="width:60px; padding:3px" class="thcell"></td>
+													    <td style="width:60px; padding:3px" class="thcell"/>
 													</xsl:if>
 													<xsl:if test="/request/@id != 'task' and //current_outline_entry/response/content/entry/@formid != 'task' and /request/@id != 'taskforme'  and /request/@id !='mytasks' and /request/@id !='completetask' and /request/@id != 'waitforcoord' and /request/@id != 'mywaitforcoord' and /request/@id != 'waitforsign' and /request/@id != 'mywaitforsign' and /request/@id != 'workdocprj' and /request/@id !='officememoprj'  and /request/@id !='applicationprj' and /request/@id != 'outdocprj'  and /request/@id != 'outdocreg'  and /request/@id != 'applicationprj'">
 														<td style="width:60px;" class="thcell">

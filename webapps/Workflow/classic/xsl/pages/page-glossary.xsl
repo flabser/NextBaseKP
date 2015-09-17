@@ -203,7 +203,7 @@
 											</button>
 										</xsl:if>
 									</span>
-									<span style="float:right; padding-right:10px;"></span>
+									<span style="float:right; padding-right:10px;"/>
 								</div>
 								<div style="clear:both"/>
 								<div style="clear:both"/>
@@ -216,7 +216,7 @@
 												<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this);"/>					
 											</td> 
 											<xsl:if test ="//request/@id='favdocs'">
-											<td style="width:60px;" class="thcell"></td>
+											<td style="width:60px;" class="thcell"/>
 											<td style="width:160px;" class="thcell">
 												<xsl:call-template name="sortingcellpage">
 													<xsl:with-param name="namefield" select="'VIEWDATE'"/>

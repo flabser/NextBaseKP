@@ -339,7 +339,7 @@
                                             </button>
                                         </xsl:if>
                                     </div>
-                                    <span style="float:right; padding-right:10px;"></span>
+                                    <span style="float:right; padding-right:10px;"/>
                                 </div>
                                 <div style="clear:both"/>
                                 <div id="tableheader">
@@ -348,7 +348,7 @@
                                             <td style="text-align:center;height:30px;width:23px;" class="thcell">
                                                 <input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this)"/>
                                             </td>
-                                            <td style="width:60px;  padding:3px" class="thcell"></td>
+                                            <td style="width:60px;  padding:3px" class="thcell"/>
                                                 <td width ="160px" class ="thcell">
                                                     <xsl:value-of select ="page/captions/status/@caption"/>
                                                 </td>

@@ -18,15 +18,42 @@
 			<td style="text-align:center; border:1px solid #ccc" width="3%" >
 				<input type="checkbox" name="chbox" id="{@docid}" autocomplete="off" value="{@doctype}"/>
 			</td>
-			<td nowrap="nowrap" style="border:1px solid #ccc">
+			<td style="border:1px solid #ccc; width:200px">
 				<div style="overflow:hidden; width:99%;">&#xA0;
 					<a href="{@url}" title="{@viewtext}" class="doclink">
 						<xsl:attribute name="onclick">javascript:beforeOpenDocument()</xsl:attribute>
 						<xsl:if test="@isread = '0'">
 							<xsl:attribute name="style">font-weight:bold</xsl:attribute>
 						</xsl:if>
-						<xsl:value-of select="@viewtext"/>
+						<xsl:value-of select="@eventtime"/>
 					</a>
+				</div>
+			</td>
+			<td style="border:1px solid #ccc; width:360px">
+				<div style="overflow:hidden; width:99%;">&#xA0;
+					<a href="{@url}" title="{@viewtext}" class="doclink">
+						<xsl:attribute name="onclick">javascript:beforeOpenDocument()</xsl:attribute>
+						<xsl:if test="@isread = '0'">
+							<xsl:attribute name="style">font-weight:bold</xsl:attribute>
+						</xsl:if>
+						<xsl:value-of select="@userid"/>
+					</a>
+				</div>
+			</td>
+			<td style="border:1px solid #ccc; width:200px">
+				<div style="overflow:hidden; width:99%;">&#xA0;
+					<a href="{@url}" title="{@viewtext}" class="doclink">
+						<xsl:attribute name="onclick">javascript:beforeOpenDocument()</xsl:attribute>
+						<xsl:if test="@isread = '0'">
+							<xsl:attribute name="style">font-weight:bold</xsl:attribute>
+						</xsl:if>
+						<xsl:value-of select="@ip"/>
+					</a>
+				</div>
+			</td>
+			<td nowrap="nowrap" style="border:1px solid #ccc; min-width:250px">
+				<div style="overflow:hidden; width:99%;">&#xA0;
+					<xsl:value-of select="@viewtext"/>
 				</div>
 			</td>
 		</tr>
@@ -38,29 +65,22 @@
 				<title>
 					<xsl:value-of select="concat('Workflow документооборот - ', page/captions/recyclebin/@caption)"/>
 				</title>
-				<link type="text/css" rel="stylesheet" href="classic/css/outline.css?ver=5"/>
-				<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=5"/>
-				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/css/smoothness/jquery-ui-1.8.20.custom.css"/>
+				<link type="text/css" rel="stylesheet" href="classic/css/outline.css?ver=6"/>
+				<link type="text/css" rel="stylesheet" href="classic/css/main.css?ver=6"/>
+				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.min.css"/>
+				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.theme.min.css"/>
 				<link type="text/css" rel="stylesheet" href="/SharedResources/jquery/js/hotnav/jquery.hotnav.css"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/jquery-1.4.2.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.widget.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.core.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.effects.core.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/jquery.ui.datepicker.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.mouse.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.draggable.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.position.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.button.min.js"/>
-				<script type="text/javascript" src="/SharedResources/jquery/js/ui/minified/jquery.ui.dialog.min.js"/>
+				<script type="text/javascript" src="/SharedResources/jquery/js/jquery-2.1.3.js"/>
+				<script type="text/javascript" src="/SharedResources/jquery/jquery-ui-1.11.2.custom/jquery-ui.min.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/cookie/jquery.cookie.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/hotnav/jquery.hotkeys.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/hotnav/jquery.hotnav.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/scrollTo/scrollTo.js"/>
 				<script type="text/javascript" src="/SharedResources/jquery/js/tiptip/jquery.tipTip.js"/>
-				<script type="text/javascript" src="classic/scripts/outline.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/view.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/page.js?ver=5"/>
-				<script type="text/javascript" src="classic/scripts/form.js?ver=5"/>
+				<script type="text/javascript" src="classic/scripts/outline.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/view.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/page.js?ver=6"/>
+				<script type="text/javascript" src="classic/scripts/form.js?ver=6"/>
 				<script type="text/javascript">
 					$(document).ready(function(){
 						$(".button_panel button").button();
@@ -143,13 +163,22 @@
 								<div style="clear:both"/>
 							</div>
 							<div id="viewtablediv">
-								<div id="tableheader">
+								<div id="tableheader" style="top:73px !important">
 									<table class="viewtable" id="viewtable" width="100%">
 										<tr class="th">
 											<td style="text-align:center; height:30px" width="3%" class="thcell">
 												<input type="checkbox" id="allchbox" autocomplete="off" onClick="checkAll(this);"/>					
 											</td>
-											<td class="thcell">
+											<td class="thcell" style="width:200px">
+												<xsl:value-of select="page/captions/deletedate/@caption"/>
+											</td>
+											<td class="thcell" style="width:360px">
+												<xsl:value-of select="page/captions/initiator/@caption"/>
+											</td>
+											<td class="thcell" style="width:200px">
+												<xsl:value-of select="page/captions/ip/@caption"/>
+											</td>
+											<td class="thcell" style="min-width:250px">
 												<xsl:value-of select="page/captions/name/@caption"/>
 											</td>
 										</tr>

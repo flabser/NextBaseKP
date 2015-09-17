@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rule type="form" id="workdoc" mode="on">
 	<description>Служебная записка</description>
-	<xsltfile>forms/workdoc.xsl</xsltfile>
+	<xsltfile>forms/workdocdept.xsl</xsltfile>
 	<doctype>main</doctype>
 	<events> 
 		<queryopen source="file">form.workdocdept.QueryOpen</queryopen>
+		<querysave source="file">form.workdocdept.QuerySave</querysave>
+		<postsave source="file">form.workdocdept.PostSave</postsave>
 	</events>
 	<title source="KEYWORD">Служебная записка</title>
 	<default/>

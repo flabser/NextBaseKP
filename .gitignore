@@ -12,8 +12,9 @@
 # nodejs modules
 node_modules
 
-*.class
+.class
 .classpath
 .project
 .settings
 cfg.xml
+*.class

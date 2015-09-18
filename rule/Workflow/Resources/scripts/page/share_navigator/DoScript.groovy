@@ -106,11 +106,12 @@ class DoScript extends _DoScript {
 			outline.addOutline(glossary_outline)
 			list.add(glossary_outline)
 		}
-		
-		def add_outline = new _Outline(getLocalizedWord("Прочее",lang), getLocalizedWord("Прочее",lang), "add")
-		add_outline.addEntry(new _OutlineEntry(getLocalizedWord("Корзина",lang), getLocalizedWord("Корзина",lang), "recyclebin", "Provider?type=page&id=recyclebin"))
-		outline.addOutline(add_outline)
-		list.add(add_outline)
+		if (user.hasRole("administrator")) {
+			def add_outline = new _Outline(getLocalizedWord("Прочее", lang), getLocalizedWord("Прочее", lang), "add")
+			add_outline.addEntry(new _OutlineEntry(getLocalizedWord("Корзина", lang), getLocalizedWord("Корзина", lang), "recyclebin", "Provider?type=page&id=recyclebin"))
+			outline.addOutline(add_outline)
+			list.add(add_outline)
+		}
 		
 		setContent(list)
 	}

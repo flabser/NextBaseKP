@@ -36,7 +36,7 @@
 						<xsl:if test="@isread = '0'">
 							<xsl:attribute name="style">font-weight:bold</xsl:attribute>
 						</xsl:if>
-						<xsl:value-of select="@userid"/>
+						<xsl:value-of select="@initfio"/>
 					</a>
 				</div>
 			</td>

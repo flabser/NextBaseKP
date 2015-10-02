@@ -109,12 +109,12 @@ function pickListSingleOk(docid){
 			}else{
                 if (queryOpt.fieldname == "coordblock"){
                     $("input[name=coordblock]").remove();
-                    $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`tosign`0`"+$("input[name=author]").val()+"'>")
+                    $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`tosign`0`"+$("input[name=author]").val()+"'>");
                     $("#frm").append("<input type='hidden' name='coordblock' id='coordBlockSign' value='new`ser`0`"+docid+"'>")
                 }else{
 					if(queryOpt.fieldname == "recipientworkdocdept"){
 						$(".recipientworkdocdept, input[name=recipient]").remove();
-						$("#frm").append("<input type='hidden' name='coordblock' class='recipientworkdocdept' value='new`ser`0`"+docid+"'>")
+						$("#frm").append("<input type='hidden' name='coordblock' class='recipientworkdocdept' value='new`par`0`"+docid+"'>");
 						$("#frm").append("<input type='hidden' name='recipient' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
 					}else{
 						$("#frm").append("<input type='hidden' name='"+ queryOpt.fieldname +"' id='"+queryOpt.fieldname+"' value='"+docid+"'>")
@@ -191,7 +191,7 @@ function pickListBtnOk(){
 							$("#"+ queryOpt.formname).append("<input type='hidden' name='recipient' id='"+queryOpt.fieldname+"' value='"+$(this).attr("id")+"'>")
 						});
 						var recipients = workdocrecipients.join("^");
-						$("#" + queryOpt.formname).append("<input type='hidden' name='coordblock' class='" + queryOpt.fieldname + "' value='new`ser`0`" + recipients + "'>");
+						$("#" + queryOpt.formname).append("<input type='hidden' name='coordblock' class='" + queryOpt.fieldname + "' value='new`par`0`" + recipients + "'>");
 					}else{
 						if(queryOpt.fieldname == "parentsubkey"){
 							$('input[name=chbox]:checked').each(function(indx, element){

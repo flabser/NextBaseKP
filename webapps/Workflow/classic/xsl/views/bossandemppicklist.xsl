@@ -147,7 +147,7 @@
 		</xsl:template>
 
 		<xsl:template match="/request[@id='admdepemployers']/query">
-            <xsl:for-each select="descendant::entry[ancestor-or-self::entry/@viewtext='Административно-правовой департамент']">
+            <xsl:for-each select="descendant::entry[ancestor-or-self::entry/@viewtext='Департамент административно-правовой работы и государственных закупок']">
             <xsl:sort select="@viewtext"/>
                 <xsl:if test="@doctype = 889  and viewtext2 != '-1'">
                     <div style="cursor:pointer; text-align:left" name="itemStruct">

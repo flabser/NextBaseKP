@@ -29,8 +29,8 @@ var choosevalue ="Выберите значение";
 var alreadychosen ="Данный корреспондент уже выбран для согласования";
 var isrecieverofsz="Выбранный вами сотрудник является получателем служебной записки";
 var issignerofsz="Выбранный вами сотрудник является подписывающим служебной записки";
-var saving ="Сохранение"
-var showfilename ="Укажите имя файла для вложения"
+var saving ="Сохранение";
+var showfilename ="Укажите имя файла для вложения";
 var addcommentforattachment ="Добавить комментарий к вложению?";
 var removedfromcontrol = "Документ снят с контроля";
 var warning ="Предупреждение";
@@ -83,7 +83,7 @@ function delPrjDraft(id,doctype){
 		doctype: doctype,
 		docid: id
 	};
-	paramfields += $.param(ck)
+	paramfields += $.param(ck);
 	$.ajax({
 		type: "POST",
 		datatype:"XML",
@@ -91,87 +91,80 @@ function delPrjDraft(id,doctype){
 		cache:false,
 		data: paramfields,
 		success: function (msg){
-			endLoadingOutline()
-			deleted = $(msg).find("deleted").attr("count");
-			undeleted = $(msg).find("undeleted").attr("count");
-			divhtml ="<div id='dialog-message'"
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					 divhtml +="title='Удаление'>";	
-				else if($.cookie("lang")=="KAZ")
-					 divhtml +="title='Жою'>";	
+			endLoadingOutline();
+			var deleted = $(msg).find("deleted").attr("count");
+			var undeleted = $(msg).find("undeleted").attr("count");
+			var deletingtitle= "Удаление";
+			if($.cookie("lang")=="KAZ")
+				deletingtitle ="Жою";
+			else if($.cookie("lang")=="ENG")
+				deletingtitle ="Deleting";
+			var divhtml ="<div id='dialog-message' title='"+title+"'>";
+			if($(msg).find("response").find("error").text().length != 0 || deleted == 0 || $(msg).find("response").attr("status") == "error"){
+				var errortitle = "Ошибка удаления";
+				if($.cookie("lang")=="KAZ")
+					errortitle = "Жою қателігі";
 				else if($.cookie("lang")=="ENG")
-					 divhtml +="title='Deleting'>";
-					
-				if($(msg).find("response").find("error").text().length != 0 || deleted == 0 || $(msg).find("response").attr("status") == "error"){
-					divhtml += "<font style='font-weight:bold'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						  divhtml += "Ошибка удаления";
-					else if($.cookie("lang")=="KAZ")
-						  divhtml += "Жою қателігі";
-					else if($.cookie("lang")=="ENG")
-						  divhtml += "Error deleting";
-								
-					divhtml += "</font><br/>";
-					divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+$(msg).find("response").find("error").text()+"</div>";
-				}else{
-					divhtml += "<font style='font-weight:bold'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Удаление завершено успешно";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жою сәтті аяқталды";
-					else if( $.cookie("lang")=="ENG")
-						divhtml += "Successfully deleted"; 
-						 
-					divhtml += "</font><br/>";
-					divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Не удалено : ";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жойылмады : ";
-					else if($.cookie("lang")=="ENG")
-						divhtml += "Not deleted : ";
-						  
-					divhtml +=undeleted + "</div>";
-					$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
-						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-					})
-					divhtml += "<div style='width:100%; font-size:13px'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Удалено : ";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жойылды : ";
-					else if($.cookie("lang")=="ENG")
-						divhtml += "Deleted : ";
-						  
-					divhtml += deleted +"</div>";
-					$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
-						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-					})
-				}
-				divhtml += "</div>";
-				$("body").append(divhtml);
-				$("#dialog-message").dialog({
-					modal: true,
-					width: 400,
-					buttons: {
-						"Ок": function() {
-							window.history.back();
-						}
-					},
-					beforeClose: function() {
+					errortitle = "Error deleting";
+
+				divhtml += "<font style='font-weight:bold'>"+errortitle+"</font><br/>";
+				divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+$(msg).find("response").find("error").text()+"</div>";
+			}else{
+				var successdeletedtitle = "Удаление завершено успешно";
+				if($.cookie("lang")=="KAZ")
+					successdeletedtitle = "Жою сәтті аяқталды";
+				else if( $.cookie("lang")=="ENG")
+					successdeletedtitle = "Successfully deleted";
+
+				divhtml += "<font style='font-weight:bold'>"+successdeletedtitle+"</font><br/>";
+				var notdeletedtitle = "Не удалено : ";
+				if($.cookie("lang")=="KAZ")
+					notdeletedtitle = "Жойылмады : ";
+				else if($.cookie("lang")=="ENG")
+					notdeletedtitle = "Not deleted : ";
+				notdeletedtitle += undeleted;
+				divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>"+notdeletedtitle+"</div>";
+
+				$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
+					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+				});
+
+				var deletedtitle="Удалено : ";
+				if($.cookie("lang")=="KAZ")
+					deletedtitle = "Жойылды : ";
+				else if($.cookie("lang")=="ENG")
+					deletedtitle = "Deleted : ";
+
+				deletedtitle += deleted;
+				divhtml += "<div style='width:100%; font-size:13px'>"+deletedtitle+"</div>";
+				$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
+					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+				})
+			}
+			divhtml += "</div>";
+			$("body").append(divhtml);
+			$("#dialog-message").dialog({
+				modal: true,
+				width: 400,
+				buttons: {
+					"Ок": function() {
 						window.history.back();
 					}
-				});
-			},
-			error: function(data,status,xhr){
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					infoDialog("Ошибка удаления")
-				else if($.cookie("lang")=="KAZ")
-					infoDialog("Жою қателігі")
-				else if($.cookie("lang")=="ENG")
-					infoDialog("Error deleting")
+				},
+				beforeClose: function() {
+					window.history.back();
 				}
-			})
+			});
+		},
+		error: function(data,status,xhr){
+			var errordeletingtitle = "Ошибка удаления";
+			if($.cookie("lang")=="KAZ")
+				errordeletingtitle ="Жою қателігі";
+			else if($.cookie("lang")=="ENG")
+				errordeletingtitle = "Error deleting";
+			infoDialog(errordeletingtitle)
+		}
+	})
 }
 
 function setPassword(password) {
@@ -179,12 +172,12 @@ function setPassword(password) {
 }
 
 function PrintCoord() {
-	$("body").attr("class","printcoord")
-	 window.print();                                             // Print preview
+	$("body").attr("class","printcoord");
+	 window.print();
 }
 
 function PrintDocument() {
-	$("body").attr("class","printdocument")
+	$("body").attr("class","printdocument");
 	window.print();   
 }
 
@@ -227,10 +220,10 @@ function signPlainData() {
     var items =$("#frm input[name][name!=signedfields][name!=key][name!=dbd][name != formsesid][name != taskvn]");
     items.sort(function(a, b) {
        return $(a).attr('name').toUpperCase().localeCompare($(b).attr('name').toUpperCase());
-    })
+    });
     items.each(function(){
         sign+=$(this).val()
-    })
+    });
     var data = sign;
     if(data == null){
         alert('Данных для подписи нет.');
@@ -243,7 +236,7 @@ function signPlainData() {
             statusInfo = 'Ошибка при постановке подписи!';
             alert(statusInfo);
         }else{
-            $("#frm").append("<input type='hidden' name='signedfields' value='"+signature+"'/>")
+            $("#frm").append("<input type='hidden' name='signedfields' value='"+signature+"'/>");
             statusInfo = 'Данные успешно подписаны!';
         }
     }
@@ -394,7 +387,7 @@ function reportsTypeCheck (el){
 	if($(el).val() == 2){
 		$("input[type=radio][name=disposition][value=inline]").attr("disabled","disabled");
 		$("input[type=radio][name=disposition][value=attachment]").prop("checked",true)
-	} else{
+	}else{
 		$("input[type=radio][name=disposition][value=inline]").removeAttr("disabled")
 	}
 }
@@ -454,9 +447,8 @@ function resetcontrol(){
 	$(".switchControl img[src *='eye.png']").click();
 	setTimeout(function() {
 		$(document).unbind("keydown");
-		divhtml ="<div id='dialog-message' title="+warning+">";
-		divhtml+="<div style='height:40px; width:100%; text-align:center; padding-top:25px'>"+
-		"<font style='font-size:13px;'>"+removedfromcontrol+"</font></div></div>";
+		divhtml = "<div id='dialog-message' title="+warning+">";
+		divhtml += "<div style='height:40px; width:100%; text-align:center; padding-top:25px'>"+removedfromcontrol+"</div></div>";
 		$("body").append(divhtml);
 		$("#dialog-message").dialog({
 			modal: true,
@@ -485,32 +477,31 @@ function resetcontrol(){
 
 /* функция снять с контроля пользователя*/
 function controlOff(obj){
-	parent_tr=$(obj).closest("tr");
-	type=$(parent_tr).attr("class");
+	var parent_tr=$(obj).closest("tr");
+	var type=$(parent_tr).attr("class");
 	$(parent_tr).children(".idCorrControlOff").html($("#localusername").val());
-	actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
-	responsible = $(parent_tr).find(".responsible").val();
+	var actionTime= moment().format('DD.MM.YYYY HH:mm:ss');
+	var responsible = $(parent_tr).find(".responsible").val();
 	$(parent_tr).children(".controlOffDate").text(actionTime);
 	$(parent_tr).children(".switchControl").html("<img style='cursor:pointer' title='Поставить на контроль' onclick='javascript:controlOn(this,\""+type+"\")' src='/SharedResources/img/classic/icons/accept.png'/>");
 	type=='INTERNAL' ? type='1' : type='2';
-	execid=$(parent_tr).find(".idContrExec").val();
-	idCorrControlOff=$("#currentuserid").val();
+	var execid=$(parent_tr).find(".idContrExec").val();
+	var idCorrControlOff=$("#currentuserid").val();
 	$(parent_tr).find(".controlres").val(type+"`"+execid +"`"+responsible+"`" +actionTime+"`"+idCorrControlOff);
 }
 
 /* функция поставить на контроль*/
 function controlOn(obj){
-	parent_tr=$(obj).closest("tr");
-	type=$(parent_tr).attr("class");
-	$(parent_tr).find(".idCorrControlOff").text(""); 
-	$(parent_tr).find(".controlOffDate").text("");
+	var parent_tr=$(obj).closest("tr");
+	var type=$(parent_tr).attr("class");
+	$(parent_tr).find(".idCorrControlOff, .controlOffDate").text("");
 	$(parent_tr).find(".switchControl").html("<img style='cursor:pointer' title='Снять с контроля' onclick='javascript:controlOff(this,\""+type+"\")' src='/SharedResources/img/classic/icons/eye.png'/>");
 	type=='INTERNAL' ? type='1' : type='2';
 	$(parent_tr).find(".controlres").val(type+"`"+$(parent_tr).find(".idContrExec").val()+"` ` ");
 }
 
 function infoDialog(text, type){
-	title = warning;
+	var title;
 	$(document).unbind("keydown");
 	if(!type){
 		title = warning;
@@ -523,7 +514,7 @@ function infoDialog(text, type){
 				title ="Information";
 		}
 	}
-	divhtml ="<div id='infodialog' title='"+title+"'>";
+	var divhtml ="<div id='infodialog' title='"+title+"'>";
 	divhtml +="<span style='height:40px; width:100%; text-align:center;'><font style='font-size:13px;'>"+text+"</font></span></div>";
 	$("body").append(divhtml);
 	$("#infodialog").dialog({
@@ -551,13 +542,13 @@ function infoDialog(text, type){
 
 
 function dialogAndFunction(text,func, name, par){
-	title = "Предупреждение";
+	var title = "Предупреждение";
 	if ($.cookie("lang")=="ENG")
 		title = "Warning";
 	else if ($.cookie("lang")=="KAZ")
 		title = "Ескерту";
-	divhtml ="<div id='dialog-message' title='"+title+"'>";
-	divhtml +="<span style='text-align:center;'><font style='font-size:13px;'>"+text+"</font></span></div>";
+	var divhtml ="<div id='dialog-message' title='"+title+"'>";
+	divhtml +="<span style='text-align:center; font-size:13px;'>"+text+"</span></div>";
 	$("body").append(divhtml);
 	$("#dialog-message").dialog({
 		modal: true,
@@ -576,7 +567,7 @@ function dialogConfirmComment(text,action){
 	enableblockform();
 	$("body").css("cursor","wait");
 	divhtml ="<div id='dialog-message' title='"+warning+"'>";
-	divhtml+="<span style='height:50px; margin-top:4%; width:100%; text-align:center'><font style='font-size:13px; '>"+text+"</font></span></div>";
+	divhtml+="<span style='height:50px; margin-top:4%; width:100%; text-align:center; font-size:13px;'>"+text+"</span></div>";
 	$("body").append(divhtml);
 	$("#dialog-message").dialog({
 		height:140,
@@ -605,8 +596,8 @@ function dialogConfirmComment(text,action){
 }
 
 function dialogConfirm(text,el,actionEl){
-	 divhtml ="<div id='dialog-message' title='"+warning+"'>";
-	 divhtml+="<span style='height:50px; margin-top:4%; width:100%; text-align:center'><font style='font-size:13px;'>"+text+"</font></span></div>";
+	 var divhtml ="<div id='dialog-message' title='"+warning+"'>";
+	 divhtml+="<span style='height:50px; margin-top:4%; width:100%; text-align:center; font-size:13px;'>"+text+"</span></div>";
 	 $("body").append(divhtml);
 	 $("#dialog-message").dialog({
 		 height:140,
@@ -716,8 +707,8 @@ function SaveFormJquery() {
 	if($("#MyTextarea").length != 0){
 		$("#MyTextarea").val(document.getElementsByTagName("iframe")[0].contentDocument.getElementsByTagName("body")[0].innerHTML)
 	}
-	$("body").notify({"text":pleasewaitdocsave,"onopen":function(){}})
-	divhtml ="<div id='dialog-message' title="+saving+">";
+	$("body").notify({"text":pleasewaitdocsave,"onopen":function(){}});
+	var divhtml ="<div id='dialog-message' title="+saving+">";
 	divhtml+="<div style='margin-top:8px'><font style='font-size:13px; font-family:Verdana,Arial,Helvetica,sans-serif; padding-left:10px'>Пожалуйста ждите...</font></div>";
 	divhtml+="<div style='margin-top:5px'><font style='font-size:13px; font-family:Verdana,Arial,Helvetica,sans-serif; padding-left:10px'>идет сохранение документа</font></div>";
 	divhtml+="<br/><div style='margin-top:5px; text-align:center;'><font style='font-size:14px; font-family:arial; padding-left:10px;'></font></div>";
@@ -725,17 +716,17 @@ function SaveFormJquery() {
 	$("body").append(divhtml);
 	var formData = $("form").serialize();
 	if($("#SignApplet").length !=0 ){
-		sign="";
+		var sign="";
 		$("#frm input[name][name!=signedfields]").each(function(){
 			sign+=$(this).val()
 		});
 		$("#frm").append("<input type='hidden' name='applettype' value='sign'/>");
 		//$("#frm").append("<input type='hidden' name='srctext' value=''/><input type='hidden' name='applettype' value='sign'/>")
         //$("input[name=srctext]").val(sign)
-		taskauthor=$("input[name=taskauthor]").val();
+		var taskauthor=$("input[name=taskauthor]").val();
 		app=document.getElementById('SignApplet');
-		fullpath = $("#fullpath").val();
-		pass=$("#eds_pass").val();
+		var fullpath = $("#fullpath").val();
+		var pass=$("#eds_pass").val();
 		//$("#frm").append("<input type='hidden' name='signedfields' value='"+app.getSign(sign,fullpath,pass)+"'/>")
 		//$("#frm").append("<input type='hidden' name='signedfields' value='"+app.getSign(sign)+"'/>")
 	}
@@ -755,10 +746,10 @@ function SaveFormJquery() {
 			redir = $(xml).find('redirect').text();
 			$(xml).find('response').each(function(){
 				var st=$(this).attr('status');
-				msgtext=$(xml).find('message[id=1]').text();
+				var msgtext=$(xml).find('message[id=1]').text();
 				if (st =="error" || st =="undefined"){
 					if (msgtext.length==0){
-						msgtext = "Ошибка сохранения"
+						msgtext = "Ошибка сохранения";
 					}
 					$("#notifydiv").html("<font>"+msgtext+"</font>");
 					$("body").hidenotify({"delay":800,"onclose":function(){$("#notifydiv").remove()}});
@@ -823,7 +814,7 @@ function SaveFormJquery() {
 /*set of upload function*/
 function loadingAttch(tableID){
 	$("#"+tableID).append("<tr id='loading_attach'><td></td><td><div style='position:absolute; z-index:999'><img src='/SharedResources/img/classic/progress_bar_attach.gif'/></div></td></tr>")
-	blockWindow = "<div class='blockWindow' id='blockWindow'/>"; 
+	var blockWindow = "<div class='blockWindow' id='blockWindow'/>";
 	$("body").append(blockWindow).css("cursor","wait");
 	$('#blockWindow').css('width',$(document).width()).css('height',$(document).height()).css('display',"block"); 
 }
@@ -880,12 +871,12 @@ function processStateChange(){
 			}else{
 				$("#readybytes, #percentready").css("visibility","visible");
 				$("#initializing").css("visibility","hidden");
-				kbContentLength = parseInt($(myContentLength).text())/1024;
-				mbContentLength = parseInt(kbContentLength)/1024;
+				var kbContentLength = parseInt($(myContentLength).text())/1024;
+				var mbContentLength = parseInt(kbContentLength)/1024;
 				if (myPercent != null){
 					$("#progressbar").progressbar( "option", "value",parseInt($(myPercent).text()));
-					kbread = parseInt($(myBytesRead).text())/1024;
-					mbread = parseInt(kbread)/1024;
+					var kbread = parseInt($(myBytesRead).text())/1024;
+					var mbread = parseInt(kbread)/1024;
 					$("#readybytes").html(Math.round(mbread * 10 ) / 10  + " из " + Math.round(mbContentLength * 10) / 10   + " мбайт загружено");
 					$("#percentready").html($(myPercent).text() + "%");
 					window.setTimeout("ajaxFunction();", 100);
@@ -907,7 +898,7 @@ function processStateChange(){
 }
 
 function confirmCancelAttach(){
-	divhtml ="<div id='dialog-message-cancel-attach' title='Предупреждение'>";
+	var divhtml ="<div id='dialog-message-cancel-attach' title='Предупреждение'>";
 	divhtml+="<span style='height:40px'><p><font style='font-size:13px'>Процесс прикрепления файла к документу не закончен. Все несохраненные данные будут утеряны. Закрыть документ?</font></p></span>";
 	divhtml += "</div>";
 	$("body").append(divhtml);
@@ -930,8 +921,7 @@ function confirmCancelAttach(){
 function createIFrame() {
 	var id = 'f' + Math.floor(Math.random() * 99999),
 		divHTML = '<iframe style="display:none" src="about:blank" id="' + id
-			+ '" name="' + id + '" onload="sendComplete(\'' + id
-			+ '\')"></iframe>';
+			+ '" name="' + id + '" onload="sendComplete(\'' + id + '\')"></iframe>';
 	$("body").append("<div>"+divHTML +"</div>");
 	return document.getElementById(id);
 }
@@ -966,17 +956,17 @@ function uploadComplete(tableID, doc, fieldName, addComment) {
 		msg = xmldoc.getElementsByTagName('BODY'),
 		fileName= $('input[name='+fieldName+']')[0].files[0].name;
 	if (st == 'ok'){
-		tableid='#'+tableID;
+		var tableid='#'+tableID;
 		var table = $(tableid);
 		sesid=$(doc).find("message").attr('formsesid');
 		csf=$(doc).find("message[id=2]").text();
 		var range = 200 - 1 + 1;
 		if(fileName.indexOf(".") != -1){
 			detectExtAttach(fileName); //определение расширения
-			fieldid=Math.floor(Math.random()*range) + 1;
-			fileid=$(doc).find("message[id=4]").text();
-            filehash=$(doc).find("message[id=2]").text();
-            fileNameEcr=fileName.replace(/\%/g, "%25").replace(/\+/g, "%2b");// убираем знак '+' из ссылок
+			var fieldid=Math.floor(Math.random()*range) + 1;
+			var fileid=$(doc).find("message[id=4]").text();
+            var filehash=$(doc).find("message[id=2]").text();
+            var fileNameEcr=fileName.replace(/\%/g, "%25").replace(/\+/g, "%2b");// убираем знак '+' из ссылок
 			$(table).append("<tr id='"+ csf + "'>" +
 					'<td><input type="hidden" name="filename" value="'+fileName+'"/><input type="hidden" name="fileid" value="'+fileid+'"/><input type="hidden" name="filehash" value="'+filehash+'"/></td>' +
 					"<td>" +
@@ -1021,15 +1011,15 @@ function detectExtAttach(file){
 		symbol=(file.substring(fileLen-1,fileLen));
 		fileLen = fileLen - 1;
 	}
-	RegEx=/\s/g;
-	ext=file.substring(fileLen +1, file.length).replace(RegEx, "").toLowerCase();
+	var RegEx=/\s/g;
+	var ext=file.substring(fileLen +1, file.length).replace(RegEx, "").toLowerCase();
 	return ext;
 }
 
 var control_sum_file = null; 
 function ConfirmCommentToAttach(text,csf){
 	control_sum_file = csf;
-	divhtml ="<div id='dialog-message' title='"+attention+"'>";
+	var divhtml ="<div id='dialog-message' title='"+attention+"'>";
 	divhtml +="<span style='height:50px; margin-top:4%; width:100%; text-align:center'><font style='font-size:13px;'>"+text+"</font></span></div>";
 	$("body").append(divhtml);
 	$("#dialog-message").dialog({
@@ -1046,7 +1036,7 @@ function ConfirmCommentToAttach(text,csf){
 			text: buttonno,
 			click: function(){ 
 				$(this).dialog("close").remove();
-				$("<tr><td colspan='3'></td></tr>").insertAfter("#"+control_sum_file);
+				$("<tr><td colspan='3'/></tr>").insertAfter("#"+control_sum_file);
 			}
 		}],
 		beforeClose: function() { 
@@ -1059,7 +1049,7 @@ function addCommentToAttach(csf){
 	if (csf){
 		control_sum_file = csf;
 	}
-	divhtml="<div class='comment' id='commentBox'>" +
+	var divhtml="<div class='comment' id='commentBox'>" +
 	"<div class='headerComment'><font class='headertext'>"+commentcaption+"</font>" +
 		"<div class='closeButton'  onclick='commentCancel(); '>" +
 			"<img style='width:15px; height:15px; margin-left:3px; margin-top:2px' src='/SharedResources/img/iconset/cross.png'/>" +
@@ -1073,8 +1063,8 @@ function addCommentToAttach(csf){
 		"</table><br/>" +
 	"</div>"+
 	"<div class='buttonPaneComment button_panel' style='margin-top:1%; text-align:right; width:98%'>" +
-	"<button onclick='javascript:commentToAttachOk()' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
-	"<button onclick='javascript:commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
+	"<button onclick='commentToAttachOk()' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
+	"<button onclick='commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
 	"</div>" +
 	"</div>";
 	$("body").append(divhtml);
@@ -1097,9 +1087,9 @@ function commentToAttachOk(){
 		$("#frm").append("<input type='hidden' name='comment"+control_sum_file+"' value='"+ $("#commentText").val() +"'>");
 		var comments_caption = "комментарий : ";
 		if ($.cookie("lang")=="ENG"){
-			var comments_caption = "comments : ";
+			comments_caption = "comments : ";
 		}else if ($.cookie("lang")=="KAZ"){
-			var comments_caption = "түсініктеме : ";
+			comments_caption = "түсініктеме : ";
 		}
 		$("<tr><td></td><td style='color:#777; font-size:12px'>"+comments_caption+$("#commentText").val()+"</td><td></td></tr>").insertAfter("#"+control_sum_file)
 		$("#commentaddimg"+control_sum_file).remove();
@@ -1131,7 +1121,7 @@ function saveUserProfile(){
 	        		  infoDialog("Некорректно заполнено поле 'пароль по умолчанию'")
 	        	  }else{
 	        		  $("body").children().wrapAll("<div id='doerrorcontent' style='display:none'></div>");
-	        		  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>")
+	        		  $("body").append("<div id='errordata'>"+xhr.responseText+"</div>");
 	        		  $("li[type='square'] > a").attr("href","javascript:backtocontent()")
 	        	  }
 	           }
@@ -1159,7 +1149,7 @@ function markRead(doctype, docid){
 
 /*функция для отметке о некорректности заполнения табеля */
 function SheetIsIncorrectDialog(docid, doctype){
-    divhtml="<div class='comment' id='commentBox'>" +
+    var divhtml="<div class='comment' id='commentBox'>" +
     "<div class='headerComment'><font class='headertext'>"+commentcaption+"</font>" +
     "<div class='closeButton'  onclick='commentCancel(); '>" +
     "<img style='width:15px; height:15px; margin-left:3px; margin-top:2px' src='/SharedResources/img/iconset/cross.png'/>" +
@@ -1174,7 +1164,7 @@ function SheetIsIncorrectDialog(docid, doctype){
     "</div>"+
     "<div class='buttonPaneComment button_panel' style='margin-top:1%; text-align:right; width:98%'>" +
     "<button onclick='javascript:SheetIsIncorrectSend("+docid+","+doctype+")' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
-    "<button onclick='javascript:commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
+    "<button onclick='commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
     "</div>" +
     "</div>";
     $("body").append(divhtml);
@@ -1260,7 +1250,7 @@ var UrlDecoder = {
 /* функция напомнить*/
 function remind(key,doctype){
 	el='picklist';
-	divhtml ="<div class='picklist' id='picklist' onkeyUp='keyDown(el);'>";
+	var divhtml ="<div class='picklist' id='picklist' onkeyUp='keyDown(el);'>";
 	divhtml +="<div class='header'><font id='headertext' class='headertext'></font>";
 	divhtml +="<div class='closeButton'><img style='width:15px; height:15px; margin-left:3px; margin-top:1px' src='/SharedResources/img/iconset/cross.png' onclick='pickListClose();'/>";
 	divhtml +="</div></div><div id='divChangeView' style='margin-top:6%; margin-left:81%'></div>";
@@ -1270,18 +1260,18 @@ function remind(key,doctype){
 	"<br/><br/><a id='quickbutton' href='javascript:$.noop()'  title='Исполнено' class='button-auto-value'>Напоминаю вам о задании...</a>"+
 	"</td></tr></table></div>";
 	divhtml += "<div id='btnpane' class='button_panel' style='margin:2%; text-align:right;'>";
-	divhtml += "<button onclick='javascript:remindOk("+key+","+doctype+")' style='margin-right:5px'><font class='button_text'>ОК</font></button>" ;
+	divhtml += "<button onclick='remindOk("+key+","+doctype+")' style='margin-right:5px'><font class='button_text'>ОК</font></button>" ;
 	divhtml += "<button onclick='pickListClose()'><font class='button_text'>"+cancelcaption+"</font></button>";    
 	divhtml += "</div></div>";
 	$("body").append(divhtml);
 	$("#picklist #btnpane").children("button").button();
-	$("#quickbutton").attr("onclick","javasript:addquickanswer('comment','Напоминаю вам о задании...',this)")
-			.attr("onmouseover","javasript:previewquickanswer('comment','Напоминаю вам о задании...',this)")
-			.attr("onmouseout","javasript:endpreviewquickanswer('comment','Напоминаю вам о задании...',this)");
-	$("#comment").attr("onkeydown","javasript:resetquickanswerbutton()");
+	$("#quickbutton").attr("onclick","addquickanswer('comment','Напоминаю вам о задании...',this)")
+			.attr("onmouseover","previewquickanswer('comment','Напоминаю вам о задании...',this)")
+			.attr("onmouseout","endpreviewquickanswer('comment','Напоминаю вам о задании...',this)");
+	$("#comment").attr("onkeydown","resetquickanswerbutton()");
 	$("#picklist").draggable({handle:"div.header"});
 	centring('picklist',500,500);
-	blockWindow = "<div class='ui-widget-overlay blockWindow' id='blockWindow'/>"; 
+	var blockWindow = "<div class='ui-widget-overlay blockWindow' id='blockWindow'/>";
 	$("body").append(blockWindow).css("cursor","wait");
 	$('#blockWindow').css({"width":$(document).width(), "height":$(document).height(), "display":"block"}); 
 	$('#picklist').css('display',"none");
@@ -1327,7 +1317,7 @@ function remindOk(key,doctype){
 /* функция ознакомить*/
 function acquaint(key,doctype){
 	el='picklist';
-	divhtml ="<div class='picklist' id='picklist' onkeyUp='keyDown(el);'>";
+	var divhtml ="<div class='picklist' id='picklist' onkeyUp='keyDown(el);'>";
 	divhtml +="<div  class='header'><font id='headertext' class='headertext'></font>";
 	divhtml +="<div class='closeButton'><img style='width:15px; height:15px; margin-left:3px; margin-top:1px' src='/SharedResources/img/iconset/cross.png' onclick='pickListClose();'/>";
 	divhtml +="</div></div>";
@@ -1353,7 +1343,7 @@ function acquaint(key,doctype){
 		url: 'Provider?type=view&id=bossandemppicklist',
 		success:function (data){
 			$("#contentpane").html(data);
-			searchTbl ="<font style='vertical-align:3px; float:left; margin-left:4%; font-weight:bold'>"+searchcaption+":</font> <input type='text' id='searchCor' style='float:left; margin-left:3px;' size='34' onKeyUp='findCorStructure()'/>" 
+			var searchTbl ="<font style='vertical-align:3px; float:left; margin-left:4%; font-weight:bold'>"+searchcaption+":</font> <input type='text' id='searchCor' style='float:left; margin-left:3px;' size='34' onKeyUp='findCorStructure()'/>"
 				$("#contentpane div").removeAttr("ondblclick").removeAttr("onmouseover").removeAttr("onmouseout");
 				$("#divSearch").append(searchTbl);
 			$('#btnChangeView').attr("href","javascript:changeViewAcquaint(2,"+key+","+doctype+")");
@@ -1366,14 +1356,12 @@ function acquaint(key,doctype){
 }
 
 function chAll(el){
-	if($("#tch").prop("checked")){
-		$("input[name='chbox']").prop("checked",true)
-	}else{
-		$("input[name='chbox']").prop("checked",false)
-	}
+	var checkedval;
+	$(el).prop("checked") ? checkedval = false : checkedval = true;
+	$("input[name='chbox']").prop("checked",checkedval);
 }
 
-/* обработчик нажатия кнопки "ок" a окне "ознакомить"*/	
+/* обработчик нажатия кнопки "ок" в окне "ознакомить"*/
 function acquaintOk(key,doctype){
 	var k=0,
 		chBoxes = $('input[name=chbox]'); 

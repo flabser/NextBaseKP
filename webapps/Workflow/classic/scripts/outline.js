@@ -125,18 +125,18 @@ function openformpanel(){
 
 function ToggleCategory(el){
 	if ($(el).parent().next().next().is(":visible")){
-		$(el).children().attr("src","/SharedResources/img/classic/1/plus.png")
-		$(el).children().next("img").attr("src","/SharedResources/img/classic/1/folder_close_view.png")
-		$(el).parent().next().next().slideUp("fast")
+		$(el).children().attr("src","/SharedResources/img/classic/1/plus.png");
+		$(el).children().next("img").attr("src","/SharedResources/img/classic/1/folder_close_view.png");
+		$(el).parent().next().next().slideUp("fast");
 		if ($(el).parent().next().next().children(".entry").children(".viewlink_current").length != 0 ){
 			$(el).parent().children("font").attr("font-weight","bold")
 		}
 		SavePropVisCategory($(el).parent().next().next().attr("id"),"none")
 	}else{
-		$(el).children().attr("src","/SharedResources/img/classic/1/minus.png")
-		$(el).children().next("img").attr("src","/SharedResources/img/classic/1/folder_open_view.png")
+		$(el).children().attr("src","/SharedResources/img/classic/1/minus.png");
+		$(el).children().next("img").attr("src","/SharedResources/img/classic/1/folder_open_view.png");
 		$(el).parent().next().next().css("visibility","visible");
-		$(el).parent().next().next().slideDown("fast")
+		$(el).parent().next().next().slideDown("fast");
 		SavePropVisCategory($(el).parent().next().next().attr("id"),"block")
 	}
 }
@@ -338,7 +338,7 @@ function refresher() {
 	if (timeout != null || timeout != undefined){
 		clearTimeout(timeout)
 	}
-	sumReloadView = 0
+	sumReloadView = 0;
 	$.cookie("refresh") !=null ? timeval= $.cookie("refresh") * 60000 : timeval=360000;
 	timeout = setTimeout("refreshAction()", timeval);
 }
@@ -465,7 +465,7 @@ function openCategoryList(el, listid){
 }
 
 function hideQFilterPanel(){
-	$('#btnQFilter').removeAttr('onclick')
+	$('#btnQFilter').removeAttr('onclick');
 	$("#QFilter").slideUp("fast");
 	$("#tablecontent").animate({top:'-=29px'},'fast', function() {
 		$('#btnQFilter').attr('onclick',"openQFilterPanel();")
@@ -494,17 +494,17 @@ function closeCategoryList(el,listid){
 
 function updateView(type, viewid, page, command,  sortField, sortOrder){
 	loadingOutline();
-	category = outline.category || '';
-	project = outline.project || '';
+	var category = outline.category || '';
+	var project = outline.project || '';
 	outline.type = type || outline.type;
 	outline.viewid = viewid || outline.viewid;
 	outline.curPage = page || outline.curPage;
-	commandPart = '';
+	var commandPart = '';
 	if (command != null){
 		outline.command = command;
 		commandPart = '&command=' + outline.command;
 	}
-	sortPart = '';
+	var sortPart = '';
 	if (sortField != null && sortOrder != null ){
 		outline.sortField = sortField;
 		outline.sortOrder = sortOrder;
@@ -524,11 +524,9 @@ function updateView(type, viewid, page, command,  sortField, sortOrder){
 		sortPart ='&sortfield='+$.cookie("sortField")+"&order=" +$.cookie("sortOrder");
 	}
 	
-	url= 'Provider?type=' + outline.type + '&id=' + outline.viewid + '&page=' + outline.curPage + commandPart+ sortPart+"&keyword="+category+"&filterid="+outline.filterid+"&filtercat="+outline.filtercat + "&filterproj=" + outline.filterproj+ "&filterorigin=" + outline.filterplace+ "&filterstatus=" + outline.filterstatus+ "&filterresp=" + outline.filterresp+ "&filterauthor=" + outline.filterauthor ;
-	
-	if($.cookie("lang")=="RUS" || !$.cookie("lang")){
-		text="Cессия пользователя была закрыта сервером, для продолжения работы необходима повторная авторизация";
-	}else if ($.cookie("lang")=="ENG"){
+	var url= 'Provider?type=' + outline.type + '&id=' + outline.viewid + '&page=' + outline.curPage + commandPart+ sortPart+"&keyword="+category+"&filterid="+outline.filterid+"&filtercat="+outline.filtercat + "&filterproj=" + outline.filterproj+ "&filterorigin=" + outline.filterplace+ "&filterstatus=" + outline.filterstatus+ "&filterresp=" + outline.filterresp+ "&filterauthor=" + outline.filterauthor ;
+	var text="Cессия пользователя была закрыта сервером, для продолжения работы необходима повторная авторизация";
+	if ($.cookie("lang")=="ENG"){
 		text="User session was closed by the server, in order to proceed re-authorization is required";
 	}else if ($.cookie("lang")=="KAZ"){
 		text="Пайдаланушының сессиясы сервермен жабылды, жұмысты жалғастыру үшін қайта авторлану керек";

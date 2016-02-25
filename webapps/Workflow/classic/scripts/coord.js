@@ -293,14 +293,14 @@ function stopdocument(docid){
 		text ="Iс-әрекеттi таңдаңыз";
 		create_new_version ="Жаңа болжам";
 		stop_coord ="Келiсудi тоқтату";
-	}else{
-		if($.cookie("lang")=="ENG"){
-			title ="Stop document";
-			text ="Choose action";
-			create_new_version ="New version";
-			stop_coord ="Stop coordination";
-		}
 	}
+	if($.cookie("lang")=="ENG"){
+		title ="Stop document";
+		text ="Choose action";
+		create_new_version ="New version";
+		stop_coord ="Stop coordination";
+	}
+
 	
 	divhtml ="<div id='infodialog' title='"+title+"'>";
 	divhtml +="<div style='height:30px; width:100%; margin-top:5px; font-size:13px'>"+text+"</div></div>";

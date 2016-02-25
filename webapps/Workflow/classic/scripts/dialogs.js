@@ -248,10 +248,10 @@ function pickListClose(){
 
 /* выбор одного корреспондента*/
 function pickListSingleCoordOk(docid){ 
-	text=$("#"+docid).attr("value");
+	var text=$("#"+docid).attr("value");
 	$("input[name=coorder]").remove();
-	$("#frm").append("<input type='hidden' name='coorder' id='coorder' value='"+docid+"'>")
-	newTable="<table id='coordertbl' width='100%'><tr><td>"+ text +"</td></tr></table>"
+	$("#frm").append("<input type='hidden' name='coorder' id='coorder' value='"+docid+"'>");
+	var newTable="<table id='coordertbl' width='100%'><tr><td>"+ text +"</td></tr></table>";
 	$("#coordertbl").replaceWith(newTable);
 	closePicklistCoord();  
 }
@@ -270,8 +270,8 @@ function centring(id,wh,ww){
 		winW=$('#'+id).width(),
 		scrollA=$("body").scrollTop(), 
 		scrollB=$("body").scrollLeft();
-	htop=scrollA+((h/2)-(winH/2));
-	hleft=scrollB+((w/2)-(winW/2));
+	var htop=scrollA+((h/2)-(winH/2));
+	var hleft=scrollB+((w/2)-(winW/2));
 	$('#'+id).css({"top":htop, "left":hleft}) ;
 }
 
@@ -316,7 +316,7 @@ function picklistCoordinatorsWorkdocDept(){
 
 var elementCoord;
 
-/*По просьбе КП убрал проверку на дуюлирование в согласователях подписантах и получателях*/
+/*По просьбе КП убрал проверку на дублирование в согласователях подписантах и получателях*/
 function addCoordinator(docid,el){
 	//docid - userID  выбранного корреспондента
 	// el - строка таблицы с выбранным корреспондентом
@@ -405,7 +405,7 @@ function fastCloseDialog(){
 }
 
 function enableblockform(){
-	blockWindow="<div class='ui-widget-overlay' id='blockWindow'/>"; 
+	var blockWindow="<div class='ui-widget-overlay' id='blockWindow'/>";
 	$("body").append(blockWindow);
 	$('#blockWindow').css({"width":$(window).width(), "height":$(window).height(), "display":"block"}); 
 }

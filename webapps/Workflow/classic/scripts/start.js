@@ -2,7 +2,7 @@ var app ={
 	name:null
 };
 function changeSystemSettings(el){
-	valCookie=$(el).val();
+	var valCookie=$(el).val();
 	$.cookie($(el).attr("id"), valCookie,{
 		path:"/",
 		expires:30
@@ -52,7 +52,7 @@ function getCookie(name) {
     if (end == -1) {
         end = dc.length;
     }
-    text=unescape(dc.substring(begin + prefix.length, end));
+    var text=unescape(dc.substring(begin + prefix.length, end));
     document.form.login.value=text.split("$")[0];
     document.form.pwd.value=text.split("$")[1];
 }

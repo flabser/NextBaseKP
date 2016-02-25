@@ -232,7 +232,22 @@
 			</script>
 		</xsl:if>
 	</xsl:template>
-	
+
+	<!-- кнопка "Продлить срок заявки" -->
+	<xsl:template name="extendtask">
+		<xsl:if test="document/actionbar/action[@id='extend_task']/@mode = 'ON'">
+			<button title="{document/actionbar/action[@id='extend_task']/@hint}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" autocomplete="off" id="btnstopdoc" style="margin-right:5px">
+				<xsl:attribute name="onclick">javascript:extendtask('<xsl:value-of select="document/@docid" />')</xsl:attribute>
+				<span>
+					<img src="/SharedResources/img/classic/icons/page_white_add.png" class="button_img"/>
+					<font class="button_text">
+						<xsl:value-of select="document/actionbar/action[@id='extend_task']/@caption"/>
+					</font>
+				</span>
+			</button>
+		</xsl:if>
+	</xsl:template>
+
 	<xsl:template name="projects_buttons">
 		<!-- кнопка "сохранить как черновик" -->
 		<xsl:if test="document/actionbar/action[@id ='save_as_draft']/@mode = 'ON'">
@@ -329,6 +344,7 @@
 				</span>
 			</button>
 		</xsl:if>
+
 		<!-- кнопка "остановить документ" -->
 		<xsl:if test="document/actionbar/action[@id='stop_document']/@mode = 'ON'">
 			<button title="{document/actionbar/action[@id='stop_document']/@hint}" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" autocomplete="off" id="btnstopdoc" style="margin-right:5px">

@@ -35,64 +35,67 @@ function delDocument(dbID,typedel){
 			url: "Provider?type=page&id=delete_document",
 			cache:false,
 			data: paramfields,
-			success: function (msg){
-				endLoadingOutline();
-				deleted = $(msg).find("deleted").attr("count");
-				undeleted = $(msg).find("undeleted").attr("count");
-				divhtml ="<div id='dialog-message'";
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					 divhtml +="title='Удаление'>";	
-				else if($.cookie("lang")=="KAZ")
-					 divhtml +="title='Жою'>";	
-				else if($.cookie("lang")=="ENG")
-					 divhtml +="title='Deleting'>";
+			success: function(msg)
+		{
+			endLoadingOutline();
+			deleted = $(msg).find("deleted").attr("count");
+			undeleted = $(msg).find("undeleted").attr("count");
+			var dialogtitle = "Удаление";
+			if ($.cookie("lang") == "KAZ") {
+				dialogtitle = "Жою";
+			} else if ($.cookie("lang") == "ENG"){
+				dialogtitle = "Deleting";
+			}
+
+			var divhtml ="<div id='dialog-message' title='"+ dialogtitle +"'>";
+
 					
-				if($(msg).find("response").find("error").text().length != 0 || deleted == 0 || $(msg).find("response").attr("status") == "error"){
-					divhtml += "<font style='font-weight:bold'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						  divhtml += "Ошибка удаления";
-					else if($.cookie("lang")=="KAZ")
-						  divhtml += "Жою қателігі";
-					else if($.cookie("lang")=="ENG")
-						  divhtml += "Error deleting";
+			if($(msg).find("response").find("error").text().length != 0 || deleted == 0 || $(msg).find("response").attr("status") == "error"){
+				divhtml += "<font style='font-weight:bold'>";
+				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
+					  divhtml += "Ошибка удаления";
+				else if($.cookie("lang")=="KAZ")
+					  divhtml += "Жою қателігі";
+				else if($.cookie("lang")=="ENG")
+					  divhtml += "Error deleting";
 								
-					divhtml += "</font><br/>";
-					divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+$(msg).find("response").find("error").text()+"</div>";
-				}else{
-					divhtml += "<font style='font-weight:bold'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Удаление завершено успешно";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жою сәтті аяқталды";
-					else if( $.cookie("lang")=="ENG")
-						divhtml += "Successfully deleted"; 
+				divhtml += "</font><br/>";
+				divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+$(msg).find("response").find("error").text()+"</div>";
+			}else{
+				divhtml += "<font style='font-weight:bold'>";
+				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
+					divhtml += "Удаление завершено успешно";
+				else if($.cookie("lang")=="KAZ")
+					divhtml += "Жою сәтті аяқталды";
+				else if( $.cookie("lang")=="ENG")
+					divhtml += "Successfully deleted";
 						 
-					divhtml += "</font><br/>";
-					divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Не удалено : ";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жойылмады : ";
-					else if($.cookie("lang")=="ENG")
-						divhtml += "Not deleted : ";
+				divhtml += "</font><br/>";
+				divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>";
+				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
+					divhtml += "Не удалено : ";
+				else if($.cookie("lang")=="KAZ")
+					divhtml += "Жойылмады : ";
+				else if($.cookie("lang")=="ENG")
+					divhtml += "Not deleted : ";
 						  
-					divhtml +=undeleted + "</div>";
-					$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
-						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-					});
-					divhtml += "<div style='width:100%; font-size:13px'>";
-					if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-						divhtml += "Удалено : ";
-					else if($.cookie("lang")=="KAZ")
-						divhtml += "Жойылды : ";
-					else if($.cookie("lang")=="ENG")
-						divhtml += "Deleted : ";
+				divhtml +=undeleted + "</div>";
+				$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
+					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+				});
+				divhtml += "<div style='width:100%; font-size:13px'>";
+				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
+					divhtml += "Удалено : ";
+				else if($.cookie("lang")=="KAZ")
+					divhtml += "Жойылды : ";
+				else if($.cookie("lang")=="ENG")
+					divhtml += "Deleted : ";
 						  
-					divhtml += deleted +"</div>";
-					$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
-						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-					})
-				}
+				divhtml += deleted +"</div>";
+				$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
+					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+				})
+			}
 				
 				divhtml += "</div>";
 				$("body").append(divhtml);

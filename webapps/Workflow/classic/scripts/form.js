@@ -76,6 +76,52 @@ var calendarStrings = {
 	}
 };
 
+function extendtask(){
+	var divhtml ="<div id='dialog-message-cancel-attach' title='Продление задания'>";
+	divhtml+="<div style='margin:10px auto'>" +
+		"Продлить задание на : <input type='number' min='1' max='90' style='width:100px;' name='extenddays' id='extenddays' value=''/>" + " " + "дней";
+		"</div>";
+	divhtml += "</div>";
+	$("body").append(divhtml);
+	$("#dialog-message-cancel-attach").dialog({
+		modal: true,
+		height:170,
+		width:350,
+		buttons: {
+			"Да": function(){
+				var extenddays = $("#extenddays").val();
+				var pattern = /^\d+$/;
+				if(!pattern.test(extenddays) ||  extenddays > 90){
+					infoDialog("Поле количество дней заполнено не корректно");
+				}else{
+					var docid =$("input[name=docid]").val();
+					$.ajax({
+						type: "get",
+						datatype:"XML",
+						url: "Provider?type=page&id=extendtask&docid="+docid+"&extenddays="+extenddays,
+						cache:false,
+						success: function (msg){
+							infoDialog("Срок исполнения задания успешно продлен")
+						},
+						error: function(data,status,xhr){
+							var errortitle = "Ошибка";
+							if($.cookie("lang")=="KAZ")
+								errordeletingtitle ="Жою";
+							else if($.cookie("lang")=="ENG")
+								errordeletingtitle = "Error";
+							infoDialog(errordeletingtitle)
+						}
+				});
+				}
+				//$(this).dialog('close').remove();
+			},
+			"Нет": function(){
+				$(this).dialog('close').remove();
+			}
+		}
+	});
+}
+
 
 function delPrjDraft(id,doctype){
 	var paramfields="";
@@ -1091,7 +1137,7 @@ function commentToAttachOk(){
 		}else if ($.cookie("lang")=="KAZ"){
 			comments_caption = "түсініктеме : ";
 		}
-		$("<tr><td></td><td style='color:#777; font-size:12px'>"+comments_caption+$("#commentText").val()+"</td><td></td></tr>").insertAfter("#"+control_sum_file)
+		$("<tr><td/><td style='color:#777; font-size:12px'>"+comments_caption+$("#commentText").val()+"</td><td/></tr>").insertAfter("#"+control_sum_file)
 		$("#commentaddimg"+control_sum_file).remove();
 		$("#commentBox").remove()
 	}
@@ -1185,7 +1231,6 @@ function SheetIsIncorrectSend(docid, doctype){
 			$("body").notify({"text":"Табель отмечен как некорректный","onopen":function(){$("body").hidenotify({"delay":1200,"onclose":function(){$("#notifydiv").remove(); $("#canceldoc").click()}})},"loadanimation":false})
 		}
 	});
-
 }
 
 function deleterow(sesid,filename, fieldid){

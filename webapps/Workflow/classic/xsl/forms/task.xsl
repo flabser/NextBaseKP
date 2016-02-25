@@ -327,13 +327,7 @@
 <!-- 								<xsl:call-template name="eds_sign"/> -->
 								<xsl:if test="$status !='new'">
 									<xsl:choose>
-										<xsl:when test="document/fields/tasktype = 'RESOLUTION'">
-											<xsl:call-template name="newkp"/>
-										</xsl:when>
-										<xsl:when test="document/fields/tasktype = 'CONSIGN'">
-											<xsl:call-template name="newkp"/>
-										</xsl:when>
-										<xsl:when test="document/fields/tasktype = 'TASK'">
+										<xsl:when test="document/fields/tasktype = 'RESOLUTION' or document/fields/tasktype = 'CONSIGN' or document/fields/tasktype = 'TASK'">
 											<xsl:call-template name="newkp"/>
 										</xsl:when>
 										<xsl:otherwise>
@@ -350,6 +344,7 @@
 								<xsl:call-template name="remind"/>
 								<!-- кнопка "ознакомить" -->
 								<xsl:call-template name="acquaint"/>
+								<xsl:call-template name="extendtask"/>
 							</span>
 							<span style="float:right" class="bar_right_panel">
 								<xsl:call-template name="cancel"/>

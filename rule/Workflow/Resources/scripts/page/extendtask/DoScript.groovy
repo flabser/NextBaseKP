@@ -22,10 +22,11 @@ class DoScript extends _DoScript {
 				String rusExecName = ""
 				def execblocks = (_ExecsBlocks)it.getValueObject("execblock")
 				execblocks.getExecutors().each{
-					rusExecName += it.getShortName() + ","
+					def exec = session.getStructure().getEmployer(it.getUserID());
+					rusExecName += exec.getShortName() + ","
 				}
 				def control =  (_Control)it.getValueObject("control");
-				control.addProlongation(formData.getNumberValueSilently("extenddays",0), '0')
+				control.addProlongation(formData.getNumberValueSilently("extenddays",0), '0', session)
 				def struct = session.getStructure();
 				def u = struct.getEmployer(it.getValueString("taskauthor"));
 				String sh = u.getShortName();

@@ -106,7 +106,7 @@ class QueryOpen extends _FormQueryOpen {
 			actionBar.addAction(new _Action(getLocalizedWord("Подписать",lang),getLocalizedWord("Подписать с помощью ЭЦП",lang),_ActionType.EDS_SIGN))
 		}
 		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))
-
+		actionBar.addAction(new _Action(getLocalizedWord("Продлить срок задания",lang),getLocalizedWord("Продлить срок задания",lang),"extend_task"))
 		actionBar.addAction(new _Action(getLocalizedWord("Закрыть",lang),getLocalizedWord("Закрыть без сохранения",lang),_ActionType.CLOSE))
 		if(user.hasRole("supervisor")){
 			actionBar.addAction(new _Action(_ActionType.GET_DOCUMENT_ACCESSLIST))

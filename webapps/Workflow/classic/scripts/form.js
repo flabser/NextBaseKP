@@ -94,7 +94,7 @@ function extendtask(){
 				if(!pattern.test(extenddays) ||  extenddays > 90){
 					infoDialog("Поле количество дней заполнено не корректно");
 				}else{
-					var docid =$("input[name=docid]").val();
+					var docid =$("input[name=key]").val();
 					$.ajax({
 						type: "get",
 						datatype:"XML",

@@ -441,7 +441,7 @@
 															<xsl:value-of select="document/captions/ctrldate/@caption"/> :
 														</td>
 														<td id="controldate">
-															<input type="text" id="controldate2" maxlength="10" class="td_noteditable" style="width:80px;" value="{substring(document/fields/control/primaryctrldate,1,10)}">
+															<input type="text" id="controldate2" maxlength="10" class="td_noteditable" style="width:80px;" value="{substring(document/fields/control/ctrldate,1,10)}">
 																<xsl:if test="document/fields/maxdate and document/fields/maxdate !=''"> 
 																	<xsl:attribute name="value" select="document/fields/maxdate"/>
 																</xsl:if>
@@ -836,7 +836,7 @@
 											<xsl:value-of select="document/captions/ctrldate/@caption"/> :
 										</td>
 										<td style="padding-top:5px">
-											<input type="text" name="primaryctrldate" maxlength="10" autocomplete="off" class="td_editable" style="width:80px; vertical-align:top" value="{substring(document/fields/control/primaryctrldate,1,10)}">
+											<input type="text" name="primaryctrldate" maxlength="10" autocomplete="off" class="td_editable" style="width:80px; vertical-align:top" value="{substring(document/fields/control/ctrldate,1,10)}">
 												<xsl:if test="document/fields/maxdate and document/fields/maxdate !=''"> 
 													<xsl:attribute name="value" select="document/fields/maxdate"/>
 												</xsl:if>

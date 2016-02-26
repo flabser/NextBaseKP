@@ -10,9 +10,6 @@ class DoScript extends _DoScript {
 	public void doProcess(_Session session, _WebFormData formData, String lang) {
 		println(formData)
 
-		def deletedList = []
-		def unDeletedList = []
-
 		def db = session.getCurrentDatabase()
 		def task = db.getDocumentByID(formData.getNumberValueSilently("docid",0));
 		def taskdesc = task.getDescendants();

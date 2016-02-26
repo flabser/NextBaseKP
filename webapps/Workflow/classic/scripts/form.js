@@ -77,13 +77,13 @@ var calendarStrings = {
 };
 
 function extendtask(){
-	var divhtml ="<div id='dialog-message-cancel-attach' title='Продление задания'>";
+	var divhtml ="<div id='dialog-message' title='Продление задания'>";
 	divhtml+="<div style='margin:10px auto'>" +
 		"Продлить задание на : <input type='number' min='1' max='90' style='width:100px;' name='extenddays' id='extenddays' value=''/>" + " " + "дней";
 		"</div>";
 	divhtml += "</div>";
 	$("body").append(divhtml);
-	$("#dialog-message-cancel-attach").dialog({
+	$("#dialog-message").dialog({
 		modal: true,
 		height:170,
 		width:350,
@@ -101,6 +101,7 @@ function extendtask(){
 						url: "Provider?type=page&id=extendtask&docid="+docid+"&extenddays="+extenddays,
 						cache:false,
 						success: function (msg){
+							$("#dialog-message").dialog('close').remove();
 							infoDialog("Срок исполнения задания успешно продлен")
 						},
 						error: function(data,status,xhr){
@@ -113,7 +114,7 @@ function extendtask(){
 						}
 				});
 				}
-				//$(this).dialog('close').remove();
+
 			},
 			"Нет": function(){
 				$(this).dialog('close').remove();

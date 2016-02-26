@@ -30,7 +30,7 @@ class DoScript extends _DoScript {
 				def struct = session.getStructure();
 				def u = struct.getEmployer(it.getValueString("taskauthor"));
 				String sh = u.getShortName();
-				it.addField("control", control)
+				//it.addField("control", control)
 				it.setViewText(_Helper.getDateAsStringShort(it.getValueDate("taskdate")) + ":" +  sh + "  (" +  rusExecName + "),  " + it.getValueString("briefcontent") + ", " + _Helper.getDateAsStringShort(control.getCtrlDate()),0)
 				it.setViewText(control.getDiffBetweenDays(),5)
 				it.save("[supervisor]")

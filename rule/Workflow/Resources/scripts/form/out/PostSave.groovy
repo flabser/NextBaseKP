@@ -16,6 +16,7 @@ class PostSave extends _FormPostSave {
         for (String intexec: intexecs) {
             doc.addReader(intexec);
         }
+        doc.addReader("[chancellery]");
         if( doc.getValueString("mailnotification") == '' ){
             def msngAgent = ses.getInstMessengerAgent();
             def mailAgent = ses.getMailAgent();

@@ -17,7 +17,7 @@ class workdocprj extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&element=document&id=workdocprj&docid=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+		if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		setContent(actionBar);

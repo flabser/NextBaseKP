@@ -161,6 +161,7 @@ class Sign_yes extends _DoScript {
                 _doc.addNumberField("vid", 0)
                 _doc.addNumberField("corr", doc.getValueNumber("corr"))
                 _doc.setViewNumber(_doc.getValueString("in").isNumber() ? _doc.getValueString("in").toInteger() : 0)
+                _doc.addReader("[chancellery]");
             }
             doc.getReaders().each {
                 _doc.addReader(it.userID);
@@ -178,6 +179,7 @@ class Sign_yes extends _DoScript {
             _doc.addEditor(doc.authorID);
             _doc.save("[supervisor]")
 			_doc.replaceViewText(signerCoord?.getUserID(), 7)
+            _doc.getViewText()
 			_doc.save("[supervisor]")
             doc.addField("link", new _CrossLink(session, _doc))
             doc.setValueNumber("regdocid", _doc.getDocID())

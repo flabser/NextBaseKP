@@ -49,7 +49,7 @@ class QueryOpen extends _FormQueryOpen {
                    show_compose_actions = true;
              }
         }*/
-		if(doc.getValueString("signed") == user.getUserID()){
+		if(doc.getValueString("signed") == user.getUserID() || doc.getAuthorID() == user.getUserID()){
 			show_compose_actions = true;
 		}
 		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))

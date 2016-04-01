@@ -12,7 +12,7 @@ class application extends _DoScript {
 	public void doProcess(_Session session, _WebFormData formData, String lang) {
 		def actionBar = new _ActionBar(session);
 		def user = session.getCurrentAppUser();
-		if (user.hasRole(["administrator","chancellery"])){
+		if (user.hasRole(["administrator"])){
 			actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 		}
 		setContent(actionBar);

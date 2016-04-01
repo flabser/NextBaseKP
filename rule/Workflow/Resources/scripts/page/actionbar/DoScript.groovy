@@ -18,7 +18,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&element=document&id=in&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang), getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -38,7 +38,7 @@ class DoScript extends _DoScript {
 			}
 		}
 		if(formData.get("id")[0] == 'sz'){
-			if (user.hasRole(["administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -48,7 +48,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&amp;id=ish&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -58,7 +58,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=l&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ",lang), _ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -76,7 +76,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=workdocprj&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -86,7 +86,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=outdocprj&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ",lang), getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -101,7 +101,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=controltype&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -111,7 +111,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=docscat&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ",lang), _ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -121,7 +121,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=har&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -131,7 +131,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=har&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -141,7 +141,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=deliverytype&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -151,7 +151,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=cat&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -161,7 +161,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=nomentypelist&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -171,7 +171,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=corrlist&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -181,7 +181,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=corrcat&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ",lang), _ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -191,7 +191,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=city&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}
@@ -201,7 +201,7 @@ class DoScript extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&id=projectsprav&key=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["supervisor","administrator","chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 		}

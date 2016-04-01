@@ -15,12 +15,12 @@ class docsbyglossary extends _DoScript {
 		def user = session.getCurrentAppUser();
         def formid = formData.getValueSilently("formid");
         if(formid == "order"){
-           if (user.hasRole(["registrator_projects", "administrator"])){
+           if (user.hasRole(["signer"])){
 				def newDocAction = new _Action(getLocalizedWord("Новый приказ", lang),getLocalizedWord("Новый приказ", lang),"new_document")
 				newDocAction.setURL("Provider?type=edit&element=document&id=order&docid=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
 
@@ -30,16 +30,16 @@ class docsbyglossary extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&element=document&id=contract&docid=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
         } else if(formid == "orderprj"){
-            if (user.hasRole(["registrator_projects", "administrator"])){
+            if (user.hasRole(["chancellery"])){
 				def newDocAction = new _Action(getLocalizedWord("Проект приказа", lang),getLocalizedWord("Проект приказа", lang),"new_document")
 				newDocAction.setURL("Provider?type=edit&element=document&id=orderprj&docid=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
         }else if(formid == "contractprj"){
@@ -48,7 +48,7 @@ class docsbyglossary extends _DoScript {
 				newDocAction.setURL("Provider?type=edit&element=document&id=contractprj&docid=")
 				actionBar.addAction(newDocAction);
 			}
-			if (user.hasRole(["administrator", "chancellery"])){
+			if (user.hasRole(["administrator"])){
 				actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
 			}
         }

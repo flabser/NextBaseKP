@@ -12,7 +12,7 @@ class recyclebin extends _DoScript {
 	public void doProcess(_Session session, _WebFormData formData, String lang) {
 		def actionBar = new _ActionBar(session);
 		def user = session.getCurrentAppUser();
-		if (user.hasRole(["supervisor","administrator","chancellery"])){
+		if (user.hasRole(["supervisor","administrator"])){
 			actionBar.addAction(new _Action(getLocalizedWord("Удалить из корзины", lang),getLocalizedWord("Удалить из корзины", lang),"CLEAR_RECYCLEBIN"));
 			actionBar.addAction(new _Action(getLocalizedWord("Восстановить документ", lang),getLocalizedWord("Восстановить документ", lang),"RECOVER_RECYCLEBIN"));
 		}

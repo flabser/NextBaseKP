@@ -20,7 +20,7 @@ class docsbyproject extends _DoScript {
                 newDocAction.setURL("Provider?type=edit&element=document&id=in&docid=")
                 actionBar.addAction(newDocAction);
             }
-            if (user.hasRole(["chancellery"])){
+            if (user.hasRole(["administrator"])){
                 actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
             }
 
@@ -30,7 +30,7 @@ class docsbyproject extends _DoScript {
                 newDocAction.setURL("Provider?type=edit&element=document&id=out&docid=")
                 actionBar.addAction(newDocAction);
             }
-            if (user.hasRole(["administrator", "chancellery"])){
+            if (user.hasRole(["administrator"])){
                 actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
             }
         } else if(formid == "task"){
@@ -39,7 +39,7 @@ class docsbyproject extends _DoScript {
                 newDocAction.setURL("Provider?type=edit&element=document&id=task&docid=")
                 actionBar.addAction(newDocAction);
             }
-            if (user.hasRole(["supervisor","administrator","chancellery"])){
+            if (user.hasRole(["administrator"])){
                 actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
             }
         }

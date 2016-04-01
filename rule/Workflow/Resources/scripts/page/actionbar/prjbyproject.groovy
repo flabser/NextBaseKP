@@ -29,7 +29,7 @@ class prjbyproject extends _DoScript {
             }
 
         }
-        if (user.hasRole(["administrator", "chancellery"])){
+        if (user.hasRole(["administrator"])){
             actionBar.addAction(new _Action(getLocalizedWord("Удалить документ", lang),getLocalizedWord("Удалить документ", lang),_ActionType.DELETE_DOCUMENT));
         }
         setContent(actionBar);

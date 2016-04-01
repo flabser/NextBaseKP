@@ -1009,7 +1009,7 @@ function uploadComplete(tableID, doc, fieldName, addComment) {
 		csf=$(doc).find("message[id=2]").text();
 		var range = 200 - 1 + 1;
 		if(fileName.indexOf(".") != -1){
-			detectExtAttach(fileName); //определение расширения
+			var ext = detectExtAttach(fileName); //определение расширения
 			var fieldid=Math.floor(Math.random()*range) + 1;
 			var fileid=$(doc).find("message[id=4]").text();
             var filehash=$(doc).find("message[id=2]").text();

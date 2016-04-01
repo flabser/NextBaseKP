@@ -30,6 +30,7 @@ class DoScript extends _DoScript {
 				//it.addField("control", control)
 				it.setViewText(_Helper.getDateAsStringShort(it.getValueDate("taskdate")) + ":" +  sh + "  (" +  rusExecName + "),  " + it.getValueString("briefcontent") + ", " + _Helper.getDateAsStringShort(control.getCtrlDate()),0)
 				it.setViewText(control.getDiffBetweenDays(),5)
+				it.setViewNumber(control.getDiffBetweenDays())
 				it.save("[supervisor]")
 			}
 		}

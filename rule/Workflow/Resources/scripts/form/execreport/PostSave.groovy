@@ -12,7 +12,10 @@ class PostSave extends _FormPostSave {
         def executionReaders = exec.getReaders()
         def mdoc = exec.getGrandParentDocument()
         mdoc.addReader((HashSet<String>) executionReaders.collect { it.userID })
-
+        def GPDocumentForm = mdoc.getDocumentForm();
+        if (GPDocumentForm == 'in' || GPDocumentForm == 'IN' || GPDocumentForm == 'out'){
+            exec.addReader("[chancellery]");
+        }
 
         executionReaders.each{
             mdoc.addReader(it.getUserID());

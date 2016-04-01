@@ -12,12 +12,16 @@ import kz.nextbase.script.task._Control
 class PostSave extends _FormPostSave {
 
 	public void doPostSave(_Session ses, _Document doc) {	
-
-		
-	   def recipientsMail = []
-	   def recipientsID = []
-	   def	control  = (_Control)doc.getValueObject("control")
-	   
+		def recipientsMail = []
+	   	def recipientsID = []
+	   	def	control  = (_Control)doc.getValueObject("control")
+		if(doc.getValueString("tasktype") == "consign"){
+			def GrandParentDocument = doc.getGrandParentDocument();
+			def GPDocumentForm = GrandParentDocument.getDocumentForm();
+			if (GPDocumentForm == 'in' || GPDocumentForm == 'IN' || GPDocumentForm == 'out'){
+				doc.addReader("[chancellery]");
+			}
+		}
 	   def execs  = (_ExecsBlocks)doc.getValueObject("execblock")
 	   def e = execs.getExecutors()
 	   e.each{

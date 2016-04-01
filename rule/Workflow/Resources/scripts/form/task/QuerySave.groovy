@@ -114,7 +114,6 @@ class QuerySave extends _FormQuerySave {
 		if (rusExecName){
 			rusExecName = rusExecName.substring(0, rusExecName.length()-1);
 		}
-
 		String rview = "";
 		if (doc.getValueString("tasktype") == "resolution" || doc.getValueString("tasktype") == "consign"){
 			doc.addStringField("taskvn", "")

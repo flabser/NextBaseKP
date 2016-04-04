@@ -1050,6 +1050,7 @@ function changeAttIcon(el){
 	$(el).removeClass()
 }
 
+
 /*определение расширения вложения */
 function detectExtAttach(file){
 	var fileLen=file.length,

@@ -20,7 +20,7 @@ class Sign_yes extends _DoScript {
     @Override
     public void doProcess(_Session session, _WebFormData formData, String lang) {
         try {
-            //println(formData)
+            println(formData)
 
             def cdb = session.getCurrentDatabase();
             def doc = cdb.getDocumentByID(formData.getNumberValueSilently("key", -1));
@@ -212,7 +212,8 @@ class Sign_yes extends _DoScript {
                 log(e)
             }
 
-            def returnURL = session.getURLOfLastPage()
+            //def returnURL = session.getURLOfLastPage()
+            def returnURL = _doc.getFullURL();
             setRedirectURL(returnURL)
             /*msg = "После исполнения документ № " + doc.getValueString("vn") + " от " + _Helper.getDateAsString(doc.getValueDate("projectdate")) + "\" будет отправлен ";
             msg += (doc.getDocumentForm() == "workdocprj" ? "получателю." : "на ревизию исполнения.") + "\nДля ознакомления с документом перейдите по <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";

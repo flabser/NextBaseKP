@@ -12,11 +12,10 @@ class QueryOpen extends _FormQueryOpen {
 	@Override
 	public void doQueryOpen(_Session session, _WebFormData webFormData, String lang) {
 		def user = session.getCurrentAppUser()
-
+		println(webFormData)
 		def nav = session.getPage("outline", webFormData)
 		publishElement(nav)
 
-				
 		def actionBar = new _ActionBar(session)
 		actionBar.addAction(new _Action(getLocalizedWord("Сохранить как черновик",lang),getLocalizedWord("Сохранить как черновик",lang),"save_as_draft"))
 		actionBar.addAction(new _Action(getLocalizedWord("Отправить",lang),getLocalizedWord("Отправить",lang),"send"))
@@ -52,7 +51,6 @@ class QueryOpen extends _FormQueryOpen {
 			publishDepartment("department", dep)
 		}
 		if(user.getUserID() == doc.getAuthorID()){
-
 			if (status == _CoordStatusType.DRAFT){
 				actionBar.addAction(new _Action(getLocalizedWord("Сохранить как черновик",lang),getLocalizedWord("Сохранить как черновик",lang),"save_as_draft"))
 			}
@@ -64,7 +62,6 @@ class QueryOpen extends _FormQueryOpen {
 			if (status && (status == _CoordStatusType.COORDINATING || status == _CoordStatusType.EXPIRED || status == _CoordStatusType.SIGNING)){
 				actionBar.addAction(new _Action(getLocalizedWord("Остановить документ",lang),getLocalizedWord("Остановить документ",lang),"stop_document"))
 			}
-
 		}
 
 		if(status == _CoordStatusType.COORDINATING){
@@ -116,15 +113,15 @@ class QueryOpen extends _FormQueryOpen {
 		try{
             def workdoclink  = (_CrossLink)doc.getValueObject("link")
             publishValue("link", workdoclink)
-        }catch(Exception e){}
+        }catch(Exception e){
+
+		}
 		try{
 			def link  = (_CrossLink)doc.getValueObject("versionlink")
 			publishValue("versionlink", link)
 		}catch(_Exception e){
 		
 		}
-
-		
 		try{
 			publishAttachment("rtfcontent","rtfcontent")
 		}catch(_Exception e){
@@ -132,5 +129,4 @@ class QueryOpen extends _FormQueryOpen {
 		}
 		publishValue("nomentype",doc.getValueString("nomentype"))
 	}
-
 }

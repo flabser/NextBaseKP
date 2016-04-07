@@ -208,6 +208,7 @@ class Sign_yes extends _DoScript {
                 if (!recipient_col_email.empty){
                     mailAgent.sendMail(recipient_col_email, subj, body);
                 }
+
             } catch (Exception e) {
                 log(e)
             }

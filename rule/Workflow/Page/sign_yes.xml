@@ -6,7 +6,7 @@
 	<element mode="ON" type="SCRIPT">
 		<name>script_result</name>
 		<events>
-			<doscript source="file">page.coord.Sign_yes</doscript>
+			<doscript source="JAVA_CLASS">page.coord.SignYes</doscript>
 		</events>
 	</element>
 </rule>

@@ -2,12 +2,8 @@ package page.coord
 
 import kz.nextbase.script._CrossLink
 import kz.nextbase.script._Document
-import kz.nextbase.script._Helper
 import kz.nextbase.script._Session
 import kz.nextbase.script._WebFormData
-import kz.nextbase.script.constants._BlockStatusType
-import kz.nextbase.script.constants._CoordStatusType
-import kz.nextbase.script.constants._DecisionType
 import kz.nextbase.script.coordination._Block
 import kz.nextbase.script.coordination._BlockCollection
 import kz.nextbase.script.events._DoScript
@@ -15,10 +11,12 @@ import kz.nextbase.script.mail._Memo
 
 class Sign_yes extends _DoScript {
 
+
 	@Override
 	public void doProcess(_Session session, _WebFormData formData, String lang) {
 		try {
-			//println(formData)
+			devPrint(formData)
+
 
 			def cdb = session.getCurrentDatabase();
 			def doc = cdb.getDocumentByID(formData.getNumberValueSilently("key", -1));
@@ -189,20 +187,23 @@ class Sign_yes extends _DoScript {
 			try {
 				msg = "Документ \"" + doc.getValueString("briefcontent") + "\" готов к отправке на регистрацию. Пожалуйста, проверьте правильность составления документа и все ли участники согласования ";
 				msg += "одобрили документ. \nДля работы с документом перейдите по ссылке " + _doc.getFullURL();
-				msngAgent.sendMessage([author?.getInstMessengerAddr()], msg);
+				msngAgent.sendMessage([
+					author?.getInstMessengerAddr()
+				], msg);
 				subj = ' Проект для отправки на регистрацию \"' + doc.getValueString("briefcontent") + '\"';
 				body += 'Проект документа подписан и готов к отправке на регистрацию. Проверьте правильность составления документа ';
 				body += 'и все ли участники согласования одобрили документ.';
 				mailAgent.sendMail([author?.getEmail()], new _Memo(subj, 'Согласование завершено', body, doc, false));
 
-
-				if (recipient_col_jabber != null){
-					msg = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
-					msg += "\nДля работы с документом перейдите по этой ссылке: " + _doc.getFullURL() + "</a>";
+				msg = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
+				msg += "\nДля работы с документом перейдите по этой ссылке: " + _doc.getFullURL() + "</a>";
+				if (!recipient_col_jabber.empty){
 					msngAgent.sendMessage(recipient_col_jabber, msg);
-					subj = "Уведомление о новой служебной записке";
-					body = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
-					body += "\nДля работы с документом перейдите по этой <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
+				}
+				subj = "Уведомление о новой служебной записке";
+				body = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
+				body += "\nДля работы с документом перейдите по этой <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
+				if (!recipient_col_email.empty){
 					mailAgent.sendMail(recipient_col_email, subj, body);
 				}
 
@@ -210,9 +211,29 @@ class Sign_yes extends _DoScript {
 				log(e)
 			}
 
-			def returnURL = session.getURLOfLastPage()
+			if (recipient_col_jabber != null){
+				msg = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
+				msg += "\nДля работы с документом перейдите по этой ссылке: " + _doc.getFullURL() + "</a>";
+				msngAgent.sendMessage(recipient_col_jabber, msg);
+				subj = "Уведомление о новой служебной записке";
+				body = "Вам новая служебная записка № " + doc.getValueString("vn") + " - " + doc.getValueString("briefcontent") + ".";
+				body += "\nДля работы с документом перейдите по этой <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
+				mailAgent.sendMail(recipient_col_email, subj, body);
+			}
+
+			//def returnURL = session.getURLOfLastPage()
+			def returnURL = _doc.getFullURL();
 			setRedirectURL(returnURL)
 			/*msg = "После исполнения документ № " + doc.getValueString("vn") + " от " + _Helper.getDateAsString(doc.getValueDate("projectdate")) + "\" будет отправлен ";
+			 msg += (doc.getDocumentForm() == "workdocprj" ? "получателю." : "на ревизию исполнения.") + "\nДля ознакомления с документом перейдите по <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
+			 msngAgent.sendMessageAfter([author?.getInstMessengerAddr()], msg);
+			 >>>>>>> refs/remotes/origin/master
+			 } catch (Exception e) {
+			 log(e)
+			 }
+			 def returnURL = session.getURLOfLastPage()
+			 setRedirectURL(returnURL)
+			 /*msg = "После исполнения документ № " + doc.getValueString("vn") + " от " + _Helper.getDateAsString(doc.getValueDate("projectdate")) + "\" будет отправлен ";
 			 msg += (doc.getDocumentForm() == "workdocprj" ? "получателю." : "на ревизию исполнения.") + "\nДля ознакомления с документом перейдите по <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
 			 msngAgent.sendMessageAfter([author?.getInstMessengerAddr()], msg);
 			 subj = " Исполнено замечание № " + doc.getValueString("vn") + " от " + _Helper.getDateAsString(doc.getValueDate("projectdate"));

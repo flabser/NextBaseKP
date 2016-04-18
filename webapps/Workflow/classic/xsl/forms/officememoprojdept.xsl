@@ -545,7 +545,7 @@
 													<xsl:value-of select="$captions/statuscoord/@caption"/>
 												</td>
 											</tr>
-											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN'][position() != last()]">
+											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN']">
 													<tr class="trblockCoord">
 														<td style="border-bottom: 1px solid lightgray">
 															<input type="checkbox" name="chbox" id="{position()}"/>
@@ -682,7 +682,7 @@
 																<input type="hidden" value="{employer/userid}" class="{employer/userid}"/>
 															</xsl:for-each>
 															<xsl:if test="type !='TO_SIGN'">
-																<input type="hidden" name="coordblock">
+																<input type="hidden" name="coordblock" class="recipientworkdocdept">
 																	<xsl:attribute name="value"><xsl:value-of select="id"/>`<xsl:choose><xsl:when test="type='PARALLEL_COORDINATION'">par</xsl:when><xsl:when
 																		test="type='SERIAL_COORDINATION'">ser</xsl:when></xsl:choose>`<xsl:value-of
 																		select="delaytime" />`<xsl:for-each select="coordinators/entry"><xsl:value-of

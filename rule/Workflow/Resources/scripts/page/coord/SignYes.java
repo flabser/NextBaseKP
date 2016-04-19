@@ -36,6 +36,7 @@ public class SignYes extends _DoScript {
 
 			_Database cdb = session.getCurrentDatabase();
 			_Document doc = cdb.getDocumentByID(formData.getNumberValueSilently("key", -1));
+			String docForm = doc.getDocumentForm();
 			_MailAgent mailAgent = session.getMailAgent();
 			_InstMessengerAgent msngAgent = session.getInstMessengerAgent();
 			List recipientsMail = new ArrayList();
@@ -49,14 +50,14 @@ public class SignYes extends _DoScript {
 			_Employer author = struct.getEmployer(doc.getAuthorID());
 			List recipient_col_email = null;
 			List recipient_col_jabber = null;
-			if (doc.getDocumentForm() == "officememoprj") {
+			//if(docForm.equals("officememoprj")) {
 				// recipient_col_email = ((_EmployerCollection)
 				// doc.getValueObject("recipient"))?.getEmployers().collectAll
 				// {it.getEmail()};
 				// recipient_col_jabber = ((_EmployerCollection)
 				// doc.getValueObject("recipient"))?.getEmployers().collectAll
 				// {it.getInstMessengerAddr()};
-			}
+			//}
 
 			_BlockCollection doc_blc = (_BlockCollection) doc.getValueObject("coordination");
 			_Block block = doc_blc.getSignBlock();
@@ -76,7 +77,7 @@ public class SignYes extends _DoScript {
 
 			_Document _doc = new _Document(cdb);
 			_Coordinator signerCoord = block.getFirstCoordinator();
-			if (doc.getDocumentForm() == "officememoprj") {
+			if (docForm.equals("officememoprj")) {
 				_doc.setForm("workdoc");
 				_doc.addStringField("vn", doc.getValueString("vn"));
 				// _doc.addStringField("author",doc.getValueString("author"))
@@ -100,7 +101,7 @@ public class SignYes extends _DoScript {
 				_doc.addDateField("ctrldate", session.getDatePlusDays(30));
 				_doc.setViewNumber(BigDecimal.valueOf(num));
 			}
-			if (doc.getDocumentForm() == "applicationprj") {
+			if (docForm.equals("applicationprj")) {
 				_doc.setForm("application");
 				_doc.addStringField("vn", doc.getValueString("vn"));
 				// _doc.addStringField("author",doc.getValueString("author"))
@@ -124,7 +125,7 @@ public class SignYes extends _DoScript {
 				_doc.addDateField("ctrldate", session.getDatePlusDays(30));
 				_doc.setViewNumber(BigDecimal.valueOf(num));
 			}
-			if (doc.getDocumentForm() == "orderprj") {
+			if (docForm.equals("orderprj")) {
 				_doc.setForm("order");
 				_doc.addStringField("signed", signerCoord.getUserID());
 				_doc.addStringField("prepared", doc.getAuthorID());
@@ -149,7 +150,7 @@ public class SignYes extends _DoScript {
 				}
 			}
 
-			if (doc.getDocumentForm() == "contractprj") {
+			if (docForm.equals("contractprj")) {
 				_doc.setForm("contract");
 				_doc.addStringField("signedby", signerCoord.getUserID());
 				_doc.addStringField("intexec", doc.getAuthorID());
@@ -177,7 +178,7 @@ public class SignYes extends _DoScript {
 					_doc.setViewNumber(BigDecimal.valueOf(0));
 				}
 			}
-			if (doc.getDocumentForm() == "outgoingprj") {
+			if (docForm.equals("outgoingprj")) {
 				_doc.setForm("out");
 				_doc.addStringField("signedby", signerCoord.getUserID());
 				_doc.addStringField("intexec", doc.getAuthorID());

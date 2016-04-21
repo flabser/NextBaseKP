@@ -220,7 +220,6 @@
 								<xsl:call-template name="showxml"/>
 								<xsl:call-template name="get_document_accesslist"/>
 								<xsl:call-template name="projects_buttons"/>
-<!-- 								<xsl:call-template name="ECPsign"/> -->
 								<xsl:call-template name="acquaint"/>
 								<xsl:call-template name="printdocument"/>
 							</span>
@@ -253,7 +252,7 @@
 								<li class="ui-state-default ui-corner-top">
 									<a href="#tabs-4" style="padding-right:5px">
 										<xsl:value-of select="$captions/attachments/@caption"/>
-										<img id="loading_attach_img" style="vertical-align: -3px; margin-left: 3px; visibility: hidden;" src="/SharedResources/img/classic/ajax-loader-small.gif"></img>
+										<img id="loading_attach_img" style="vertical-align: -3px; margin-left: 3px; visibility: hidden;" src="/SharedResources/img/classic/ajax-loader-small.gif"/>
 									</a>
 								</li>
 								<li class="ui-state-default ui-corner-top">

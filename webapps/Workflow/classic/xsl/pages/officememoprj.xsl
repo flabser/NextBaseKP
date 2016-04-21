@@ -174,7 +174,7 @@
 					<xsl:attribute name="onclick">javascript:addDocToFav(this,<xsl:value-of select="@docid"/>,<xsl:value-of select="@doctype"/>)</xsl:attribute>
 					<xsl:attribute name="title" select="//page/captions/addtofav/@caption"/>
 					<xsl:if test="@favourites = '1'">
-						<xsl:attribute name="onclick">javascript:eDocFromFav(this,<xsl:value-of select="@docid"/>,<xsl:value-of select="@doctype"/>)</xsl:attribute> 
+						<xsl:attribute name="onclick">javascript:removeDocFromFav(this,<xsl:value-of select="@docid"/>,<xsl:value-of select="@doctype"/>)</xsl:attribute>
 						<xsl:attribute name="src">/SharedResources/img/iconset/star_full.png</xsl:attribute> 
 						<xsl:attribute name="title" select="//page/captions/removefromfav/@caption"/>
 					</xsl:if>

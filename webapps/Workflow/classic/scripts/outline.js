@@ -136,6 +136,7 @@ function SavePropVisCategory(id,val){
 	$.cookie(AppName + "_" + id, val,{ path:"/", expires:30});	
 }
 
+
 function addDocToFav(el,docid,doctype){
 	$.ajax({
 		type: "GET",

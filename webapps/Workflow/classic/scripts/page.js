@@ -1,5 +1,33 @@
 /* author John - Lab of the future */
 
+var _currentLang = $.cookie("lang") || "RUS";
+var dlgTitleStr = {
+	"RUS": {
+		deleteerror: "Ошибка удаления",
+		deleting:"Удаление",
+		deletingsuccess:"Удаление завершено успешно",
+		notdeleted:"Не удалено :",
+		deleted:"Удалено :",
+		notseldeldoc:"Не выбран документ для удаления"
+	},
+	"KAZ": {
+		deleteerror: "Жою қателігі",
+		deleting:"Жою",
+		deletingsuccess:"Жою сәтті аяқталды",
+		notdeleted:"Жойылмады :",
+		deleted:"Жойылды :",
+		notseldeldoc:"Жойылатын құжат таңдалмады"
+	},
+	"ENG": {
+		deleteerror: "Error deleting",
+		deleting:"Deleting",
+		deletingsuccess:"Successfully deleted",
+		notdeleted:"Not deleted :",
+		deleted:"Deleted :",
+		notseldeldoc:"Document is not selected"
+	}
+};
+
 function sorting(pageid,column, direction){
 	$.ajax({
 		type: "POST",
@@ -20,83 +48,45 @@ function delDocument(dbID,typedel){
 		loadingOutline();
 		var paramfields="";
 		checkboxes.each(function(index, element){
-			 var ck={
+			var ck={
 				doctype: $(element).val(),
 				docid: $(element).attr("id")
-			 };
+			};
 			paramfields += $.param(ck);
 			if (index+1 != checkboxes.length){
 				paramfields +="&";
 			}
 		});
+
 		$.ajax({
 			type: "POST",
 			datatype:"XML",
 			url: "Provider?type=page&id=delete_document",
 			cache:false,
 			data: paramfields,
-			success: function(msg)
-		{
-			endLoadingOutline();
-			deleted = $(msg).find("deleted").attr("count");
-			undeleted = $(msg).find("undeleted").attr("count");
-			var dialogtitle = "Удаление";
-			if ($.cookie("lang") == "KAZ") {
-				dialogtitle = "Жою";
-			} else if ($.cookie("lang") == "ENG"){
-				dialogtitle = "Deleting";
-			}
+			success: function(msg){
+				endLoadingOutline();
+				var deleted = $(msg).find("deleted").attr("count");
+				var undeleted = $(msg).find("undeleted").attr("count");
+				var response = $(msg).find("response");
+				var divhtml ="<div id='dialog-message' title='"+ dlgTitleStr[_currentLang].deleting +"'>";
+				if(response.find("error").text().length != 0 || deleted == 0 || response.attr("status") == "error"){
+					divhtml += "<p style='font-weight:bold'>" + dlgTitleStr[_currentLang].deleteerror + "</p><br/>";
+					divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+response.find("error").text()+"</div>";
+				}else{
+					divhtml += "<p style='font-weight:bold'>" + dlgTitleStr[_currentLang].deletingsuccess + "</p><br/>";
+					divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>";
+					divhtml +=dlgTitleStr[_currentLang].notdeleted + undeleted + "</div>";
+					$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
+						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+					});
+					divhtml += "<div style='width:100%; font-size:13px'>";
+					divhtml += dlgTitleStr[_currentLang].deleted + deleted +"</div>";
+					$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
+						divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
+					})
+				}
 
-			var divhtml ="<div id='dialog-message' title='"+ dialogtitle +"'>";
-
-					
-			if($(msg).find("response").find("error").text().length != 0 || deleted == 0 || $(msg).find("response").attr("status") == "error"){
-				divhtml += "<font style='font-weight:bold'>";
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					  divhtml += "Ошибка удаления";
-				else if($.cookie("lang")=="KAZ")
-					  divhtml += "Жою қателігі";
-				else if($.cookie("lang")=="ENG")
-					  divhtml += "Error deleting";
-								
-				divhtml += "</font><br/>";
-				divhtml += "<div style='width:100%; max-height:65px; overflow:hidden; word-wrap:break-word; font-size:12px; margin-top:5px'>"+$(msg).find("response").find("error").text()+"</div>";
-			}else{
-				divhtml += "<font style='font-weight:bold'>";
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					divhtml += "Удаление завершено успешно";
-				else if($.cookie("lang")=="KAZ")
-					divhtml += "Жою сәтті аяқталды";
-				else if( $.cookie("lang")=="ENG")
-					divhtml += "Successfully deleted";
-						 
-				divhtml += "</font><br/>";
-				divhtml += "<div style='width:100%; font-size:13px; margin-top:5px'>";
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					divhtml += "Не удалено : ";
-				else if($.cookie("lang")=="KAZ")
-					divhtml += "Жойылмады : ";
-				else if($.cookie("lang")=="ENG")
-					divhtml += "Not deleted : ";
-						  
-				divhtml +=undeleted + "</div>";
-				$(msg).find("undeleted").find("entry").not(":contains('undefined')").each(function(){
-					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-				});
-				divhtml += "<div style='width:100%; font-size:13px'>";
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					divhtml += "Удалено : ";
-				else if($.cookie("lang")=="KAZ")
-					divhtml += "Жойылды : ";
-				else if($.cookie("lang")=="ENG")
-					divhtml += "Deleted : ";
-						  
-				divhtml += deleted +"</div>";
-				$(msg).find("deleted").find("entry").not(":contains('undefined')").each(function(){
-					divhtml += "<div style='width:360px; margin-left:20px; font-size:12px; overflow:hidden'>"+$(this).text()+"</div>";
-				})
-			}
-				
 				divhtml += "</div>";
 				$("body").append(divhtml);
 				$("#dialog-message").dialog({
@@ -113,40 +103,27 @@ function delDocument(dbID,typedel){
 				});
 			},
 			error: function(data,status,xhr){
-				if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-					infoDialog("Ошибка удаления");
-				else if($.cookie("lang")=="KAZ")
-					infoDialog("Жою қателігі");
-				else if($.cookie("lang")=="ENG")
-					infoDialog("Error deleting")
-				}
-			})
+				infoDialog(dlgTitleStr[_currentLang].deleteerror);
+				endLoadingOutline()
+			}
+		})
 	}else{
-		if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-			infoDialog("Не выбран документ для удаления");
-		else if($.cookie("lang")=="KAZ")
-			infoDialog("Жойылатын құжат таңдалмады");
-		else if($.cookie("lang")=="ENG")
-			infoDialog("Document is not selected")
+		infoDialog(dlgTitleStr[_currentLang].notseldeldoc);
+		endLoadingOutline()
 	}
 }
 
 function removeFromFavs(){
-	if($("input[name='chbox']:checked").length != 0){
-		$("input[name='chbox']:checked").each(
-			function(){
+	var checkboxes = $("input[name^='chbox']:checked");
+	if(checkboxes.length != 0){
+		checkboxes.each(function(){
 				$(this).closest("tr").children("td :last").children("img").click();
 				$(this).closest("tr").remove();
 			}
 		);
 		$("#allchbox").removeAttr("checked");
 	}else{
-		if($.cookie("lang")=="RUS" || !$.cookie("lang"))
-			infoDialog("Выберите документ для удаления");
-		else if($.cookie("lang")=="KAZ")
-			infoDialog("Жоятын құжатты таңдаңыз");
-		else if($.cookie("lang")=="ENG")
-			infoDialog("Please select the document to delete")
+		infoDialog(dlgTitleStr[_currentLang].notseldeldoc);
 	}
 }
 

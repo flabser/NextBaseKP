@@ -248,9 +248,7 @@
 						outline.element = 'project';
 						outline.command='<xsl:value-of select="current/@command"/>';
 						outline.curPage = '<xsl:value-of select="current/@page"/>'; 
-						outline.category = '';
-						outline.filterid = '<xsl:value-of select="@id"/>';
-						refresher();  
+						refresher();
 					});
 					function hotkeysnav(){
 						$(document).bind('keydown', function(e){
@@ -265,11 +263,6 @@
 								   		<!-- клавиша d -->
 								     	e.preventDefault();
 								     	$("#btnDeldoc").click();
-								      	break;
-								   case 70:
-								   		<!-- клавиша f -->
-								     	e.preventDefault();
-								     	$("#btnQFilter").click();
 								      	break;
 								   case 85:
 								   		<!-- клавиша u -->
@@ -294,7 +287,6 @@
     					$("#btnNewdoc .ui-button-text").hotnav({keysource:function(e){ return "n"; }});
 						$("#btnDeldoc .ui-button-text").hotnav({keysource:function(e){ return "d"; }});
 						$("#currentuser").hotnav({ keysource:function(e){ return "u"; }});
-						$("#btnQFilter .ui-button-text").hotnav({keysource:function(e){ return "f"; }});
 						$("#logout").hotnav({keysource:function(e){ return "q"; }});
 						$("#helpbtn").hotnav({keysource:function(e){ return "h"; }});
 					}

@@ -262,48 +262,42 @@
                     refresher();
                     });
                     function hotkeysnav(){
-                    $(document).bind('keydown', function(e){
+                        $(document).bind('keydown', function(e){
                     if (e.ctrlKey) {
-                    switch (e.keyCode) {
-                    case 78:
-                    <!-- клавиша n -->
-                    e.preventDefault();
-                    $("#btnNewdoc").click();
-                    break;
-                    case 68:
-                    <!-- клавиша d -->
-                    e.preventDefault();
-                    $("#btnDeldoc").click();
-                    break;
-                    case 70:
-                    <!-- клавиша f -->
-                    e.preventDefault();
-                    $("#btnQFilter").click();
-                    break;
-                    case 85:
-                    <!-- клавиша u -->
-                    e.preventDefault();
-                    window.location.href=$("#currentuser").attr("href")
-                    break;
-                    case 81:
-                    <!-- клавиша q -->
-                    e.preventDefault();
-                    window.location.href=$("#logout").attr("href")
-                    break;
-                    case 72:
-                    <!-- клавиша h -->
-                    e.preventDefault();
-                    window.location.href=$("#helpbtn").attr("href")
-                    break;
-                    default:
-                    break;
-                    }
-                    }
+                        switch (e.keyCode) {
+                            case 78:
+                                <!-- клавиша n -->
+                                e.preventDefault();
+                                $("#btnNewdoc").click();
+                                break;
+                            case 68:
+                                <!-- клавиша d -->
+                                e.preventDefault();
+                                $("#btnDeldoc").click();
+                                break;
+                            case 85:
+                                <!-- клавиша u -->
+                                e.preventDefault();
+                                window.location.href=$("#currentuser").attr("href")
+                                break;
+                            case 81:
+                                <!-- клавиша q -->
+                                e.preventDefault();
+                                window.location.href=$("#logout").attr("href")
+                                break;
+                            case 72:
+                                <!-- клавиша h -->
+                                e.preventDefault();
+                                window.location.href=$("#helpbtn").attr("href")
+                                break;
+                            default:
+                                break;
+                            }
+                        }
                     });
                     $("#btnNewdoc .ui-button-text").hotnav({keysource:function(e){ return "n"; }});
                     $("#btnDeldoc .ui-button-text").hotnav({keysource:function(e){ return "d"; }});
                     $("#currentuser").hotnav({ keysource:function(e){ return "u"; }});
-                    $("#btnQFilter .ui-button-text").hotnav({keysource:function(e){ return "f"; }});
                     $("#logout").hotnav({keysource:function(e){ return "q"; }});
                     $("#helpbtn").hotnav({keysource:function(e){ return "h"; }});
                     }

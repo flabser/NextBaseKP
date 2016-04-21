@@ -225,11 +225,6 @@
 								     	e.preventDefault();
 								     	$("#btnDeldoc").click();
 								      	break;
-								   case 70:
-								   		<!-- клавиша f -->
-								     	e.preventDefault();
-								     	$("#btnQFilter").click();
-								      	break;
 								   case 85:
 								   		<!-- клавиша u -->
 								     	e.preventDefault();
@@ -253,7 +248,6 @@
     					});
     					$("#btnNewdoc .ui-button-text").hotnav({keysource:function(e){ return "n"; }});
 						$("#btnDeldoc .ui-button-text").hotnav({keysource:function(e){ return "d"; }});
-						$("#btnQFilter .ui-button-text").hotnav({keysource:function(e){ return "f"; }});
 						$("#currentuser").hotnav({ keysource:function(e){ return "u"; }});
 						$("#logout").hotnav({keysource:function(e){ return "q"; }});
 						$("#helpbtn").hotnav({keysource:function(e){ return "h"; }});

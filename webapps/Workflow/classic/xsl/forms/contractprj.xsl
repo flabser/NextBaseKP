@@ -493,49 +493,6 @@
 												</script>
 											</td>
 										</tr>
-										<!-- Получатель -->
-										<!--<tr>
-											<td class="fc">
-												<font style="vertical-align:top">
-													<xsl:value-of select="$captions/recipients/@caption"/>:
-												</font>
-												<xsl:if test="$editmode = 'edit'">
-													<a href="">
-														<xsl:attribute name="href">javascript:dialogBoxStructure('bossandemppicklist','true','recipient','frm', 'recipienttbl');</xsl:attribute>
-														<img src="/SharedResources/img/iconset/report_magnify.png"/>
-													</a>
-												</xsl:if>
-											</td>
-											<td>
-												<table id="recipienttbl" style="border-spacing:0px 3px;">
-													<xsl:for-each select="$fields/recipient/employer">
-														<tr>
-															<td class="td_editable" style="width:600px;">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																<xsl:value-of select="fullname"/>
-																&#xA0;
-															</td>
-														</tr>
-													</xsl:for-each>
-													<xsl:if test="not($fields/recipient/employer[node()])">
-														<tr>
-															<td class="td_editable" style="width:600px;">
-																<xsl:if test="$editmode != 'edit'">
-																	<xsl:attribute name="class">td_noteditable</xsl:attribute>
-																</xsl:if>
-																&#xA0;
-															</td>
-														</tr>
-													</xsl:if>
-												</table>
-												<xsl:for-each select="$fields/recipient/employer">
-													<input type="hidden" id="recipient" name="recipient" value="{userid}"/>
-												</xsl:for-each>
-												<input type="hidden" id="recipientcaption" value="{$captions/recipients/@caption}"/>
-											</td>
-										</tr>-->
 										<!-- поле "Название договора" -->
 										<tr>
 											<td class="fc" style="padding-top:5px">

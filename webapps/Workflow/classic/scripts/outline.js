@@ -17,15 +17,6 @@ var outline = {
 	isLoad:false,
 	sortField:null,
 	sortOrder:null,
-	category:null,
-	project:null,
-	filterid:null,
-	filtercat:'',
-	filterproj:'',
-	filterplace:'',
-	filterstatus:'',
-	filterresp:'',
-	filterauthor:''
 };
 
 var Url = {
@@ -75,7 +66,7 @@ var Url = {
 		}
 		return string;
 	}
-}
+};
 
 function openregioncity(docid, group){
 	$('#img'+docid).attr("src","/SharedResources/img/classic/1/minus.png");
@@ -195,9 +186,10 @@ function removeDocFromFav(el,docid,doctype){
 }
 
 function undelGlossary(dbID){
-	if($("input[name^='chbox']:checked").length != 0){
+	var checkboxes = $("input[name^='chbox']:checked");
+	if(checkboxes.length != 0){
 		var ck="";
-		$("input[name^='chbox']:checked").each(function(indx, element){
+		checkboxes.each(function(indx, element){
 			ck+=$(element).val()+"~"+$(element).attr("id")+"`";
 		});
 		ck =ck.substring(0, ck.length - 1);
@@ -239,7 +231,7 @@ function undelGlossary(dbID){
 
 function search(){
 	$(".searchpan").html("");
-	value=$("#searchInput").val();
+	var value=$("#searchInput").val();
 	if(value.length==0){
 		var message_text = "Заполните строку поиска";
 		if ($.cookie("lang")=="KAZ"){
@@ -340,7 +332,7 @@ function refresher() {
 	}
 	sumReloadView = 0;
 	$.cookie("refresh") !=null ? timeval= $.cookie("refresh") * 60000 : timeval=360000;
-	timeout = setTimeout("refreshAction()", timeval);
+	timeout = setTimeout('refreshAction()', timeval);
 }
 
 function refreshAction() {
@@ -379,9 +371,9 @@ function elemBackground(el,color){
 }
 
 function flashentry(id) {
-	color = $("#"+id).attr("bgcolor") || "#ffffff";
-	$("#"+id).animate({backgroundColor: '#ffff99'}, 1000);
-	$("#"+id).animate({backgroundColor: color}, 1000);
+	var element = $("#"+id);
+	color = element.attr("bgcolor") || "#ffffff";
+	element.animate({backgroundColor: '#ffff99'}, 1000).animate({backgroundColor: color}, 1000);
 }
 
 function updateAllCount(){
@@ -405,97 +397,8 @@ function updateCount(query, idcount) {
 	});
 }
 
-function chooseCategoryView(category){
-	outline.filtercat = category;
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function chooseProjectView(project){
-	outline.filterproj = project;
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function chooseStatusView(status){
-	outline.filterstatus = status;
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function chooseAuthorView(author){
-	outline.filterauthor = author;
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function chooseRespView(resp){
-	outline.filterresp = resp;
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function resetFilterView(){
-	outline.filtercat = '0';
-	outline.filterproj = '0';
-	outline.filterplace = '0';
-	outline.filterstatus = '0';
-	outline.filterresp = '0';
-	outline.filterauthor = '0';
-	updateView(outline.type, outline.viewid, outline.page, outline.command,  outline.sortField, outline.sortOrder)
-}
-
-function openCategoryList(el, listid){
-	$(".glosslisttable").css("visibility", "hidden");
-	$(el).offset(function(i,val){
-	$("#"+listid).css("position", "absolute");
-	if(IE='\v'=='v'){
-		$("#"+listid).css("top", val.top -70);
-	}else{
-		$("#"+listid).css("top", val.top - 55);
-	}
-	$("#"+listid).css("left", val.left -320);
-		return {top:val.top, left:val.left};
-	});
-	
-	$("#"+listid).css("visibility", "visible");
-	$(el).attr("onclick", "closeCategoryList(this,'"+listid+"')");
-    $(document).bind('click.'+listid, function(e) {
-       if ($(e.target).closest("#"+listid+"button").length == 0) {
-          	$("#"+listid).css("visibility", "hidden");
-            $(document).unbind('click.'+listid);
-            $(el).attr("onclick", "openCategoryList(this,'"+listid+"')");
-       }
-    });
-}
-
-function hideQFilterPanel(){
-	$('#btnQFilter').removeAttr('onclick');
-	$("#QFilter").slideUp("fast");
-	$("#tablecontent").animate({top:'-=29px'},'fast', function() {
-		$('#btnQFilter').attr('onclick',"openQFilterPanel();")
-	}); 
-	if (outline.filtercat !='' || outline.filterproj!=''|| outline.filterplace!='' || outline.filterstatus !='' || outline.filterresp !='' || outline.filterauthor!=''){
-		if (outline.filtercat !='0' || outline.filterproj!='0'|| outline.filterplace!='0' || outline.filterstatus !='0' || outline.filterresp !='0' || outline.filterauthor!='0'){
-			resetFilterView()
-		}
-	}
-}
-
-function openQFilterPanel(){
-	$('#btnQFilter').removeAttr('onclick');
-	if($("#QFilter").css("display") == 'none'){
-		$("#QFilter").slideDown("fast");
-		$("#tablecontent").animate({top:'+=29px'},'fast', function() {
-			$('#btnQFilter').attr('onclick',"hideQFilterPanel();")
-		}); 
-	}
-}
-
-function closeCategoryList(el,listid){
-	$("#"+listid).css("visibility", "hidden");
-	$(el).attr("onclick", "openCategoryList(this,'"+listid+"')");
-}
-
 function updateView(type, viewid, page, command,  sortField, sortOrder){
 	loadingOutline();
-	var category = outline.category || '';
-	var project = outline.project || '';
 	outline.type = type || outline.type;
 	outline.viewid = viewid || outline.viewid;
 	outline.curPage = page || outline.curPage;
@@ -524,7 +427,7 @@ function updateView(type, viewid, page, command,  sortField, sortOrder){
 		sortPart ='&sortfield='+$.cookie("sortField")+"&order=" +$.cookie("sortOrder");
 	}
 	
-	var url= 'Provider?type=' + outline.type + '&id=' + outline.viewid + '&page=' + outline.curPage + commandPart+ sortPart+"&keyword="+category+"&filterid="+outline.filterid+"&filtercat="+outline.filtercat + "&filterproj=" + outline.filterproj+ "&filterorigin=" + outline.filterplace+ "&filterstatus=" + outline.filterstatus+ "&filterresp=" + outline.filterresp+ "&filterauthor=" + outline.filterauthor ;
+	var url= 'Provider?type=' + outline.type + '&id=' + outline.viewid + '&page=' + outline.curPage + commandPart+ sortPart+"&keyword=";
 	var text="Cессия пользователя была закрыта сервером, для продолжения работы необходима повторная авторизация";
 	if ($.cookie("lang")=="ENG"){
 		text="User session was closed by the server, in order to proceed re-authorization is required";
@@ -547,13 +450,10 @@ function updateView(type, viewid, page, command,  sortField, sortOrder){
 					dataType:'xml',
 					async:'true',
 					success: function(data) {
-						$("#counttoconsider").html($(data).find("toconsider").text());
-						$("#counttaskforme").html($(data).find("taskforme").text());
-						$("#countmytasks").html($(data).find("mytasks").text());
-						$("#countcompletetask").html($(data).find("completetask").text());
-						$("#countwaitforcoord").html($(data).find("waitforcoord").text());
-						$("#countwaitforsign").html($(data).find("waitforsign").text());
-						$("#countfavdocs").html($(data).find("favdocs").text());
+						var elements = ["toconsider","taskforme","mytasks","completetask","waitforcoord","waitforsign","favdocs"];
+						$.each(elements, function(){
+							$("#count"+this).html($(data).find(this).text());
+						});
 					},
 					error: function(data) {
 						

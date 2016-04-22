@@ -253,7 +253,6 @@ public class SignYes extends _DoScript {
 				log(e);
 			}
 
-			//_URL returnURL = session.getURLOfLastPage();
 			_URL returnURL = new _URL(_doc.getURL());
 			setRedirectURL(returnURL);
 			/*

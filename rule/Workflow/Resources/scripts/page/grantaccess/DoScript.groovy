@@ -59,8 +59,12 @@ class DoScript extends _DoScript {
                 recipientsMail.add(rec_emp.getEmail())
             }
             if (recipientsMail) {
-                String msubject = '[���] ��� ��� ������ �� ������������ � ���������� ' + doc.getValueString("taskvn") + ' �� ' + new SimpleDateFormat("dd.mm.yyyy").format(doc.getValueDate("taskdate")) + ' (' + doc?.getValueString("briefcontent") + ')';
-
+            	String msubject = "";
+            	try{
+            		 msubject = '[���] ��� ��� ������ �� ������������ � ���������� ' + doc.getValueString("taskvn") + ' �� ' + new SimpleDateFormat("dd.mm.yyyy").format(doc.getValueDate("taskdate")) + ' (' + doc?.getValueString("briefcontent") + ')';
+            	}catch(Exception e){
+            		msubject = "message";
+            	}
                 String body = '<b><font color="#000080" size="4" face="Default Serif">������ �� ������������</font></b><hr>';
                 body += '<table cellspacing="0" cellpadding="4" border="0" style="padding:10px; font-size:12px; font-family:Arial;">';
                 body += '<tr>';

@@ -11,6 +11,8 @@
 		<name>view_content</name>
 		<events>
 			<doscript source="file">page.DocList.mywaitforacquaint.DoScript</doscript>
+			<!-- <doscript source="JAVA_CLASS">page.DocList.mywaitforacquaint.MyWaitingForAcquaint</doscript> -->
+			
 		</events>
 	</element>
 	<caption name="category" source="KEYWORD">Документы организации</caption>

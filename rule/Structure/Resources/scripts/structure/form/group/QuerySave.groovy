@@ -25,13 +25,13 @@ class QuerySave extends _FormQuerySave {
 			group.setGroupName(webFormData.getValueSilently("groupname"));
 			group.setDescription(webFormData.getValueSilently("description"));
 			group.setOwner(webFormData.getValueSilently("ownergroup"));
-			group.resetMembers();
+			group.resetMembers(); 
             group.setListOfMembers(webFormData.getListOfValuesSilently("members"));
 			group.setListOfRoles(webFormData.getListOfValuesSilently("role"));
-			//group.setViewText(webFormData.getValue("groupname"));
-			doc.setViewText(webFormData.getValueSilently('ownergroup') );
-			doc.addViewText(webFormData.getValueSilently("groupname"));
-			doc.setViewDate(new Date());
+			group.setViewText(group.getName());
+			group.addViewText(webFormData.getValueSilently('ownergroup') );
+			group.addViewText(webFormData.getValueSilently("groupname"));
+			group.setViewDate(new Date());
 		}
         setRedirectURL(ses.getURLOfLastPage());
 	}

@@ -55,6 +55,7 @@ class PostSave extends _FormPostSave {
             	userActivity.postActivity(this.getClass().getName(), "Memo has been send to " + recipientEmail)
             }
             for (String exec : orderexecuters) {
+                doc.addReader(exec);
             	def rec = ses.getStructure().getEmployer(exec)
             	def recipientEmail = ses.getStructure().getEmployer(exec).getEmail()
             	msngAgent.sendMessage([rec.getInstMessengerAddr()], xmppmsg)

@@ -227,6 +227,33 @@ class Coord_yes extends _DoScript {
                                                 }
                                                 doc.save("[supervisor]")
                                             }
+
+                                            if (doc.getDocumentForm() == "orderprj") {
+                                                _doc.setForm("order")
+                                                _doc.addStringField("signed", signerCoord?.getUserID())
+                                                _doc.addStringField("prepared", doc.getAuthorID())
+                                                /*def recipients = (_EmployerCollection) doc.getValueObject("recipient")
+                                                 recipients.getEmployers().each { r ->
+                                                 if (r) {
+                                                 _doc.addReader(r.getUserID());
+                                                 }
+                                                 }
+                                                 _doc.addField("recipients", recipients)*/
+                                                _doc.addStringField("in", doc.getValueString("vn"))
+                                                _doc.addDateField("dvn", new Date())
+                                                _doc.addStringField("vn", "")
+                                                _doc.setViewText("Приказ №" + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  " + session.getStructure()?.getEmployer(doc.getAuthorID())?.getShortName() + " " + doc.getValueString("briefcontent"));
+                                                _doc.addNumberField("ordtype", doc.getValueNumber("ordtype"))
+                                                _doc.setViewNumber(_doc.getValueString("vn").isNumber() ? _doc.getValueString("vn").toInteger() : 0)
+                                                _doc.save("[supervisor]")
+
+                                                doc.addField("link", new _CrossLink(session, _doc))
+                                                def cBlock = doc_blc.getCurrentBlock()
+                                                if (cBlock) {
+                                                    doc.replaceViewText(cBlock.getCurrentCoordinatorsAsText(), 5)
+                                                }
+                                                doc.save("[supervisor]")
+                                            }
                                         }
                                     } else {
                                         rejectProject(doc);

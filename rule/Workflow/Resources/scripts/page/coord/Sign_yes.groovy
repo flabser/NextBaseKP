@@ -221,9 +221,13 @@ class Sign_yes extends _DoScript {
 				mailAgent.sendMail(recipient_col_email, subj, body);
 			}
 
-			//def returnURL = session.getURLOfLastPage()
-			def returnURL = _doc.getFullURL();
+			def returnURL =  _doc.getFullURL();
+			if (doc.getDocumentForm() == "orderprj") {
+				returnURL = session.getURLOfLastPage()
+			}
 			setRedirectURL(returnURL)
+
+
 			/*msg = "После исполнения документ № " + doc.getValueString("vn") + " от " + _Helper.getDateAsString(doc.getValueDate("projectdate")) + "\" будет отправлен ";
 			 msg += (doc.getDocumentForm() == "workdocprj" ? "получателю." : "на ревизию исполнения.") + "\nДля ознакомления с документом перейдите по <a href=\"" + _doc.getFullURL() + "\">ссылке...</a>";
 			 msngAgent.sendMessageAfter([author?.getInstMessengerAddr()], msg);

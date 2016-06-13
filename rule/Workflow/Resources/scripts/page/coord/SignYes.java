@@ -93,7 +93,7 @@ public class SignYes extends _DoScript {
 				 * doc.addReader(r.getUserID()); } } _doc.addField("recipient",
 				 * recipients)
 				 */
-				int num = cdb.getRegNumber("workdoc");
+				int num = cdb.getRegNumber("workdoc",true);
 				_doc.addStringField("vn", Integer.toString(num));
 				_doc.addNumberField("vnnumber", num);
 				_doc.setViewText("Служебная записка № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn"))
@@ -117,7 +117,7 @@ public class SignYes extends _DoScript {
 				 * doc.addReader(r.getUserID()); } } _doc.addField("recipient",
 				 * recipients)
 				 */
-				int num = cdb.getRegNumber("application");
+				int num = cdb.getRegNumber("application",true);
 				_doc.addStringField("vn", Integer.toString(num));
 				_doc.addNumberField("vnnumber", num);
 				_doc.setViewText("Заявление № " + _doc.getValueString("vn") + " " + _Helper.getDateAsStringShort(_doc.getValueDate("dvn")) + "  "
@@ -254,6 +254,9 @@ public class SignYes extends _DoScript {
 			}
 
 			_URL returnURL = new _URL(_doc.getURL());
+			if (docForm.equals("orderprj")) {
+				returnURL = session.getURLOfLastPage();
+			}
 			setRedirectURL(returnURL);
 			/*
 			 * msg = "После исполнения документ № " + doc.getValueString("vn") +

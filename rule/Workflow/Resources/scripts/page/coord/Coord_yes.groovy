@@ -36,6 +36,7 @@ class Coord_yes extends _DoScript {
         def doc_blc = (_BlockCollection) doc.getValueObject("coordination")
         def attachid = (formData.containsField("fileid") ? formData.getListOfValues("fileid") : null)
         attachid = attachid?.collect {it as int}
+        def returnURL = session.getURLOfLastPage()
 
 
         def rejectProject = { _Document document ->
@@ -226,6 +227,7 @@ class Coord_yes extends _DoScript {
                                                     doc.replaceViewText(cBlock.getCurrentCoordinatorsAsText(), 5)
                                                 }
                                                 doc.save("[supervisor]")
+                                                returnURL = _doc.getFullURL();
                                             }
                                         }
                                     } else {
@@ -312,7 +314,6 @@ class Coord_yes extends _DoScript {
 
 
         doc.save("[supervisor]");
-        def returnURL = session.getURLOfLastPage()
         setRedirectURL(returnURL)
         println("done")
     }

@@ -43,13 +43,16 @@ class QueryOpen extends _FormQueryOpen {
 		
 		def actionBar = new _ActionBar(ses)
 		def show_compose_actions = false
-		/*def recipients = (_EmployerCollection) doc.getValueObject("recipients")
-        recipients.getEmployers().each { r ->
-             if (r && r.getUserID() == user.getUserID()) {
-                   show_compose_actions = true;
-             }
-        }*/
-		if(doc.getValueString("signed") == user.getUserID() || doc.getAuthorID() == user.getUserID()){
+		def orderexecuters = doc.getValueList("orderexecuters")
+		if(orderexecuters){
+			orderexecuters.each { r ->
+				if (r && r == user.getUserID()){
+					show_compose_actions = true;
+				}
+			}
+		}
+		//if(doc.getValueString("signed") == user.getUserID() || doc.getAuthorID() == user.getUserID()){
+		if(doc.getAuthorID() == user.getUserID()){
 			show_compose_actions = true;
 		}
 		actionBar.addAction(new _Action(getLocalizedWord("Ознакомить",lang),getLocalizedWord("Ознакомить",lang),"acquaint"))

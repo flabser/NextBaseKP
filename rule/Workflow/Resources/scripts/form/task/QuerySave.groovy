@@ -115,6 +115,7 @@ class QuerySave extends _FormQuerySave {
 			rusExecName = rusExecName.substring(0, rusExecName.length()-1);
 		}
 		String rview = "";
+		def TaskTypeViewtext = "Задание от ";
 		if (doc.getValueString("tasktype") == "resolution" || doc.getValueString("tasktype") == "consign"){
 			doc.addStringField("taskvn", "")
 			doc.addDateField("taskdate", new Date())
@@ -128,7 +129,7 @@ class QuerySave extends _FormQuerySave {
 			}
 		}
 
-		doc.setViewText(_Helper.getDateAsStringShort(doc.getValueDate("taskdate")) + ":" +  sh + "  (" +  rusExecName + "),  " + doc.getValueString("briefcontent") + ", " + _Helper.getDateAsStringShort(control.getCtrlDate())) //0
+		doc.setViewText(TaskTypeViewtext +_Helper.getDateAsStringShort(doc.getValueDate("taskdate")) + ":" +  sh + "  (" +  rusExecName + "),  " + doc.getValueString("briefcontent") + ", " + _Helper.getDateAsStringShort(control.getCtrlDate())) //0
 		doc.addViewText(doc.getValueString("briefcontent"))//1
 		doc.addViewText(doc.getGlossaryValue("docscat", "docid#number=" + doc.getValueString("category"), "name"))//2
 		doc.addViewText(control.getAllControl())//3

@@ -22,7 +22,7 @@ class QuerySave extends _FormQuerySave {
 		exec.addStringField("executor", webFormData.getValue("executor"))
 		exec.addReader(webFormData.getValue("executor"))
 		exec.addFile("rtfcontent", webFormData)
-		exec.setViewText(_Helper.getDateAsString(exec.getValueDate("finishdate")) + " " + session.getStructure().getEmployer(exec.getValueString("executor")).getShortName() + " (" + exec.getValueString("report") + ")")
+		exec.setViewText("Карточка исполнения от "+_Helper.getDateAsString(exec.getValueDate("finishdate")) + " " + session.getStructure().getEmployer(exec.getValueString("executor")).getShortName() + " (" + exec.getValueString("report") + ")")
 		exec.addViewText(exec.getValueString("report"))
 		exec.setViewDate(exec.getValueDate("finishdate"))
 		

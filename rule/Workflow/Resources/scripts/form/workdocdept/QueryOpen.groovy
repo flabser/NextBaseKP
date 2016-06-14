@@ -59,7 +59,6 @@ class QueryOpen extends _FormQueryOpen {
 				show_compose_actions = true
 			}
 		}*/
-		
 		if(doc.getValueList("recipient").contains(user.getUserID())){
 			show_compose_actions = true;
 		}

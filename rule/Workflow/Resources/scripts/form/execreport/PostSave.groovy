@@ -16,7 +16,11 @@ class PostSave extends _FormPostSave {
         if (GPDocumentForm == 'in' || GPDocumentForm == 'IN' || GPDocumentForm == 'out'){
             exec.addReader("[chancellery]");
         }
-
+        def parentdoc = exec.getParentDocument();
+        if(parentdoc.getDocumentForm() == 'task'){
+            parentdoc.setViewText(2,3);
+            parentdoc.save("[supervisor]");
+        }
         executionReaders.each{
             mdoc.addReader(it.getUserID());
         }

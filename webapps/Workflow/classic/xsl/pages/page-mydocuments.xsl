@@ -93,6 +93,9 @@
 							<xsl:if test="/request/@id = 'completetask' or viewcontent/viewtext3 = '0'">
 								<img id="control" title="Документ снят с контроля" src="/SharedResources/img/classic/icons/tick.png"/>
 							</xsl:if>
+							<xsl:if test="/request/@id = 'readytocheck' or viewcontent/viewtext3 = '2'">
+								<img id="control" title="Документ готов к проверке" src="/SharedResources/img/classic/icons/tick_yellow.png"/>
+							</xsl:if>
 						</td>
 					</tr>
 				</table>

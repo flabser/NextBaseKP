@@ -40,7 +40,13 @@ class DoScript extends _DoScript {
 		e4.setValue(col4.getCount())
 		e4.unread = col4.unreadCount;
 		outline.addEntry(e4)
-		
+
+		def e12 = new _OutlineEntry(getLocalizedWord("Мне на проверку",lang), getLocalizedWord("Мне на проверку",lang), "readytocheck", "Provider?type=page&id=readytocheck&page=0")
+		def col12 = db.getCollectionOfDocuments("form='task' and author ~ '" + session.getCurrentUserID() + "' and viewtext3 = '2'", false, true)
+		e12.setValue(col12.getCount())
+		e12.unread = col12.unreadCount;
+		outline.addEntry(e12)
+
 		def e5 = new _OutlineEntry(getLocalizedWord("Мне на согласование",lang), getLocalizedWord("Мне на согласование",lang), "waitforcoord", "Provider?type=page&id=waitforcoord&page=0")
 		def col5 = db.getCollectionOfDocuments("(form='officememoprjdept' or form='officememoprj' or form='sheet' or form='applicationprj' or form='outgoingprj' or form='orderprj' or form='contractprj') and viewtext5 ~ '" + session.getCurrentUserID() + "' and viewtext3 = 'COORDINATING'", false, true)
 		e5.setValue(col5.getCount())

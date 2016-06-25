@@ -86,7 +86,6 @@
 					     .printdocument  #tabs-4{
 					     	display:none !important;
 					     }
-					     
 				    }
   				</style>
 				<xsl:call-template name="markisread"/>
@@ -559,20 +558,6 @@
 														<xsl:attribute name="value" select="document/fields/contractor"/>
 													</xsl:if>
 												</input>
-												<!--  <table id="corresptbl" style="border-spacing:0px 3px; margin-top:-3px">
-													<tr>
-														<td style="width:600px;" class="td_editable">
-															<xsl:if test="$editmode != 'edit'">
-																<xsl:attribute name="class">td_noteditable</xsl:attribute>
-															</xsl:if>
-															<xsl:value-of select="document/fields/contractor"/>&#xA0;
-															<span style='float:right; border-left:1px solid #ccc; width:17px; padding-right:10px; padding-left:2px; padding-top:1px; color:#ccc; font-size:10.5px'><font><xsl:value-of select="document/fields/corr/@attrval"/></font></span>
-														</td>
-													</tr>
-												</table>
-												<input type="hidden" value="{document/fields/contractor/@attrval}" id="contractor" name="contractor"/>
-												<input type="hidden" value="{document/captions/contractor/@caption}" id="contractorcaption"/>
-												-->
 											</td>
 										</tr>
 									</table>

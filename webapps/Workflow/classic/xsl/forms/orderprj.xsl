@@ -663,7 +663,7 @@
 																		<xsl:value-of select="employer/fullname"/>
 																		<p style="margin:0px">
 																			<xsl:choose>
-																				<xsl:when test="decision='AGREE'">
+																				<xsl:when test="decision='AGREE' or //fields/coordination/status = 'SIGNED'">
 																					<xsl:value-of select="concat(decisiondate,' ')"/>
 																					<b><xsl:value-of select="$captions/agree/@caption"/></b>
 																				</xsl:when>
@@ -671,7 +671,7 @@
 																					<xsl:value-of select="concat(decisiondate,' ')"/>
 																					<b><xsl:value-of select="$captions/disagree/@caption"/></b>
 																				</xsl:when>
-																				<xsl:when test="iscurrent='true'">
+																				<xsl:when test="iscurrent='true' and //fields/coordination/status != 'SIGNED'">
 																					<xsl:value-of select="$captions/awairesponse/@caption"/>
 																				</xsl:when>
 																			</xsl:choose>

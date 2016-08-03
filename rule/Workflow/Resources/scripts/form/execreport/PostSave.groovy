@@ -16,11 +16,6 @@ class PostSave extends _FormPostSave {
         if (GPDocumentForm == 'in' || GPDocumentForm == 'IN' || GPDocumentForm == 'out'){
             exec.addReader("[chancellery]");
         }
-        def parentdoc = exec.getParentDocument();
-        if(parentdoc.getDocumentForm() == 'task'){
-            parentdoc.setViewText(2,3);
-            parentdoc.save("[supervisor]");
-        }
         executionReaders.each{
             mdoc.addReader(it.getUserID());
         }
@@ -38,6 +33,10 @@ class PostSave extends _FormPostSave {
 
         String xmppmsg = ""
         def pdoc = exec.getParentDocument();
+        if(pdoc.getDocumentForm() == 'task'){
+            pdoc.setViewText(2,3);
+            pdoc.save("[supervisor]");
+        }
 		exec.addReader(pdoc.getAuthorID())
 		exec.save("[supervisor]");
         if (pdoc) {

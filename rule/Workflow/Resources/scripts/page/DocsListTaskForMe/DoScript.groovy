@@ -17,7 +17,7 @@ class DoScript extends _DoScript {
 			page = Integer.parseInt(formData.getValue("page"))
 		}
 
-		def formula = "form='task' and viewtext4 ~ '" + session.getCurrentUserID() + "'  and viewtext3 = '1'"
+		def formula = "form='task' and viewtext4 ~ '" + session.getCurrentUserID() + "'  and viewtext3 != '0'"
 		def db = session.getCurrentDatabase()
 		def col = db.getCollectionOfDocuments(formula, page, true, true, new SimpleDateFormat("dd.MM.yyyy"))
 		setContent(col)

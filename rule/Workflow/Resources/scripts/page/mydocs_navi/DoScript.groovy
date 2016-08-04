@@ -24,13 +24,13 @@ class DoScript extends _DoScript {
 		outline.addEntry(e1)
 		
 		def e2 = new _OutlineEntry(getLocalizedWord("Поручено мне",lang), getLocalizedWord("Поручено мне",lang), "taskforme", "Provider?type=page&id=taskforme&page=0")
-		def col2 = db.getCollectionOfDocuments("form='task' and viewtext4 ~ '" + session.getCurrentUserID() + "' and viewtext3 = '1'", false, true)
+		def col2 = db.getCollectionOfDocuments("form='task' and viewtext4 ~ '" + session.getCurrentUserID() + "' and viewtext3 != '0'", false, true)
 		e2.setValue(col2.getCount())
         e2.unread = col2.unreadCount;
 		outline.addEntry(e2)
 		
 		def e3 = new _OutlineEntry(getLocalizedWord("Мои задания",lang), getLocalizedWord("Мои задания",lang), "mytasks", "Provider?type=page&id=mytasks&page=0")
-		def col3 = db.getCollectionOfDocuments("form='task' and author='" + session.getCurrentUserID() + "' and viewtext3 = '1'", false, true)
+		def col3 = db.getCollectionOfDocuments("form='task' and author='" + session.getCurrentUserID() + "' and viewtext3 != '0'", false, true)
 		e3.setValue(col3.getCount())
 		e3.unread = col3.unreadCount;
 		outline.addEntry(e3)

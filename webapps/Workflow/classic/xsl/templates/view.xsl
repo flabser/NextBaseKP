@@ -108,6 +108,9 @@
                                             <img src="/SharedResources/img/classic/1/minus.png" class="{@id}toogle_img"/>
                                         </div>
                                     </xsl:if>
+									<xsl:if test="@id = 'readytocheck'">
+										<xsl:attribute name="style">display:none</xsl:attribute>
+									</xsl:if>
                                     <a href="{@url}" style="width:90%; vertical-align:top; text-decoration:none !important;" title="{@hint}">
                                         <div class="viewlink">
                                             <xsl:if test="/request/@id = @id">

@@ -6,8 +6,8 @@
 	<database autodeploy="ON">
 		<name>Structure</name>
 		<driver>org.postgresql.Driver</driver>
-		<!-- <url>jdbc:postgresql://localhost:5433/Workflow</url> -->
-		<url>jdbc:postgresql://172.16.251.7:5432/Structure</url>
+		<url>jdbc:postgresql://localhost/Workflow</url> 
+		<!-- <url>jdbc:postgresql://172.16.251.7:5432/Structure</url> -->
 		<username>postgres</username>
 		<password>smartdoc</password>
 	</database>

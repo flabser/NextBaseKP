@@ -78,10 +78,9 @@ var calendarStrings = {
 
 function extendtask(){
 	var divhtml ="<div id='dialog-message' title='Продление задания'>";
-	divhtml+="<div style='margin:10px auto'>" +
-		"Продлить задание на : <input type='number' min='1' max='90' style='width:100px;' name='extenddays' id='extenddays' value=''/>" + " " + "дней";
-		"</div>";
-	divhtml += "</div>";
+	divhtml+="<div style='margin:10px auto'> Продлить задание на : " +
+		"<input type='number' min='1' max='90' style='width:100px;' name='extenddays' id='extenddays' value=''/>"
+		+ "  дней </div></div>";
 	$("body").append(divhtml);
 	$("#dialog-message").dialog({
 		modal: true,
@@ -112,9 +111,8 @@ function extendtask(){
 								errordeletingtitle = "Error";
 							infoDialog(errordeletingtitle)
 						}
-				});
+					});
 				}
-
 			},
 			"Нет": function(){
 				$(this).dialog('close').remove();
@@ -122,7 +120,6 @@ function extendtask(){
 		}
 	});
 }
-
 
 function delPrjDraft(id,doctype){
 	var paramfields="";
@@ -326,8 +323,8 @@ function setSelectedPath(path) {
 }
 
 function showCommentText(text){
-	divhtml ="<div id='dialog-message' title='Комментарий ответа'>";
-	divhtml+="<div style='text-align:center; white-space:pre-wrap;  white-space:-moz-pre-wrap;  white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word;'>"+
+	var divhtml ="<div id='dialog-message' title='Комментарий ответа'>";
+	divhtml+="<div style='text-align:center; white-space:pre-wrap; white-space:-moz-pre-wrap; white-space:-pre-wrap; white-space:-o-pre-wrap; word-wrap:break-word;'>"+
 		"<font style='font-size:13px; width:100px'>"+text+"</font></div></div>";
 	$("body").append(divhtml);
 	$("#dialog-message").dialog({
@@ -350,12 +347,11 @@ function setValHiddenFields(el){
 }
 
 function addquickanswer(targetid , val, button){
+	$(".inited").removeClass("inited");
 	if ($(button).hasClass("inited")){
 		$(button).removeClass("inited");
 		$("#"+targetid).val(prevvalanswer);
-		$(".inited").removeClass("inited")
 	}else{
-		$(".inited").removeClass("inited");
 		$(button).addClass("inited");
 		$("#"+targetid).val(prevvalanswer +" "+ val);
 	}
@@ -494,7 +490,7 @@ function resetcontrol(){
 	$(".switchControl img[src *='eye.png']").click();
 	setTimeout(function() {
 		$(document).unbind("keydown");
-		divhtml = "<div id='dialog-message' title="+warning+">";
+		var divhtml = "<div id='dialog-message' title="+warning+">";
 		divhtml += "<div style='height:40px; width:100%; text-align:center; padding-top:25px'>"+removedfromcontrol+"</div></div>";
 		$("body").append(divhtml);
 		$("#dialog-message").dialog({
@@ -551,7 +547,11 @@ function infoDialog(text, type){
 	var title;
 	$(document).unbind("keydown");
 	if(!type){
-		title = warning;
+		title = "Предупреждение";
+        if( $.cookie("lang")=="KAZ")
+            title ="Ескерту";
+        else if( $.cookie("lang")=="ENG")
+            title ="Warning";
 	}else{
 		if(type == 'information'){
 			title ="Информация";
@@ -573,12 +573,14 @@ function infoDialog(text, type){
 				}
 				$(this).dialog("close").remove();
 				$(".hotnav-accesskey").remove();
-				hotkeysnav() 
+				hotkeysnav() ;
+                disableblockform();
 			}
 		},
 		beforeClose: function() { 
 			 $("#infodialog, .hotnav-accesskey").remove();
-			 hotkeysnav()  
+			 hotkeysnav() ;
+            disableblockform();
 		} 
 	});
 	if($("body .ui-dialog").length > 1){
@@ -768,22 +770,11 @@ function SaveFormJquery() {
 			sign+=$(this).val()
 		});
 		$("#frm").append("<input type='hidden' name='applettype' value='sign'/>");
-		//$("#frm").append("<input type='hidden' name='srctext' value=''/><input type='hidden' name='applettype' value='sign'/>")
-        //$("input[name=srctext]").val(sign)
 		var taskauthor=$("input[name=taskauthor]").val();
 		app=document.getElementById('SignApplet');
 		var fullpath = $("#fullpath").val();
 		var pass=$("#eds_pass").val();
-		//$("#frm").append("<input type='hidden' name='signedfields' value='"+app.getSign(sign,fullpath,pass)+"'/>")
-		//$("#frm").append("<input type='hidden' name='signedfields' value='"+app.getSign(sign)+"'/>")
 	}
-	/*
-	if($("input[name=id]").val() && $("#SIgnApplet").length !=0 ){
-		$("#frm").append("<input type='hidden' name='srctext' value="+sign+"/><input type='hidden' name='applettype' value='sign'/>")
-		taskauthor=$("input[name=taskauthor]").val()
-		app=document.getElementById('SignApplet');
-		$("#frm").append("<input type='hidden' name='signedfields' value='"+app.getSign(sign,taskauthor)+"'/>")
-	}*/
 	$.ajax({
 		type: "POST",
 		url: 'Provider',
@@ -860,7 +851,7 @@ function SaveFormJquery() {
 
 /*set of upload function*/
 function loadingAttch(tableID){
-	$("#"+tableID).append("<tr id='loading_attach'><td></td><td><div style='position:absolute; z-index:999'><img src='/SharedResources/img/classic/progress_bar_attach.gif'/></div></td></tr>")
+	$("#"+tableID).append("<tr id='loading_attach'><td></td><td><div style='position:absolute; z-index:999'><img src='/SharedResources/img/classic/progress_bar_attach.gif'/></div></td></tr>");
 	var blockWindow = "<div class='blockWindow' id='blockWindow'/>";
 	$("body").append(blockWindow).css("cursor","wait");
 	$('#blockWindow').css('width',$(document).width()).css('height',$(document).height()).css('display',"block"); 

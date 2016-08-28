@@ -72,8 +72,30 @@
 								});
 							});
 						})();
-						$("#btnpwdok").click(function(){
+
+                        $("#newpwd, #newpwd2").on("input", function(){
+                            if($(this).val().length > 0){
+                                var pattern = new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/);
+                                if(!pattern.test($(this).val())){
+                                    $("#btnsavedoc").attr("disabled","disabled")
+                                    $(this).addClass("invalid")
+                                    $("#btnsavedoc").button( "option", "disabled", true );
+                                }else{
+                                    $("#btnsavedoc").removeAttr("disabled")
+                                    $(this).removeClass("invalid")
+                                    $("#btnsavedoc").button( "option", "disabled", false );
+                                }
+                            }else{
+                                $("#btnsavedoc").removeAttr("disabled")
+                                $(this).removeClass("invalid")
+                                $("#btnsavedoc").button( "option", "disabled", false );
+                            }
+                        })
+
+
+						$("#btnsavedopc").click(function(){
 							var perror = "";
+
 							var oldpwd = $('#oldpwd').val();
 							var newpwd = $('#cnewpwd').val();
 							var rnewpwd = $('#rnewpwd').val();
@@ -87,9 +109,11 @@
 								perror = "Повтор пароля не верный";
 							} else if (newpwd == oldpwd) {
 								perror = "Операция не имеет смысла";
-							} else if (3 > newpwd.length) {
+							} else if (newpwd.length &gt; 6) {
 								perror = "Пароль слишком короткий.";
-							}
+							}else if(!pattern.test(newpwd)  ){
+                                perror = "Пароль должен соответствовать критериям : минимум одна буква, минимум одна заглавная буква, минимум одна цифра";
+                            }
 							if (perror==''){
 								$('#pass').toggle(true);
 								$("#btnPwdChange").toggle(false);
@@ -124,7 +148,7 @@
 						</div>
 		            	<div class="button_panel">
 							<span style="float:left">
-		             			<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="{document/captions/saveandclose/@caption}" id="btnsavedoc">
+		             			<button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" title="{document/captions/saveandclose/@caption}" id="btnsavedoc" autocomplete="off">
 									<xsl:attribute name="onclick">javascript:saveUserProfile()</xsl:attribute>
 									<span>
 										<img src="/SharedResources/img/iconset/disk.png" style="border:none; width:15px; height:15px; margin-right:3px; vertical-align:top"/>
@@ -250,8 +274,8 @@
 									<tr>
 										<td class="fc"><xsl:value-of select="document/captions/newpassword/@caption"/> :</td>
 										<td>
-											<input style="width:300px;" id="newpwd" name="pwd" type="password" class="td_editable" autocomplete="off">
-												<xsl:if test="$editmode != 'edit'">
+											<input style="width:300px;" id="newpwd" name="pwd" type="password" class="td_editable" autocomplete="off" title="Пароль должен соответствовать критериям : минимум одна буква, минимум одна заглавная буква" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$">
+                                                <xsl:if test="$editmode != 'edit'">
 													<xsl:attribute name="class">td_noteditable</xsl:attribute>
 												</xsl:if>
 											</input>
@@ -260,7 +284,7 @@
 									<tr>
 										<td class="fc"><xsl:value-of select="document/captions/repeatnewpassword/@caption"/> :</td>
 										<td>
-											<input style="width:300px;" id="newpwd2"  name="pwd2" type="password" class="td_editable" autocomplete="off">
+											<input style="width:300px;" id="newpwd2"  name="pwd2" type="password" class="td_editable" autocomplete="off" title="Пароль должен соответствовать критериям : минимум одна буква, минимум одна заглавная буква, минимум одна цифра" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$">
 												<xsl:if test="$editmode != 'edit'">
 													<xsl:attribute name="class">td_noteditable</xsl:attribute>
 												</xsl:if>

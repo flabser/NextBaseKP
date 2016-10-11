@@ -1096,18 +1096,27 @@ function addCommentToAttach(csf){
 	"<div class='contentComment'>" +
 		"<br/><table style=' margin-top:2%; width:100%'>" +
 			"<tr>" +
-				"<td style='text-align:center'><textarea  name='commentText' id='commentText' rows='10' tabindex='1' style='width:97%'/>" +
+				"<td style='text-align:center'>" +
+					"<textarea name='commentText' id='commentText' rows='10' tabindex='1' maxlength='250' style='width:97%'/>" +
 				"</td>" +
 			"</tr>" +
 		"</table><br/>" +
 	"</div>"+
 	"<div class='buttonPaneComment button_panel' style='margin-top:1%; text-align:right; width:98%'>" +
-	"<button onclick='commentToAttachOk()' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
-	"<button onclick='commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
+		"<span id='commentTextCountSym' style='float:left; margin:5px 0 0 10px'>0/250</span>" +
+		"<button onclick='commentToAttachOk()' style='margin-right:5px'><font class='button_text'>ОК</font></button>" +
+		"<button onclick='commentCancel()'><font class='button_text'>"+cancelcaption+"</font></button>" +
 	"</div>" +
 	"</div>";
 	$("body").append(divhtml);
 	$("#commentBox .button_panel").children("button").button();
+	$("#commentText").on('change keyup paste', function() {
+		$("#commentTextCountSym").text($("#commentText").val().length+"/250");
+		$("#commentTextCountSym").css("color","black");
+		if($("#commentText").val().length == 250){
+			$("#commentTextCountSym").css("color","red");
+		}
+	});
 	$("#commentBox").draggable({handle:"div.headerComment"});
 	centring('commentBox',470,250);
 	$("#commentBox textarea").focus()

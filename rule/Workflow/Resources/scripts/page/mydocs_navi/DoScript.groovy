@@ -77,6 +77,7 @@ class DoScript extends _DoScript {
 		def e11 = new _OutlineEntry(getLocalizedWord("Мне на ознакомление",lang), getLocalizedWord("Мне на ознакомление",lang), "mywaitforacquaint", "Provider?type=page&id=mywaitforacquaint&page=0")
 		def col11 = db.getCollectionOfDocuments("grantusers ~ '" + session.getCurrentUserID() + "'", 0, false, false, false, _ReadConditionType.ONLY_UNREAD)
 		e11.setValue(col11.getCount())
+		e11.unread = col11.unreadCount;
 		outline.addEntry(e11)
 
 		def e9 = new _OutlineEntry(getLocalizedWord("Избранные",lang), getLocalizedWord("Избранные",lang), "favdocs", "Provider?type=page&id=favdocs&page=0")

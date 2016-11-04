@@ -241,6 +241,7 @@ class QuerySave extends _FormQuerySave {
 			localizedMsgBox("В список согласования не включен ни один участник.")
 			return false
 		}
+
 		/*if (webFormData.getValueSilently("recipient") == "" || !webFormData.containsField("recipient")){
 			localizedMsgBox("Поле \"Получатель\" не выбрано.")
 			return false

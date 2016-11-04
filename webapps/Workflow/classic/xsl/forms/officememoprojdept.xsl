@@ -497,7 +497,7 @@
 											</button>
 											<br/><br/>
 										</xsl:if>
-										<xsl:if test="$editmode = 'edit' and $fields/coordination/status = 'DRAFT' or $fields/coordination/status = 'NEWVERSION'">
+										<xsl:if test="not($fields/coordinator_workdocdept = 'coordinator_workdocdept') and ($fields/coordination/status = 'DRAFT' or $fields/coordination/status = 'NEWVERSION')">
 											<table class="button_panel">
 												<tr>
 													<td>
@@ -545,7 +545,7 @@
 													<xsl:value-of select="$captions/statuscoord/@caption"/>
 												</td>
 											</tr>
-											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN']">
+											<xsl:for-each select="$fields/coordination/blocks/entry[type != 'TO_SIGN'][delaytime !='777' or ($fields/coordination/status != 'DRAFT' and $fields/coordination/status != 'NEWVERSION') ]">
 													<tr class="trblockCoord">
 														<td style="border-bottom: 1px solid lightgray">
 															<input type="checkbox" name="chbox" id="{position()}"/>
@@ -630,7 +630,7 @@
 														</td>
 														<td style="border-bottom: 1px solid lightgray; text-align:center">
 															<xsl:choose>
-																<xsl:when test="delaytime = 0">
+																<xsl:when test="delaytime = 0 or delaytime = 777">
 																	<xsl:value-of select="$captions/unlimtimecoord/@caption"/>
 																</xsl:when>
 																<xsl:otherwise>
@@ -682,7 +682,10 @@
 																<input type="hidden" value="{employer/userid}" class="{employer/userid}"/>
 															</xsl:for-each>
 															<xsl:if test="type !='TO_SIGN'">
-																<input type="hidden" name="coordblock" class="recipientworkdocdept">
+																<input type="hidden" name="coordblock">
+																	<xsl:if test="delaytime = '777'">
+																		<xsl:attribute name="class">recipientworkdocdept</xsl:attribute>
+																	</xsl:if>
 																	<xsl:attribute name="value"><xsl:value-of select="id"/>`<xsl:choose><xsl:when test="type='PARALLEL_COORDINATION'">par</xsl:when><xsl:when
 																		test="type='SERIAL_COORDINATION'">ser</xsl:when></xsl:choose>`<xsl:value-of
 																		select="delaytime" />`<xsl:for-each select="coordinators/entry"><xsl:value-of
@@ -698,11 +701,6 @@
 									</div>
 								</xsl:if>
 								<!-- Скрытые поля -->
-								<xsl:for-each select="$fields/coordination/blocks/entry">
-									<xsl:if test="type='TO_SIGN'">
-										<input type="hidden" id='signer' name="signer" value="{coordinators/entry/employer/userid}"/>
-									</xsl:if>
-								</xsl:for-each>
 								<input type="hidden" name="type" value="save"/>
 								<input type="hidden" name="id" value="{/request/@id}"/>
 								<input type="hidden" name="key" value="{document/@docid}"/>
@@ -715,6 +713,17 @@
 									<xsl:for-each select="$fields/coordination/blocks/entry">
 										<xsl:if test="type='TO_SIGN'">
 											<input type="hidden" id='coordBlockSign' name="coordblock"  value="{id}`tosign`0`{coordinators/entry/employer/userid}`{status}" />
+										</xsl:if>
+										<!-- скрытое поле для получателя если черновик или новая версия -->
+										<xsl:if test="type !='TO_SIGN' and delaytime = '777' and ($fields/coordination/status = 'DRAFT' or $fields/coordination/status = 'NEWVERSION')">
+											<input type="hidden" name="coordblock">
+												<xsl:attribute name="class">recipientworkdocdept</xsl:attribute>
+												<xsl:attribute name="value"><xsl:value-of select="id"/>`<xsl:choose><xsl:when test="type='PARALLEL_COORDINATION'">par</xsl:when><xsl:when
+														test="type='SERIAL_COORDINATION'">ser</xsl:when></xsl:choose>`<xsl:value-of
+														select="delaytime" />`<xsl:for-each select="coordinators/entry"><xsl:value-of
+														select="employer/userid"/><xsl:if test="following-sibling::*">^</xsl:if></xsl:for-each>`<xsl:value-of
+														select="status"/></xsl:attribute>
+											</input>
 										</xsl:if>
 									</xsl:for-each>
 								</xsl:if>

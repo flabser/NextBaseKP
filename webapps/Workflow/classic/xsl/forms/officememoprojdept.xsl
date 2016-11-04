@@ -710,6 +710,7 @@
 									<input id="coordBlockSign" type="hidden" value="new`tosign`0`{$fields/author/@attrval}" name="coordblock"/>
 								</xsl:if>
 								<xsl:if test="$status != 'new'">
+
 									<xsl:for-each select="$fields/coordination/blocks/entry">
 										<xsl:if test="type='TO_SIGN'">
 											<input type="hidden" id='coordBlockSign' name="coordblock"  value="{id}`tosign`0`{coordinators/entry/employer/userid}`{status}" />

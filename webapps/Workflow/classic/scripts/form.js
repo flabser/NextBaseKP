@@ -1370,7 +1370,7 @@ function acquaint(key,doctype){
 	divhtml +="</div></div>";
 	divhtml +="<div id='divSearch' class='divSearch' style='display:inline-block'></div>" ;
 	divhtml +="<div style='font-size:13px; text-align:left; margin-top:10px'>&#xA0;&#xA0;"+correspforacquaintance+":</div>" ;
-	divhtml +="<div style='font-size:13px; text-align:left; margin-top:10px; margin-left:12px'><input type='checkbox' id='tch' onclick='javascript:chAll(this)'/>Выбрать всех</div>" ;
+	divhtml +="<div style='font-size:13px; text-align:left; margin-top:10px; margin-left:12px'><input type='checkbox' id='tch' onchange='javascript:chAll(this)'/>Выбрать всех</div>" ;
 	divhtml +="<div id='contentpane' style='overflow:auto; border:1px solid #d3d3d3; height:250px; width:95%; margin:10px;'>Загрузка данных...</div>";    
 	divhtml += "<div id='btnpane' class='button_panel' style='text-align:right; margin:2%'>";
 	divhtml += "<button onclick='javascript:acquaintOk("+key+","+doctype+")' style='margin-right:5px'><font class='button_text'>ОК</font></button>";
@@ -1403,8 +1403,10 @@ function acquaint(key,doctype){
 }
 
 function chAll(el){
-	var checkedval;
-	$(el).prop("checked") ? checkedval = false : checkedval = true;
+	var checkedval = false;
+	if(el.checked){
+		checkedval = true;
+	}
 	$("input[name='chbox']").prop("checked",checkedval);
 }
 

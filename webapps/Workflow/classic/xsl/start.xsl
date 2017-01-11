@@ -7,6 +7,7 @@
 		<html>
 			<head>
 				<title><xsl:value-of select="content/org"/> - 4ms workflow</title>
+				<!--test-->
 				<link rel="stylesheet" href="classic/css/start.css"/>
 				<script type="text/javascript" src="classic/scripts/start.js"/>
 				<script type="text/javascript" src="classic/scripts/form.js"/>
